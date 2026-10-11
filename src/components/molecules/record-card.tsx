@@ -63,8 +63,11 @@ export function RecordCard({
           </View>
         </View>
         {hasPoster ? (
-          <View className="flex-1 gap-1.25 px-3 py-2.75">
-            <Text className="font-bold text-foreground text-sm leading-[1.4]">
+          <View className="h-22 gap-1.25 px-3 py-2.75">
+            <Text
+              numberOfLines={2}
+              className="h-[39.2px] font-bold text-foreground text-sm leading-[1.4]"
+            >
               {title}
             </Text>
             <View className="flex-row items-center justify-between gap-2">
@@ -82,7 +85,7 @@ export function RecordCard({
             </View>
           </View>
         ) : (
-          <View className="flex-1 flex-row items-center justify-between gap-2 px-3 py-2.75">
+          <View className="h-22 flex-row items-center justify-between gap-2 px-3 py-2.75">
             <Text className="text-[11px] text-muted-foreground">
               {watchedLabel}
             </Text>

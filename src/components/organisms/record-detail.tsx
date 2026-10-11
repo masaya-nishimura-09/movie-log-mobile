@@ -143,7 +143,7 @@ export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
           year={record.releaseYear > 0 ? String(record.releaseYear) : ""}
           platformLabel={platformLabel}
           size="detail"
-          className="w-29 shrink-0 rounded-xl"
+          className="w-29 shrink-0 self-start rounded-xl"
         />
         <View className="min-w-0 flex-1 gap-3">
           <ScoreBadge

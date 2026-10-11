@@ -41,6 +41,7 @@ export function RecordPoster({
             {year}
           </Text>
           <Text
+            numberOfLines={6}
             className={cn("font-bold text-foreground leading-[1.3]", titleSize)}
           >
             {title}
