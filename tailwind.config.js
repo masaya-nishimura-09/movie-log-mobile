@@ -10,6 +10,13 @@ const spacing = Object.fromEntries(
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  safelist: [
+    "border-edge",
+    "border-control-edge",
+    "border-primary-edge",
+    "border-destructive-border",
+    "border-destructive-edge",
+  ],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
