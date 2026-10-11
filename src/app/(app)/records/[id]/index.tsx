@@ -10,6 +10,7 @@ import { LoadingState } from "@/components/molecules/loading-state";
 import { DeleteRecordDialog } from "@/components/organisms/delete-record-dialog";
 import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { RecordDetail } from "@/components/organisms/record-detail";
+import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecord } from "@/hooks/use-record";
 import { useI18n } from "@/i18n/use-i18n";
 
@@ -19,6 +20,7 @@ export default function RecordPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: record, isPending, isError, refetch } = useRecord(id);
+  const { refreshing, onRefresh } = usePullRefresh(refetch);
 
   const body = () => {
     if (isPending) return <LoadingState />;
@@ -35,7 +37,15 @@ export default function RecordPage() {
         />
       );
     }
-    return <RecordDetail locale={locale} record={record} dict={dict} />;
+    return (
+      <RecordDetail
+        locale={locale}
+        record={record}
+        dict={dict}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+    );
   };
 
   return (

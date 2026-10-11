@@ -1,5 +1,6 @@
 import type { ReactElement } from "react";
 import { FlatList, View } from "react-native";
+import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { RecordCard } from "@/components/molecules/record-card";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -13,6 +14,8 @@ type RecordGridProps = {
   dict: Dictionary;
   header: ReactElement;
   footer: ReactElement | null;
+  refreshing: boolean;
+  onRefresh: () => void;
 };
 
 export function RecordGrid({
@@ -21,6 +24,8 @@ export function RecordGrid({
   dict,
   header,
   footer,
+  refreshing,
+  onRefresh,
 }: RecordGridProps) {
   const items: (MovieRecord | null)[] =
     records.length % 2 === 0 ? records : [...records, null];
@@ -34,6 +39,9 @@ export function RecordGrid({
       contentContainerClassName="gap-3.5 px-4 pt-5 pb-7"
       ListHeaderComponent={header}
       ListFooterComponent={footer}
+      refreshControl={
+        <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
       renderItem={({ item }) => {
         if (!item) return <View className="flex-1" />;
         const year = item.releaseYear > 0 ? String(item.releaseYear) : "";

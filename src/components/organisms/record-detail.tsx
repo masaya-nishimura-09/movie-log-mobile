@@ -13,6 +13,7 @@ import { Icon } from "@/components/atoms/icon";
 import { MoodTag } from "@/components/atoms/mood-tag";
 import { ScoreBadge } from "@/components/atoms/score-badge";
 import { Text } from "@/components/atoms/text";
+import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { RecordPoster } from "@/components/molecules/record-poster";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/locales";
@@ -27,6 +28,8 @@ type RecordDetailProps = {
   locale: Locale;
   record: MovieRecord;
   dict: Dictionary;
+  refreshing: boolean;
+  onRefresh: () => void;
 };
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -83,7 +86,13 @@ function MetaItem({
   );
 }
 
-export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
+export function RecordDetail({
+  locale,
+  record,
+  dict,
+  refreshing,
+  onRefresh,
+}: RecordDetailProps) {
   const d = dict.recordDetail;
   const year =
     record.releaseYear > 0
@@ -135,7 +144,12 @@ export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
   const editHref = `/records/${record.recordId}/edit`;
 
   return (
-    <ScrollView contentContainerClassName="gap-6 px-4 pt-5 pb-10">
+    <ScrollView
+      contentContainerClassName="gap-6 px-4 pt-5 pb-10"
+      refreshControl={
+        <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <View className="flex-row gap-4">
         <RecordPoster
           title={record.title}

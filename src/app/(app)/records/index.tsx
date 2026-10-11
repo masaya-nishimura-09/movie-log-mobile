@@ -6,10 +6,12 @@ import { EmptyState } from "@/components/molecules/empty-state";
 import { ErrorState } from "@/components/molecules/error-state";
 import { LoadingState } from "@/components/molecules/loading-state";
 import { Pagination } from "@/components/molecules/pagination";
+import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { ActiveFilterList } from "@/components/organisms/active-filter-list";
 import { RecordFilterPanel } from "@/components/organisms/record-filter-panel";
 import { RecordFilterSheet } from "@/components/organisms/record-filter-sheet";
 import { RecordGrid } from "@/components/organisms/record-grid";
+import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecords } from "@/hooks/use-records";
 import { useI18n } from "@/i18n/use-i18n";
 import {
@@ -27,6 +29,7 @@ function RecordsContent() {
   const params = useLocalSearchParams();
   const query = parseRecordQuery(params);
   const { data: list, isPending, isError, refetch } = useRecords(query);
+  const { refreshing, onRefresh } = usePullRefresh(refetch);
 
   if (isPending) return <LoadingState />;
   if (isError || !list) {
@@ -98,9 +101,16 @@ function RecordsContent() {
     </View>
   );
 
+  const refreshControl = (
+    <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+  );
+
   if (list.totalCount === 0) {
     return (
-      <ScrollView contentContainerClassName="gap-5 px-4 pt-5 pb-7">
+      <ScrollView
+        contentContainerClassName="gap-5 px-4 pt-5 pb-7"
+        refreshControl={refreshControl}
+      >
         {header}
         <EmptyState
           title={dict.emptyState.title}
@@ -117,7 +127,10 @@ function RecordsContent() {
 
   if (list.records.length === 0) {
     return (
-      <ScrollView contentContainerClassName="gap-5 px-4 pt-5 pb-7">
+      <ScrollView
+        contentContainerClassName="gap-5 px-4 pt-5 pb-7"
+        refreshControl={refreshControl}
+      >
         {header}
         <EmptyState
           title={dict.recordList.noMatch}
@@ -137,6 +150,8 @@ function RecordsContent() {
       records={list.records}
       dict={dict}
       header={header}
+      refreshing={refreshing}
+      onRefresh={onRefresh}
       footer={
         list.pageCount > 1 ? (
           <View className="pt-3.5">
