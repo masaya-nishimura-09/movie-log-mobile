@@ -1,23 +1,8 @@
-import { RefreshControl } from "react-native";
+import { RefreshControl, type RefreshControlProps } from "react-native";
 import { useCssVariable } from "@/hooks/use-css-variable";
 
-type PullRefreshControlProps = {
-  refreshing: boolean;
-  onRefresh: () => void;
-};
-
-export function PullRefreshControl({
-  refreshing,
-  onRefresh,
-}: PullRefreshControlProps) {
+export function PullRefreshControl(props: RefreshControlProps) {
   const color = useCssVariable("--muted-foreground");
 
-  return (
-    <RefreshControl
-      refreshing={refreshing}
-      onRefresh={onRefresh}
-      tintColor={color}
-      colors={[color]}
-    />
-  );
+  return <RefreshControl tintColor={color} colors={[color]} {...props} />;
 }
