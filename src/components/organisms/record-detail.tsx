@@ -1,7 +1,15 @@
 import { type Href, Link } from "expo-router";
+import {
+  CalendarDays,
+  Clock,
+  Languages,
+  type LucideIcon,
+  MapPin,
+} from "lucide-react-native";
 import type { ReactNode } from "react";
 import { ScrollView, View } from "react-native";
 import { GenreTag } from "@/components/atoms/genre-tag";
+import { Icon } from "@/components/atoms/icon";
 import { MoodTag } from "@/components/atoms/mood-tag";
 import { ScoreBadge } from "@/components/atoms/score-badge";
 import { Text } from "@/components/atoms/text";
@@ -11,6 +19,7 @@ import type { Locale } from "@/i18n/locales";
 import { formatDate } from "@/lib/date/format-date";
 import { languageName } from "@/lib/record/language-options";
 import { regionName } from "@/lib/record/region-names";
+import { formatList } from "@/lib/text/format-list";
 import { interpolate } from "@/lib/text/interpolate";
 import type { MovieRecord } from "@/schemas/record/record";
 
@@ -49,6 +58,31 @@ function EmptyNote({
   );
 }
 
+function MetaItem({
+  icon,
+  label,
+  value,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+}) {
+  return (
+    <View
+      accessible
+      accessibilityLabel={`${label}: ${value}`}
+      className="shrink flex-row items-start gap-1"
+    >
+      <View className="h-[21px] justify-center">
+        <Icon icon={icon} size={13} className="text-muted-foreground" />
+      </View>
+      <Text className="shrink text-[13px] text-foreground-sub leading-relaxed">
+        {value}
+      </Text>
+    </View>
+  );
+}
+
 export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
   const d = dict.recordDetail;
   const year =
@@ -64,7 +98,36 @@ export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
     record.language,
     dict.recordForm.languageUnknown,
   );
-  const countries = record.countries.map((code) => regionName(locale, code));
+  const countries = formatList(
+    locale,
+    record.countries.map((code) => regionName(locale, code)),
+  );
+  const meta = [
+    {
+      key: "year",
+      icon: CalendarDays,
+      label: dict.recordForm.releaseYear,
+      value: year,
+    },
+    {
+      key: "runtime",
+      icon: Clock,
+      label: dict.recordForm.runtime,
+      value: runtime,
+    },
+    {
+      key: "countries",
+      icon: MapPin,
+      label: dict.recordForm.countries,
+      value: countries,
+    },
+    {
+      key: "language",
+      icon: Languages,
+      label: dict.recordForm.language,
+      value: language,
+    },
+  ].filter((item) => item.value !== "");
   const platformLabel = dict.enums.platform[record.platform];
   const scoreLabel = interpolate(dict.recordCard.score, {
     score: record.score,
@@ -92,11 +155,16 @@ export function RecordDetail({ locale, record, dict }: RecordDetailProps) {
           <Text className="font-bold text-foreground text-xl leading-[1.35]">
             {record.title}
           </Text>
-          <Text className="text-[13px] text-foreground-sub leading-relaxed">
-            {[year, runtime].filter(Boolean).join(" ・ ")}
-            {"\n"}
-            {[language, ...countries].join(" ・ ")}
-          </Text>
+          <View className="flex-row flex-wrap gap-x-3 gap-y-1">
+            {meta.map((item) => (
+              <MetaItem
+                key={item.key}
+                icon={item.icon}
+                label={item.label}
+                value={item.value}
+              />
+            ))}
+          </View>
         </View>
       </View>
 
