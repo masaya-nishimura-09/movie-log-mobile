@@ -1,0 +1,573 @@
+{
+  "metadata": {
+    "title": "Cinelog",
+    "description": "Remember every film you have watched."
+  },
+  "brand": {
+    "name": "Cinelog",
+    "tagline": "Remember every film you have watched."
+  },
+  "landing": {
+    "headline": "Remember every film you have watched.",
+    "lead": "The date, a score, the mood, a memo. Keep how a film felt, right next to its poster.",
+    "start": "Sign up to start",
+    "login": "Log in",
+    "listAlt": "A grid of posters for the films you have logged",
+    "detailAlt": "One film's record, with the watched date and platform under the poster",
+    "features": [
+      {
+        "title": "Keep it with the poster",
+        "text": "The watched date, score and platform sit with the poster on a single card."
+      },
+      {
+        "title": "Film details fill in for you",
+        "text": "Type a title and the release year, genres and credits come from TMDB."
+      },
+      {
+        "title": "A logbook just for you",
+        "text": "Your records are not shown to anyone else. Available in Japanese and English."
+      }
+    ],
+    "recommend": {
+      "title": "“Anything moving on Netflix?”",
+      "text": "Love films, and people keep asking you what to watch. The right pick for someone else rarely comes to mind on the spot. Filter the films you have seen by platform and mood, and the answer is right there.",
+      "alt": "Records filtered to the Netflix platform and the Moving mood"
+    },
+    "closing": "Start with the last film you saw. A title and a date take about thirty seconds."
+  },
+  "about": {
+    "title": "About",
+    "link": "About this app",
+    "back": "Back",
+    "creditsHeading": "Credits",
+    "tmdbNotice": "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB."
+  },
+  "legal": {
+    "updatedLabel": "Last updated",
+    "updated": "October 10, 2026",
+    "contactLabel": "Contact form",
+    "contactPending": "Coming soon",
+    "back": "Back",
+    "terms": {
+      "title": "Terms of Use",
+      "intro": "These Terms of Use (the \"Terms\") set out the conditions for using Cinelog (the \"Service\") between the Cinelog operator (the \"Operator\") and its users. You must agree to these Terms to use the Service.",
+      "sections": [
+        {
+          "h": "1. About the Service",
+          "p": [
+            "The Service is a personal log for films you have watched. You can save, list, search and edit records such as the watched date, score and memo.",
+            "Film information is searched through TMDB (The Movie Database).",
+            "The Service is provided free of charge."
+          ]
+        },
+        {
+          "h": "2. Accounts",
+          "p": [
+            "To use the Service, you register with a display name, an email address and a password. Please enter accurate information.",
+            "You are responsible for keeping your password safe. Do not let anyone else use it.",
+            "Anything done through your account is treated as done by you."
+          ]
+        },
+        {
+          "h": "3. Prohibited acts",
+          "p": [
+            "You must not:",
+            "- break the law or public order;",
+            "- save or upload content that infringes the rights of others, such as copyright or privacy;",
+            "- interfere with the operation of the Service, for example by unauthorized access or excessive load;",
+            "- use another user's account without permission; or",
+            "- do anything else the Operator considers inappropriate."
+          ]
+        },
+        {
+          "h": "4. Your records",
+          "p": [
+            "You keep the rights to the records you save, such as memos and images.",
+            "With the current features, your records are not shown to other users.",
+            "The Operator handles your records only as needed to provide and maintain the Service and to respond to problems.",
+            "You confirm that you hold the necessary rights to any image you upload."
+          ]
+        },
+        {
+          "h": "5. External services",
+          "p": [
+            "Film information comes from TMDB. The Service is not endorsed or certified by TMDB.",
+            "We do not guarantee that the information is accurate or up to date."
+          ]
+        },
+        {
+          "h": "6. Changes, suspension and end of the Service",
+          "p": [
+            "The Operator may change, suspend or end the Service without prior notice.",
+            "If the Service ends, we will try to give notice beforehand."
+          ]
+        },
+        {
+          "h": "7. Leaving the Service",
+          "p": [
+            "You can delete your account at any time from the account settings.",
+            "When you do, your account and records are deleted and cannot be restored."
+          ]
+        },
+        {
+          "h": "8. Suspension of use",
+          "p": [
+            "If you break these Terms, the Operator may suspend your use or delete your account without prior notice."
+          ]
+        },
+        {
+          "h": "9. Disclaimer",
+          "p": [
+            "The Service is provided as is. We do not guarantee accuracy, continuity or that data will not be lost.",
+            "Except where the Operator acts intentionally or with gross negligence, the Operator is not liable for damages arising from your use of the Service.",
+            "We recommend keeping your own copy of records that matter to you."
+          ]
+        },
+        {
+          "h": "10. Changes to these Terms",
+          "p": [
+            "The Operator may change these Terms when needed.",
+            "Changes take effect when posted on the Service. Important changes will be announced on the Service."
+          ]
+        },
+        {
+          "h": "11. Governing law and courts",
+          "p": [
+            "These Terms are governed by Japanese law.",
+            "Japanese courts have jurisdiction as the court of first instance for any dispute about the Service."
+          ]
+        },
+        {
+          "h": "12. Contact",
+          "p": [
+            "For questions about the Service, please use the contact form below."
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "The Cinelog operator (the \"Operator\") sets out below how it handles users' information in Cinelog (the \"Service\").",
+      "sections": [
+        {
+          "h": "1. Information we collect",
+          "p": [
+            "The Service collects the following.",
+            "- Account information: display name, email address, and password (stored in a form that cannot be turned back into the original text)",
+            "- Record information: title, release year, runtime, language, countries, genres, credits, watched date, platform, score, mood tags and memo",
+            "- Poster images: the image URL you enter, or the image you upload",
+            "- Contact information: the email address and message you enter in the contact form",
+            "- Information used to keep you logged in",
+            "- Activity logs: access time, IP address, browser type, and your user ID when an error occurs"
+          ]
+        },
+        {
+          "h": "2. How we use it",
+          "p": [
+            "We use the information for:",
+            "- providing the Service (saving, showing, searching and editing records);",
+            "- logging in and verifying who you are;",
+            "- answering inquiries;",
+            "- investigating and fixing problems;",
+            "- preventing abuse, such as limiting login attempts and blocking automated contact form submissions; and",
+            "- dealing with violations of the Terms of Use."
+          ]
+        },
+        {
+          "h": "3. Sharing with third parties",
+          "p": [
+            "Except where required by law, the Operator does not share the information with third parties without your consent.",
+            "However, to run the Service, the Operator may entrust the handling of information to the providers listed in \"4. External services\", only as far as needed."
+          ]
+        },
+        {
+          "h": "4. External services",
+          "p": [
+            "The Service uses the following external services.",
+            "- TMDB (film search and information): the words you search for are sent from our server to TMDB. When TMDB poster images are shown, your IP address and browser information are sent to TMDB.",
+            "- Vercel (United States): the web server of the Service. Access logs are kept.",
+            "- Cloudflare Turnstile (United States): to block automated contact form submissions, your IP address and browser information are sent to Cloudflare.",
+            "- Resend (United States): to deliver your inquiry to the Operator by email, the email address and message you enter are sent to Resend.",
+            "We will add the provider and country of the server that stores account information and records to this policy once it is decided.",
+            "Information on the personal data protection system of the United States is available on the website of Japan's Personal Information Protection Commission.",
+            "We do not use external services for advertising or analytics."
+          ]
+        },
+        {
+          "h": "5. Cookies and local storage",
+          "p": [
+            "The Service uses cookies and local storage for:",
+            "- keeping you logged in (two cookies); and",
+            "- remembering your theme setting (light or dark) in your browser.",
+            "They are not used for advertising or tracking."
+          ]
+        },
+        {
+          "h": "6. Retention and deletion",
+          "p": [
+            "Account information and records are kept until you delete your account. When you do, your account information, records and uploaded images are deleted.",
+            "Contact information is kept as long as needed to answer the inquiry and deleted once it is no longer needed.",
+            "Activity logs are deleted after a set period."
+          ]
+        },
+        {
+          "h": "7. Security",
+          "p": [
+            "The Operator works to prevent leaks, loss and damage of the information.",
+            "Passwords are stored in a form that cannot be turned back into the original text.",
+            "Communication with the Service is encrypted (HTTPS)."
+          ]
+        },
+        {
+          "h": "8. Access, correction and deletion",
+          "p": [
+            "From the account settings, you can change your display name, email address and password, and delete your account (and with it your information).",
+            "For any other request, please use the contact form. We will respond after confirming your identity."
+          ]
+        },
+        {
+          "h": "9. Changes to this policy",
+          "p": [
+            "The Operator may change this policy when needed. Changes take effect when posted on the Service."
+          ]
+        },
+        {
+          "h": "10. Contact",
+          "p": [
+            "For questions about this policy, please use the contact form below."
+          ]
+        }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "link": "Contact",
+    "intro": "Send us questions about Cinelog or report a problem here. We will reply to the email address you enter.",
+    "email": "Email",
+    "emailHint": "We use this to reply",
+    "message": "Message",
+    "submit": "Send",
+    "successTitle": "Message sent",
+    "successText": "We received your message. A reply may take a few days.",
+    "back": "Back",
+    "invalidEmail": "Enter a valid email address",
+    "messageRequired": "Enter a message",
+    "messageTooLong": "Keep the message within 2000 characters",
+    "invalidInput": "Check the fields below",
+    "verificationFailed": "We could not verify the request. Send it again",
+    "unexpectedError": "Your message could not be sent. Try again later"
+  },
+  "header": {
+    "searchPlaceholder": "Search by title",
+    "searchLabel": "Search by title",
+    "themeToggle": "Toggle theme",
+    "accountMenu": "Account menu",
+    "account": "Account settings",
+    "about": "About this app",
+    "logout": "Log out",
+    "openSearch": "Search",
+    "contact": "Contact"
+  },
+  "bottomNav": {
+    "records": "Films",
+    "newRecord": "Log",
+    "account": "Account"
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "8-72 characters",
+    "submit": "Log in",
+    "toRegisterPrompt": "New here?",
+    "toRegister": "Create an account",
+    "invalidEmail": "Enter a valid email address",
+    "invalidPassword": "Use 8 to 72 half-width letters, digits, or symbols",
+    "invalidCredentials": "Incorrect email or password",
+    "tooManyRequests": "Too many attempts. Please wait a moment and try again",
+    "unexpectedError": "Couldn't log in. Please try again later"
+  },
+  "register": {
+    "title": "Create an account",
+    "description": "Just three fields. You can change them later.",
+    "username": "Display name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "8-72 characters",
+    "agreeTerms": "I agree to the {terms}",
+    "termsLink": "Terms of Use",
+    "privacyNote": "Please read the {privacy}.",
+    "privacyLink": "Privacy Policy",
+    "termsNotAgreed": "You need to agree to the Terms of Use",
+    "submit": "Sign up and start",
+    "toLoginPrompt": "Already registered?",
+    "toLogin": "Log in",
+    "usernameError": "Enter 1 to 100 characters",
+    "emailError": "Enter a valid email address",
+    "passwordError": "Use 8 to 72 half-width letters, digits, or symbols",
+    "invalidInput": "Please check your input",
+    "userAlreadyExists": "This email address is already in use",
+    "unexpectedError": "Couldn't sign up. Please try again later",
+    "tooManyRequests": "Too many attempts. Please wait a moment and try again"
+  },
+  "passwordInput": {
+    "show": "Show password",
+    "hide": "Hide password"
+  },
+  "recordList": {
+    "heading": "Watched films",
+    "summary": "Showing {shown} of {total}",
+    "activeFilters": "{count} filters",
+    "noMatch": "No records match these filters",
+    "clearFilters": "Clear filters",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "pageStatus": "{current} / {total}"
+  },
+  "recordFilter": {
+    "open": "Filters",
+    "title": "Filters",
+    "clearAll": "Clear all",
+    "score": "Score",
+    "platform": "Platform",
+    "moodTag": "Mood",
+    "genre": "Genre",
+    "showAllPlatforms": "Show all ({count})",
+    "remove": "Remove {label}",
+    "showResults": "Show {count} results"
+  },
+  "recordSort": {
+    "label": "Sort",
+    "watchedAtDesc": "Recently watched",
+    "watchedAtAsc": "Oldest watched",
+    "scoreDesc": "Highest score",
+    "releaseYearDesc": "Newest release",
+    "titleAsc": "Title"
+  },
+  "emptyState": {
+    "title": "No records yet",
+    "description": "Start with the last film you watched. A title and a date take about 30 seconds.",
+    "action": "Log your first film"
+  },
+  "recordCard": {
+    "score": "Score {score}",
+    "watched": "Watched {date}",
+    "noPoster": "No poster"
+  },
+  "recordDetail": {
+    "back": "Back to list",
+    "edit": "Edit",
+    "delete": "Delete",
+    "scoreCaption": "SCORE",
+    "releaseYear": "{year}",
+    "runtime": "{minutes} min",
+    "memo": "Memo",
+    "memoEmpty": "No memo yet.",
+    "memoAdd": "Add a memo",
+    "credits": "Credits",
+    "creditsEmpty": "No credits yet.",
+    "creditsAdd": "Add credits",
+    "watchedAt": "Watched on",
+    "platform": "Platform",
+    "createdAt": "Logged",
+    "updatedAt": "Last updated"
+  },
+  "deleteRecord": {
+    "title": "Delete this record?",
+    "description": "\"{title}\" ({date}) and its memo will be deleted. This cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete",
+    "unexpectedError": "Couldn't delete. Please try again later"
+  },
+  "recordForm": {
+    "createTitle": "Log a film",
+    "editTitle": "Edit record",
+    "required": "Required",
+    "stepBasics": "The basics",
+    "stepMovieInfo": "Film info",
+    "stepImpression": "Impressions",
+    "stepProgress": "Step {current} / {total}",
+    "title": "Title",
+    "watchedAt": "Watched on",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "score": "Score",
+    "scoreHint": "1-5, by your own standard",
+    "platform": "Platform",
+    "next": "Continue",
+    "back": "Back",
+    "movieInfoHint": "Release year and language are required",
+    "releaseYear": "Release year",
+    "releaseYearHint": "1888-{max}",
+    "runtime": "Runtime",
+    "runtimeUnit": "min",
+    "runtimeHint": "0 = unknown",
+    "language": "Language",
+    "languageHint": "Use und if unknown",
+    "countries": "Countries",
+    "countriesPlaceholder": "Type a country code and press Enter (e.g. JP)",
+    "removeCountry": "Remove {name}",
+    "genres": "Genres",
+    "genresHint": "19 genres, no duplicates, zero is fine",
+    "credits": "Credits",
+    "creditsHint": "Names up to 100 characters, 5 roles",
+    "creditRole": "Role",
+    "personName": "Enter a name",
+    "addCredit": "Add row",
+    "removeCredit": "Remove this row",
+    "posterUrl": "Poster image URL",
+    "posterUrlPlaceholder": "https://... (optional)",
+    "impressionHeading": "How was it?",
+    "optional": "Optional",
+    "moodTags": "Mood",
+    "moodTagsHint": "18 moods, no duplicates, zero is fine",
+    "memo": "Memo",
+    "save": "Save record",
+    "watchSection": "Viewing",
+    "movieSection": "Film info",
+    "cancel": "Discard",
+    "saveChanges": "Save changes",
+    "languageUnknown": "Unknown",
+    "invalidInput": "Please check your input",
+    "notFound": "This record has been deleted",
+    "unexpectedError": "Couldn't save. Please try again later",
+    "errors": {
+      "title": "Enter 1 to 255 characters",
+      "watchedAt": "Enter today or an earlier date",
+      "score": "Choose a score",
+      "platform": "Choose a platform",
+      "releaseYear": "Enter a year from 1888 to 5 years from now",
+      "runtime": "Enter 0 to 1440 minutes",
+      "language": "Choose a language",
+      "countries": "Invalid country code",
+      "genres": "Invalid genre",
+      "credits": "Names must be 100 characters or fewer",
+      "posterUrl": "Enter a URL starting with http or https",
+      "moodTags": "Invalid mood tag",
+      "memo": "Enter 1000 characters or fewer"
+    },
+    "movieSuggestions": "Film suggestions",
+    "titleHint": "Type 2+ characters to see TMDB suggestions. Picking one fills in the film info",
+    "uploadPoster": "Upload image",
+    "uploadingPoster": "Uploading",
+    "posterUploadError": "Couldn't upload. Use a JPEG, PNG, or WebP up to 5 MB"
+  },
+  "account": {
+    "back": "Back",
+    "title": "Account settings",
+    "notice": "This form updates your display name, email, and password together. Enter your password even if you are not changing it. Changing your password signs out your other devices.",
+    "username": "Display name",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "8 to 72 characters. Enter your current one to keep it",
+    "cancel": "Discard",
+    "save": "Save changes",
+    "withdrawTitle": "Delete account",
+    "withdrawDescription": "All your records and memos will be deleted. This cannot be undone.",
+    "withdrawAction": "Delete account",
+    "withdrawConfirmTitle": "Delete your account?",
+    "withdrawConfirm": "Delete",
+    "withdrawCancel": "Cancel",
+    "usernameError": "Enter 1 to 100 characters",
+    "emailError": "Enter a valid email address",
+    "passwordError": "Use 8 to 72 half-width letters, digits, or symbols",
+    "invalidInput": "Please check your input",
+    "userAlreadyExists": "This email address is already in use",
+    "unexpectedError": "Couldn't save. Please try again later",
+    "saved": "Saved",
+    "withdrawFailed": "Couldn't delete your account. Please try again later"
+  },
+  "characterCount": "{current} / {max}",
+  "enums": {
+    "genre": {
+      "action": "Action",
+      "adventure": "Adventure",
+      "animation": "Animation",
+      "comedy": "Comedy",
+      "crime": "Crime",
+      "documentary": "Documentary",
+      "drama": "Drama",
+      "family": "Family",
+      "fantasy": "Fantasy",
+      "history": "History",
+      "horror": "Horror",
+      "music": "Music",
+      "mystery": "Mystery",
+      "romance": "Romance",
+      "science_fiction": "Science Fiction",
+      "tv_movie": "TV Movie",
+      "thriller": "Thriller",
+      "war": "War",
+      "western": "Western"
+    },
+    "moodTag": {
+      "moving": "Moving",
+      "dark": "Dark",
+      "stylish": "Stylish",
+      "hardboiled": "Hardboiled",
+      "surreal": "Surreal",
+      "poignant": "Poignant",
+      "refreshing": "Refreshing",
+      "nostalgic": "Nostalgic",
+      "epic": "Epic",
+      "tense": "Tense",
+      "cozy": "Cozy",
+      "minimal": "Minimal",
+      "experimental": "Experimental",
+      "romantic": "Romantic",
+      "disturbing": "Disturbing",
+      "heartwarming": "Heartwarming",
+      "bitter_ending": "Bitter ending",
+      "absurd": "Absurd"
+    },
+    "platform": {
+      "mubi": "MUBI",
+      "netflix": "Netflix",
+      "amazon_prime_video": "Prime Video",
+      "disney_plus": "Disney+",
+      "apple_tv_plus": "Apple TV+",
+      "max": "Max",
+      "peacock": "Peacock",
+      "paramount_plus": "Paramount+",
+      "criterion_channel": "Criterion Channel",
+      "shudder": "Shudder",
+      "tubi": "Tubi",
+      "pluto_tv": "Pluto TV",
+      "roku_channel": "The Roku Channel",
+      "vrv": "VRV",
+      "bbc_iplayer": "BBC iPlayer",
+      "channel_4": "Channel 4",
+      "itvx": "ITVX",
+      "u_next": "U-NEXT",
+      "hulu": "Hulu",
+      "abema": "ABEMA",
+      "d_anime_store": "d Anime Store",
+      "lemino": "Lemino",
+      "fod": "FOD",
+      "paravi": "Paravi",
+      "wowow_on_demand": "WOWOW On Demand",
+      "theater": "Theater",
+      "dvd_bluray": "DVD/Blu-ray",
+      "tv_broadcast": "TV broadcast",
+      "rental": "Rental",
+      "other": "Other"
+    },
+    "creditRole": {
+      "director": "Director",
+      "writer": "Writer",
+      "cinematographer": "Cinematography",
+      "composer": "Music",
+      "cast": "Cast"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The record may have been deleted, or the URL may be wrong.",
+    "action": "Back to list"
+  },
+  "errorPage": {
+    "title": "Couldn't load this page",
+    "description": "Please try again in a moment.",
+    "retry": "Try again"
+  }
+}
