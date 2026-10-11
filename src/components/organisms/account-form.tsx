@@ -5,8 +5,8 @@ import { View } from "react-native";
 import { updateAccountAction } from "@/actions/user/update-account";
 import { Button } from "@/components/atoms/button";
 import { Input } from "@/components/atoms/input";
-import { Text } from "@/components/atoms/text";
 import { CountedInput } from "@/components/molecules/counted-input";
+import { FormAlert } from "@/components/molecules/form-alert";
 import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { useToast } from "@/components/molecules/toaster";
@@ -58,12 +58,7 @@ export function AccountForm({
   return (
     <View className="gap-4 rounded-2xl bg-card p-4">
       {failure && !failure.errors && (
-        <Text
-          accessibilityRole="alert"
-          className="rounded-lg bg-destructive-soft px-3.5 py-2.5 text-destructive-foreground text-sm"
-        >
-          {message(failure.messageKey)}
-        </Text>
+        <FormAlert>{message(failure.messageKey)}</FormAlert>
       )}
       <FormField
         label={dict.username}

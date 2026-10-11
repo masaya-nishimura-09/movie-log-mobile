@@ -5,6 +5,7 @@ import { z } from "zod";
 import { uploadPosterAction } from "@/actions/media/upload-poster";
 import { Button } from "@/components/atoms/button";
 import { Text } from "@/components/atoms/text";
+import { FormAlert } from "@/components/molecules/form-alert";
 import { RecordBasicsFields } from "@/components/organisms/record-basics-fields";
 import { RecordImpressionFields } from "@/components/organisms/record-impression-fields";
 import { RecordMovieFields } from "@/components/organisms/record-movie-fields";
@@ -129,14 +130,7 @@ export function RecordCreateForm({
         keyboardShouldPersistTaps="handled"
       >
         <View className="gap-4.5 rounded-[18px] bg-card p-4.5">
-          {failure && (
-            <Text
-              accessibilityRole="alert"
-              className="rounded-lg bg-destructive-soft px-3.5 py-2.5 text-destructive-foreground text-sm"
-            >
-              {message}
-            </Text>
-          )}
+          {failure && <FormAlert>{message}</FormAlert>}
           {step === 0 && (
             <RecordBasicsFields
               locale={locale}

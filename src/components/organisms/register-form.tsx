@@ -9,6 +9,7 @@ import { Icon } from "@/components/atoms/icon";
 import { Input } from "@/components/atoms/input";
 import { Text } from "@/components/atoms/text";
 import { CountedInput } from "@/components/molecules/counted-input";
+import { FormAlert } from "@/components/molecules/form-alert";
 import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -56,12 +57,7 @@ export function RegisterForm({
   return (
     <View className="gap-5">
       {failure && !failure.errors && (
-        <Text
-          accessibilityRole="alert"
-          className="rounded-lg bg-destructive-soft px-3.5 py-2.5 text-destructive-foreground text-sm"
-        >
-          {message(failure.messageKey)}
-        </Text>
+        <FormAlert>{message(failure.messageKey)}</FormAlert>
       )}
       <FormField
         label={dict.username}

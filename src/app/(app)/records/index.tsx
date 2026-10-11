@@ -1,16 +1,13 @@
 import { type Href, Link, useLocalSearchParams } from "expo-router";
 import { ScrollView, View } from "react-native";
 import { Button } from "@/components/atoms/button";
-import { Text } from "@/components/atoms/text";
 import { EmptyState } from "@/components/molecules/empty-state";
 import { ErrorState } from "@/components/molecules/error-state";
 import { LoadingState } from "@/components/molecules/loading-state";
 import { Pagination } from "@/components/molecules/pagination";
 import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
-import { ActiveFilterList } from "@/components/organisms/active-filter-list";
-import { RecordFilterPanel } from "@/components/organisms/record-filter-panel";
-import { RecordFilterSheet } from "@/components/organisms/record-filter-sheet";
 import { RecordGrid } from "@/components/organisms/record-grid";
+import { RecordListHeader } from "@/components/organisms/record-list-header";
 import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecords } from "@/hooks/use-records";
 import { useI18n } from "@/i18n/use-i18n";
@@ -40,65 +37,21 @@ function RecordsContent() {
   const clearHref = buildHref(basePath, {
     [recordQueryKeys.sort]: values[recordQueryKeys.sort],
   });
-  const activeCount =
-    (query.score === undefined ? 0 : 1) +
-    (query.platform === undefined ? 0 : 1) +
-    query.moodTags.length +
-    query.genres.length +
-    (query.keyword === "" ? 0 : 1);
   const pageHref = (page: number) =>
     buildHref(basePath, {
       ...values,
       [recordQueryKeys.page]: page === 1 ? undefined : String(page),
     });
-  const filterProps = { basePath, query, values, enums: dict.enums };
-
   const header = (
-    <View className="gap-3">
-      <View className="flex-row items-end justify-between gap-4">
-        <View className="flex-1 gap-0.75">
-          <Text className="font-bold text-2xl text-foreground">
-            {dict.recordList.heading}
-          </Text>
-          {list.totalCount > 0 && (
-            <Text className="text-[13px] text-foreground-sub">
-              {interpolate(dict.recordList.summary, {
-                total: list.totalCount,
-                shown: list.filteredCount,
-              })}
-              {activeCount > 0 &&
-                ` ・ ${interpolate(dict.recordList.activeFilters, {
-                  count: activeCount,
-                })}`}
-            </Text>
-          )}
-        </View>
-        {list.totalCount > 0 && (
-          <RecordFilterSheet
-            activeCount={activeCount}
-            resultCount={list.filteredCount}
-            clearHref={clearHref}
-            closeLabel={dict.recordForm.back}
-            dict={dict.recordFilter}
-          >
-            <RecordFilterPanel
-              {...filterProps}
-              dict={dict.recordFilter}
-              sortDict={dict.recordSort}
-              closeLabel={dict.recordForm.back}
-            />
-          </RecordFilterSheet>
-        )}
-      </View>
-      <ActiveFilterList
-        basePath={basePath}
-        query={query}
-        values={values}
-        clearHref={clearHref}
-        dict={dict.recordFilter}
-        enums={dict.enums}
-      />
-    </View>
+    <RecordListHeader
+      basePath={basePath}
+      query={query}
+      values={values}
+      clearHref={clearHref}
+      totalCount={list.totalCount}
+      filteredCount={list.filteredCount}
+      dict={dict}
+    />
   );
 
   const refreshControl = (

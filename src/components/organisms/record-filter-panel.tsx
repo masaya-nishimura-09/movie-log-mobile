@@ -1,5 +1,6 @@
 import { type ReactNode, useState } from "react";
 import { Pressable, View } from "react-native";
+import { SectionLabel } from "@/components/atoms/section-label";
 import { Text } from "@/components/atoms/text";
 import { FilterChipLink } from "@/components/molecules/filter-chip-link";
 import { FilterRadioLink } from "@/components/molecules/filter-radio-link";
@@ -36,9 +37,7 @@ const visiblePlatformCount = 6;
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <View className="gap-2.25">
-      <Text className="font-bold text-muted-foreground text-xs tracking-[0.08em]">
-        {title}
-      </Text>
+      <SectionLabel>{title}</SectionLabel>
       {children}
     </View>
   );
@@ -59,7 +58,7 @@ function selectHrefFor(basePath: string, values: QueryValues) {
     buildHref(basePath, selectValue(values, key, value));
 }
 
-export function SortOptions({
+function SortOptions({
   basePath,
   query,
   values,
@@ -90,7 +89,7 @@ export function SortOptions({
   );
 }
 
-export function ScoreOptions({ basePath, query, values }: FilterOptionsProps) {
+function ScoreOptions({ basePath, query, values }: FilterOptionsProps) {
   const selectHref = selectHrefFor(basePath, values);
   return (
     <View className="flex-row gap-1.5">
@@ -111,7 +110,7 @@ export function ScoreOptions({ basePath, query, values }: FilterOptionsProps) {
   );
 }
 
-export function PlatformOptions({
+function PlatformOptions({
   basePath,
   query,
   values,
@@ -151,12 +150,7 @@ export function PlatformOptions({
   );
 }
 
-export function MoodOptions({
-  basePath,
-  query,
-  values,
-  enums,
-}: FilterOptionsProps) {
+function MoodOptions({ basePath, query, values, enums }: FilterOptionsProps) {
   const toggleHref = toggleHrefFor(basePath, values);
   return (
     <View className="flex-row flex-wrap gap-1.5">
@@ -175,12 +169,7 @@ export function MoodOptions({
   );
 }
 
-export function GenreOptions({
-  basePath,
-  query,
-  values,
-  enums,
-}: FilterOptionsProps) {
+function GenreOptions({ basePath, query, values, enums }: FilterOptionsProps) {
   const toggleHref = toggleHrefFor(basePath, values);
   return (
     <View className="flex-row flex-wrap gap-1.5">

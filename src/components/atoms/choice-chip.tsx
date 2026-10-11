@@ -5,35 +5,32 @@ import { Text } from "@/components/atoms/text";
 import { cn } from "@/lib/style/cn";
 import { splitLayout } from "@/lib/style/split-layout";
 
-export const choiceChipVariants = cva(
-  "flex-row items-center justify-center gap-1.5",
-  {
-    variants: {
-      size: {
-        sm: "h-8 px-2.5",
-        md: "h-9.5 px-3.5",
-        lg: "h-11 px-3",
-      },
-      tone: {
-        plain: "",
-        field: "",
-        mood: "bg-mood-tag",
-        genre: "bg-genre-chip",
-      },
-      active: {
-        true: "",
-        false: "",
-      },
+const choiceChipVariants = cva("flex-row items-center justify-center gap-1.5", {
+  variants: {
+    size: {
+      sm: "h-8 px-2.5",
+      md: "h-9.5 px-3.5",
+      lg: "h-11 px-3",
     },
-    compoundVariants: [
-      { active: true, tone: "plain", className: "bg-selected" },
-      { active: true, tone: "field", className: "bg-selected" },
-      { active: true, tone: "mood", className: "bg-selected" },
-      { active: true, tone: "genre", className: "bg-genre-selected" },
-    ],
-    defaultVariants: { size: "md", tone: "plain", active: false },
+    tone: {
+      plain: "",
+      field: "",
+      mood: "bg-mood-tag",
+      genre: "bg-genre-chip",
+    },
+    active: {
+      true: "",
+      false: "",
+    },
   },
-);
+  compoundVariants: [
+    { active: true, tone: "plain", className: "bg-selected" },
+    { active: true, tone: "field", className: "bg-selected" },
+    { active: true, tone: "mood", className: "bg-selected" },
+    { active: true, tone: "genre", className: "bg-genre-selected" },
+  ],
+  defaultVariants: { size: "md", tone: "plain", active: false },
+});
 
 const labelVariants = cva("font-medium", {
   variants: {

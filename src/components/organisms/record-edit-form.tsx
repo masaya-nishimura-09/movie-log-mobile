@@ -4,6 +4,7 @@ import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { uploadPosterAction } from "@/actions/media/upload-poster";
 import { Button } from "@/components/atoms/button";
 import { Text } from "@/components/atoms/text";
+import { FormAlert } from "@/components/molecules/form-alert";
 import { RecordBasicsFields } from "@/components/organisms/record-basics-fields";
 import { RecordImpressionFields } from "@/components/organisms/record-impression-fields";
 import { RecordMovieFields } from "@/components/organisms/record-movie-fields";
@@ -65,14 +66,7 @@ export function RecordEditForm({
         contentContainerClassName="gap-4 px-4 pt-5 pb-6"
         keyboardShouldPersistTaps="handled"
       >
-        {failure && (
-          <Text
-            accessibilityRole="alert"
-            className="rounded-lg bg-destructive-soft px-3.5 py-2.5 text-destructive-foreground text-sm"
-          >
-            {message}
-          </Text>
-        )}
+        {failure && <FormAlert>{message}</FormAlert>}
         <Panel title={dict.watchSection}>
           <RecordBasicsFields
             locale={locale}

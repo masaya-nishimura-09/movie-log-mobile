@@ -18,7 +18,7 @@ export function encodeBase64Url(input: string): string {
   return output;
 }
 
-export function decodeBase64Url(input: string): string {
+function decodeBase64Url(input: string): string {
   let output = "";
   let value = 0;
   let bits = 0;
@@ -49,7 +49,7 @@ export function readJwtPayload(token: string): Record<string, unknown> | null {
   }
 }
 
-export function readJwtExpiry(token: string): Date | undefined {
+function readJwtExpiry(token: string): Date | undefined {
   const exp = readJwtPayload(token)?.exp;
   return typeof exp === "number" ? new Date(exp * 1000) : undefined;
 }

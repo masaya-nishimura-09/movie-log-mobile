@@ -1,18 +1,12 @@
-import { type Href, Link } from "expo-router";
-import {
-  CalendarDays,
-  Clock,
-  Languages,
-  type LucideIcon,
-  MapPin,
-} from "lucide-react-native";
-import type { ReactNode } from "react";
+import { CalendarDays, Clock, Languages, MapPin } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import { GenreTag } from "@/components/atoms/genre-tag";
-import { Icon } from "@/components/atoms/icon";
 import { MoodTag } from "@/components/atoms/mood-tag";
 import { ScoreBadge } from "@/components/atoms/score-badge";
+import { SectionLabel } from "@/components/atoms/section-label";
 import { Text } from "@/components/atoms/text";
+import { EmptyNote } from "@/components/molecules/empty-note";
+import { MetaItem } from "@/components/molecules/meta-item";
 import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { RecordPoster } from "@/components/molecules/record-poster";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -31,60 +25,6 @@ type RecordDetailProps = {
   refreshing: boolean;
   onRefresh: () => void;
 };
-
-function SectionLabel({ children }: { children: ReactNode }) {
-  return (
-    <Text className="font-bold text-muted-foreground text-xs tracking-[0.08em]">
-      {children}
-    </Text>
-  );
-}
-
-function EmptyNote({
-  text,
-  actionLabel,
-  href,
-}: {
-  text: string;
-  actionLabel: string;
-  href: string;
-}) {
-  return (
-    <View className="flex-row flex-wrap items-center gap-x-3 gap-y-1 rounded-2xl border border-border border-dashed px-5.5 py-5">
-      <Text className="text-[15px] text-muted-foreground">{text}</Text>
-      <Link href={href as Href}>
-        <Text className="font-medium text-[15px] text-primary">
-          {actionLabel}
-        </Text>
-      </Link>
-    </View>
-  );
-}
-
-function MetaItem({
-  icon,
-  label,
-  value,
-}: {
-  icon: LucideIcon;
-  label: string;
-  value: string;
-}) {
-  return (
-    <View
-      accessible
-      accessibilityLabel={`${label}: ${value}`}
-      className="shrink flex-row items-start gap-1"
-    >
-      <View className="h-[21px] justify-center">
-        <Icon icon={icon} size={13} className="text-muted-foreground" />
-      </View>
-      <Text className="shrink text-[13px] text-foreground-sub leading-relaxed">
-        {value}
-      </Text>
-    </View>
-  );
-}
 
 export function RecordDetail({
   locale,
