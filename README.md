@@ -179,6 +179,7 @@ global.css      # Color tokens
 |-------------------|------------------|--------------|
 | /login            | Login            | Not required |
 | /register         | Registration     | Not required |
+| /about            | About the app    | Not required |
 | /terms            | Terms of use     | Not required |
 | /privacy          | Privacy policy   | Not required |
 | /records          | Record list      | Required     |

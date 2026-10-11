@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { LogOut, type LucideIcon, UserRound } from "lucide-react-native";
+import { Info, LogOut, type LucideIcon, UserRound } from "lucide-react-native";
 import { useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -86,6 +86,14 @@ export function AccountMenu({ username, dict }: AccountMenuProps) {
               onPress={() => {
                 setOpen(false);
                 router.navigate("/account");
+              }}
+            />
+            <MenuItem
+              icon={Info}
+              label={dict.about}
+              onPress={() => {
+                setOpen(false);
+                router.navigate("/about");
               }}
             />
             <MenuItem icon={LogOut} label={dict.logout} onPress={logout} />
