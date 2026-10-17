@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { Logo } from "@/components/atoms/logo";
 import { Text } from "@/components/atoms/text";
+import { TextLink } from "@/components/atoms/text-link";
 import { RegisterForm } from "@/components/organisms/register-form";
 import { useI18n } from "@/i18n/use-i18n";
 
@@ -25,6 +26,11 @@ export default function RegisterPage() {
         passwordDict={dict.passwordInput}
         counterTemplate={dict.characterCount}
       />
+      <View className="items-center">
+        <TextLink href="/about" tone="muted" className="text-xs">
+          {dict.about.link}
+        </TextLink>
+      </View>
     </View>
   );
 }

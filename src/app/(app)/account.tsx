@@ -47,7 +47,11 @@ export default function AccountPage() {
   return (
     <Inset>
       <View className="flex-1 bg-background">
-        <PageTopBar title={dict.account.title} />
+        <PageTopBar
+          backHref="/records"
+          backLabel={dict.account.back}
+          title={dict.account.title}
+        />
         {body()}
       </View>
     </Inset>
