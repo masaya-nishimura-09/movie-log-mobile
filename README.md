@@ -1,10 +1,10 @@
 <div align="center">
 
-# Cinelog
+# Cinestamp
 
 **English** | [日本語](README.ja.md)
 
-The mobile app of Cinelog, an app for keeping a record of the films you watch.<br/>Each record keeps the poster, viewing date, score, mood, and notes for a film.
+The mobile app of Cinestamp, an app for keeping a record of the films you watch.<br/>Each record keeps the poster, viewing date, score, mood, and notes for a film.
 
 ![Expo](https://img.shields.io/badge/Expo-57-0a2947?logo=expo&logoColor=f3e4c9)
 ![React Native](https://img.shields.io/badge/React_Native-0.86-0a2947?logo=react&logoColor=f3e4c9)
@@ -16,8 +16,8 @@ The mobile app of Cinelog, an app for keeping a record of the films you watch.<b
 
 </div>
 
-This repository contains the mobile app of Cinelog. It uses the
-[Cinelog API](https://github.com/masaya-nishimura-09/movie-log-api)
+This repository contains the mobile app of Cinestamp. It uses the
+[Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)
 for data and can also run on its own with mock data.
 A [web app](https://github.com/masaya-nishimura-09/movie-log) is also available.
 
@@ -39,7 +39,7 @@ you have watched by those conditions. When someone asks
 
 ```mermaid
 flowchart LR
-    phone["Cinelog Mobile<br/>(Expo / React Native)"] --> api["Cinelog API<br/>(Go / Gin)"]
+    phone["Cinestamp Mobile<br/>(Expo / React Native)"] --> api["Cinestamp API<br/>(Go / Gin)"]
 ```
 
 The app calls the API directly. The access and refresh tokens are kept in
@@ -108,7 +108,7 @@ Font weights depend on the role of the text: 400 for body text,
 - Node.js 22.13 or later
 - pnpm
 - Expo Go on your phone
-- [Cinelog API](https://github.com/masaya-nishimura-09/movie-log-api)
+- [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)
   (not required in mock mode)
 
 ### Installation
@@ -140,7 +140,7 @@ and restart `pnpm start` after changing them.
 
 | Variable                   | Required | Description                                                                          |
 |----------------------------|----------|--------------------------------------------------------------------------------------|
-| `EXPO_PUBLIC_API_BASE_URL` | Required | Base URL of the Cinelog API, using the LAN address of your computer instead of `localhost` (not required in mock mode) |
+| `EXPO_PUBLIC_API_BASE_URL` | Required | Base URL of the Cinestamp API, using the LAN address of your computer instead of `localhost` (not required in mock mode) |
 | `EXPO_PUBLIC_USE_MOCK`     | Optional | Set to `true` to use mock data instead of the API                                    |
 | `EXPO_PUBLIC_MOCK_DATASET` | Optional | Set to `demo` to use the fictional demo films in mock mode                           |
 

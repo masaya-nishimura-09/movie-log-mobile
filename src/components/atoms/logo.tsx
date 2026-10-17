@@ -1,31 +1,31 @@
-import { Clapperboard } from "lucide-react-native";
 import { View } from "react-native";
-import { Icon } from "@/components/atoms/icon";
-import { Text } from "@/components/atoms/text";
-import { cn } from "@/lib/style/cn";
+import Svg, { Path } from "react-native-svg";
+import { wordmarkPath } from "@/components/atoms/logo-paths";
+import { StampShapes } from "@/components/atoms/stamp-shapes";
+import { useCssVariable } from "@/hooks/use-css-variable";
 
 type LogoProps = {
   name: string;
   large?: boolean;
-  className?: string;
 };
 
-export function Logo({ name, large, className }: LogoProps) {
+const aspectRatio = 634.9 / 110;
+
+export function Logo({ name, large }: LogoProps) {
+  const foreground = useCssVariable("--foreground");
+  const background = useCssVariable("--background");
+  const height = large ? 32 : 24;
+
   return (
-    <View className={cn("flex-row items-center gap-2", className)}>
-      <Icon
-        icon={Clapperboard}
-        size={large ? 28 : 22}
-        className="text-primary"
-      />
-      <Text
-        className={cn(
-          "font-bold text-foreground",
-          large ? "text-2xl" : "text-[19px]",
-        )}
-      >
-        {name}
-      </Text>
+    <View accessible accessibilityLabel={name} accessibilityRole="image">
+      <Svg width={height * aspectRatio} height={height} viewBox="0 0 634.9 110">
+        <StampShapes
+          stampColor={foreground}
+          cColor={background}
+          playColor="#8b5e3c"
+        />
+        <Path d={wordmarkPath} fill={foreground} />
+      </Svg>
     </View>
   );
 }

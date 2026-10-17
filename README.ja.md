@@ -1,10 +1,10 @@
 <div align="center">
 
-# Cinelog
+# Cinestamp
 
 [English](README.md) | **日本語**
 
-映画鑑賞記録アプリ「Cinelog」のモバイルアプリです。<br/>観た映画ごとに、ポスター、鑑賞日、スコア、気分、メモを記録できます。
+映画鑑賞記録アプリ「Cinestamp」のモバイルアプリです。<br/>観た映画ごとに、ポスター、鑑賞日、スコア、気分、メモを記録できます。
 
 ![Expo](https://img.shields.io/badge/Expo-57-0a2947?logo=expo&logoColor=f3e4c9)
 ![React Native](https://img.shields.io/badge/React_Native-0.86-0a2947?logo=react&logoColor=f3e4c9)
@@ -16,7 +16,7 @@
 
 </div>
 
-本リポジトリでは、Cinelog のモバイルアプリを管理しています。データの取得と保存には [Cinelog API](https://github.com/masaya-nishimura-09/movie-log-api) を利用し、モックデータを使えば API なしでも動作します。[Web アプリ](https://github.com/masaya-nishimura-09/movie-log)もあります。
+本リポジトリでは、Cinestamp のモバイルアプリを管理しています。データの取得と保存には [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api) を利用し、モックデータを使えば API なしでも動作します。[Web アプリ](https://github.com/masaya-nishimura-09/movie-log)もあります。
 
 ## 概要
 
@@ -34,7 +34,7 @@
 
 ```mermaid
 flowchart LR
-    phone["Cinelog Mobile<br/>(Expo / React Native)"] --> api["Cinelog API<br/>(Go / Gin)"]
+    phone["Cinestamp Mobile<br/>(Expo / React Native)"] --> api["Cinestamp API<br/>(Go / Gin)"]
 ```
 
 アプリから API へは直接アクセスします。アクセストークンとリフレッシュトークンは端末の安全な保存領域（iOS はキーチェーン、Android はキーストア）に保存し、アクセストークンの期限が切れたときは自動で更新します。
@@ -98,7 +98,7 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 - Node.js 22.13 以上
 - pnpm
 - スマホの Expo Go
-- [Cinelog API](https://github.com/masaya-nishimura-09/movie-log-api)（モックモードでは不要）
+- [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)（モックモードでは不要）
 
 ### インストール
 
@@ -123,7 +123,7 @@ pnpm start
 
 | 変数                       | 必須/任意 | 説明                                                                                   |
 |----------------------------|-----------|----------------------------------------------------------------------------------------|
-| `EXPO_PUBLIC_API_BASE_URL` | 必須      | Cinelog API のベース URL。`localhost` ではなく、パソコンの LAN アドレスを指定（モックモードでは不要） |
+| `EXPO_PUBLIC_API_BASE_URL` | 必須      | Cinestamp API のベース URL。`localhost` ではなく、パソコンの LAN アドレスを指定（モックモードでは不要） |
 | `EXPO_PUBLIC_USE_MOCK`     | 任意      | `true` にすると、API の代わりにモックデータを使用                                      |
 | `EXPO_PUBLIC_MOCK_DATASET` | 任意      | `demo` にすると、モックモードで架空のデモ映画を使用                                    |
 
