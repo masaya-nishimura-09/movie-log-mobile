@@ -57,13 +57,8 @@ export function RecordGrid({
               scoreLabel={interpolate(dict.recordCard.score, {
                 score: item.score,
               })}
-              year={year}
-              platformLabel={platformLabel}
               meta={[year, platformLabel].filter(Boolean).join(" · ")}
               watchedStamp={watchedShort}
-              watchedLabel={interpolate(dict.recordCard.watched, {
-                date: watchedShort,
-              })}
               noPosterLabel={dict.recordCard.noPoster}
             />
           </View>

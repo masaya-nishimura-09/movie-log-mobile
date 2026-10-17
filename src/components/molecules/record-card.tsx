@@ -1,7 +1,5 @@
 import { type Href, Link } from "expo-router";
-import { ImageOff } from "lucide-react-native";
 import { Pressable, View } from "react-native";
-import { Icon } from "@/components/atoms/icon";
 import { ScoreBadge } from "@/components/atoms/score-badge";
 import { Text } from "@/components/atoms/text";
 import { RecordPoster } from "@/components/molecules/record-poster";
@@ -13,10 +11,7 @@ type RecordCardProps = {
   posterUrl: string;
   score: Score;
   scoreLabel: string;
-  year: string;
-  platformLabel: string;
   meta: string;
-  watchedLabel: string;
   watchedStamp: string;
   noPosterLabel: string;
 };
@@ -27,15 +22,10 @@ export function RecordCard({
   posterUrl,
   score,
   scoreLabel,
-  year,
-  platformLabel,
   meta,
-  watchedLabel,
   watchedStamp,
   noPosterLabel,
 }: RecordCardProps) {
-  const hasPoster = posterUrl !== "";
-
   return (
     <Link href={href as Href} asChild>
       <Pressable
@@ -43,11 +33,8 @@ export function RecordCard({
         className="w-full flex-1 rounded-[14px] bg-card active:scale-[0.99]"
       >
         <RecordPoster
-          title={title}
           posterUrl={posterUrl}
-          year={year}
-          platformLabel={platformLabel}
-          size="card"
+          noPosterLabel={noPosterLabel}
           className="rounded-t-[14px]"
           badge={<ScoreBadge score={score} size="sm" label={scoreLabel} />}
         />
@@ -62,41 +49,27 @@ export function RecordCard({
             <View className="size-5 rounded-full bg-background" />
           </View>
         </View>
-        {hasPoster ? (
-          <View className="h-22 gap-1.25 px-3 py-2.75">
+        <View className="h-22 gap-1.25 px-3 py-2.75">
+          <Text
+            numberOfLines={2}
+            className="h-[39.2px] font-bold text-foreground text-sm leading-[1.4]"
+          >
+            {title}
+          </Text>
+          <View className="flex-row items-center justify-between gap-2">
             <Text
-              numberOfLines={2}
-              className="h-[39.2px] font-bold text-foreground text-sm leading-[1.4]"
+              numberOfLines={1}
+              className="min-w-0 flex-1 text-[11px] text-muted-foreground"
             >
-              {title}
+              {meta}
             </Text>
-            <View className="flex-row items-center justify-between gap-2">
-              <Text
-                numberOfLines={1}
-                className="min-w-0 flex-1 text-[11px] text-muted-foreground"
-              >
-                {meta}
+            <View className="-rotate-6 rounded-sm border-2 border-primary px-1.5 py-px opacity-70">
+              <Text className="font-bold text-[10px] text-primary tracking-wider">
+                {watchedStamp}
               </Text>
-              <View className="-rotate-6 rounded-sm border-2 border-primary px-1.5 py-px opacity-70">
-                <Text className="font-bold text-[10px] text-primary tracking-wider">
-                  {watchedStamp}
-                </Text>
-              </View>
             </View>
           </View>
-        ) : (
-          <View className="h-22 flex-row items-center justify-between gap-2 px-3 py-2.75">
-            <Text className="text-[11px] text-muted-foreground">
-              {watchedLabel}
-            </Text>
-            <Icon
-              icon={ImageOff}
-              size={15}
-              className="text-muted-foreground"
-              accessibilityLabel={noPosterLabel}
-            />
-          </View>
-        )}
+        </View>
       </Pressable>
     </Link>
   );

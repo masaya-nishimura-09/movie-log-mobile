@@ -1,58 +1,55 @@
 import type { ReactNode } from "react";
 import { View } from "react-native";
+import Svg from "react-native-svg";
 import { Image } from "@/components/atoms/image";
-import { Text } from "@/components/atoms/text";
+import { StampShapes } from "@/components/atoms/stamp-shapes";
+import { useCssVariable } from "@/hooks/use-css-variable";
 import { cn } from "@/lib/style/cn";
 
 type RecordPosterProps = {
-  title: string;
   posterUrl: string;
-  year: string;
-  platformLabel: string;
-  size: "card" | "detail";
+  noPosterLabel: string;
   badge?: ReactNode;
   className?: string;
 };
 
-const titleSizes = {
-  card: { short: "text-[21px]", long: "text-[17px]" },
-  detail: { short: "text-base", long: "text-[13px]" },
-};
+function StampPlaceholder({ label }: { label: string }) {
+  const foreground = useCssVariable("--foreground");
+  const header = useCssVariable("--header");
+  const primary = useCssVariable("--primary");
+
+  return (
+    <View className="flex-1 items-center justify-center bg-header">
+      <Svg
+        viewBox="0 0 110 110"
+        accessibilityLabel={label}
+        accessibilityRole="image"
+        style={{ width: "50%", aspectRatio: 1 }}
+      >
+        <StampShapes
+          stampColor={foreground}
+          stampOpacity={0.2}
+          cColor={header}
+          playColor={primary}
+          playOpacity={0.6}
+        />
+      </Svg>
+    </View>
+  );
+}
 
 export function RecordPoster({
-  title,
   posterUrl,
-  year,
-  platformLabel,
-  size,
+  noPosterLabel,
   badge,
   className,
 }: RecordPosterProps) {
-  const titleSize =
-    titleSizes[size][Array.from(title).length > 12 ? "long" : "short"];
-
   return (
     <View
       className={cn("relative aspect-[2/3] w-full overflow-hidden", className)}
     >
       {posterUrl === "" ? (
-        <View className="flex-1 justify-between bg-header p-3.25">
-          <Text className="text-[11px] text-accent-foreground tracking-[0.08em]">
-            {year}
-          </Text>
-          <Text
-            numberOfLines={6}
-            className={cn("font-bold text-foreground leading-[1.3]", titleSize)}
-          >
-            {title}
-          </Text>
-          <Text
-            numberOfLines={1}
-            className="text-[11px] text-foreground-sub tracking-[0.04em]"
-          >
-            {platformLabel}
-          </Text>
-        </View>
+        <StampPlaceholder label={noPosterLabel} />
       ) : (
         <Image
           source={{ uri: posterUrl }}

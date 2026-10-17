@@ -5,20 +5,24 @@ type StampShapesProps = {
   stampColor: string;
   cColor: string;
   playColor: string;
+  stampOpacity?: number;
+  playOpacity?: number;
 };
 
 export function StampShapes({
   stampColor,
   cColor,
   playColor,
+  stampOpacity,
+  playOpacity,
 }: StampShapesProps) {
   return (
     <>
-      <Path d={stampPath} fill={stampColor} />
+      <Path d={stampPath} fill={stampColor} fillOpacity={stampOpacity} />
       <Path d={cPath} fill={cColor} />
       <Circle cx="71.385" cy="39.573" r="4.5" fill={cColor} />
       <Circle cx="71.385" cy="70.427" r="4.5" fill={cColor} />
-      <Path d={playPath} fill={playColor} />
+      <Path d={playPath} fill={playColor} fillOpacity={playOpacity} />
     </>
   );
 }

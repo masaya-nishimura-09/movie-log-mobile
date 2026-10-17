@@ -92,11 +92,8 @@ export function RecordDetail({
     >
       <View className="flex-row gap-4">
         <RecordPoster
-          title={record.title}
           posterUrl={record.posterUrl}
-          year={record.releaseYear > 0 ? String(record.releaseYear) : ""}
-          platformLabel={platformLabel}
-          size="detail"
+          noPosterLabel={dict.recordCard.noPoster}
           className="w-29 shrink-0 self-start rounded-xl"
         />
         <View className="min-w-0 flex-1 gap-3">
