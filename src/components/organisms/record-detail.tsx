@@ -131,7 +131,7 @@ export function RecordDetail({
       <View className="flex-row gap-3">
         <View className="flex-1 gap-2.5">
           <SectionLabel>{d.watchedAt}</SectionLabel>
-          <View className="flex-1 rounded-2xl bg-card px-4 py-4">
+          <View className="grow rounded-2xl bg-card px-4 py-4">
             <Text className="text-[15px] text-foreground">
               {formatDate(record.watchedAt, locale, "longDate")}
             </Text>
@@ -139,7 +139,7 @@ export function RecordDetail({
         </View>
         <View className="flex-1 gap-2.5">
           <SectionLabel>{d.platform}</SectionLabel>
-          <View className="flex-1 rounded-2xl bg-card px-4 py-4">
+          <View className="grow rounded-2xl bg-card px-4 py-4">
             <Text className="text-[15px] text-foreground">{platformLabel}</Text>
           </View>
         </View>
