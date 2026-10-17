@@ -4,8 +4,8 @@ import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { z } from "zod";
 import { uploadPosterAction } from "@/actions/media/upload-poster";
 import { Button } from "@/components/atoms/button";
+import { FormAlert } from "@/components/atoms/form-alert";
 import { Text } from "@/components/atoms/text";
-import { FormAlert } from "@/components/molecules/form-alert";
 import { RecordBasicsFields } from "@/components/organisms/record-basics-fields";
 import { RecordImpressionFields } from "@/components/organisms/record-impression-fields";
 import { RecordMovieFields } from "@/components/organisms/record-movie-fields";
@@ -16,6 +16,7 @@ import type { Locale } from "@/i18n/locales";
 import type { RecordFieldErrors } from "@/lib/record/field-error";
 import { toRecordInputValues } from "@/lib/record/record-form-state";
 import { cn } from "@/lib/style/cn";
+import { dictMessage } from "@/lib/text/dict-message";
 import { interpolate } from "@/lib/text/interpolate";
 import type { RecordFormValues } from "@/schemas/record/record-form";
 import { recordInputSchema } from "@/schemas/record/record-input";
@@ -95,11 +96,7 @@ export function RecordCreateForm({
   };
 
   const message =
-    failure?.messageKey === "notFound"
-      ? dict.notFound
-      : failure?.messageKey === "invalidInput"
-        ? dict.invalidInput
-        : dict.unexpectedError;
+    dictMessage(dict, failure?.messageKey) ?? dict.unexpectedError;
 
   return (
     <KeyboardAvoidingView behavior="padding" className="flex-1">

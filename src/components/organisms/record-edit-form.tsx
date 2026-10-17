@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { uploadPosterAction } from "@/actions/media/upload-poster";
 import { Button } from "@/components/atoms/button";
+import { FormAlert } from "@/components/atoms/form-alert";
 import { Text } from "@/components/atoms/text";
-import { FormAlert } from "@/components/molecules/form-alert";
 import { RecordBasicsFields } from "@/components/organisms/record-basics-fields";
 import { RecordImpressionFields } from "@/components/organisms/record-impression-fields";
 import { RecordMovieFields } from "@/components/organisms/record-movie-fields";
@@ -13,6 +13,7 @@ import { useSaveRecord } from "@/hooks/use-save-record";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import type { Locale } from "@/i18n/locales";
 import { toRecordInputValues } from "@/lib/record/record-form-state";
+import { dictMessage } from "@/lib/text/dict-message";
 import type { RecordFormValues } from "@/schemas/record/record-form";
 
 type RecordEditFormProps = {
@@ -53,11 +54,7 @@ export function RecordEditForm({
   const { mutate, data, isPending } = useSaveRecord(recordId);
   const failure = data?.success === false ? data : undefined;
   const message =
-    failure?.messageKey === "notFound"
-      ? dict.notFound
-      : failure?.messageKey === "invalidInput"
-        ? dict.invalidInput
-        : dict.unexpectedError;
+    dictMessage(dict, failure?.messageKey) ?? dict.unexpectedError;
 
   return (
     <KeyboardAvoidingView behavior="padding" className="flex-1">
