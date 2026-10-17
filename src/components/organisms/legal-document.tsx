@@ -1,8 +1,9 @@
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
-import { Linking, Pressable, View } from "react-native";
+import { View } from "react-native";
 import { Button } from "@/components/atoms/button";
 import { Text } from "@/components/atoms/text";
+import { TextLink } from "@/components/atoms/text-link";
 import { contactFormUrl } from "@/lib/legal/contact";
 
 type LegalSection = { h: string; p: string[] };
@@ -60,15 +61,11 @@ export function LegalDocument({
                 {contactLabel}: {contactPending}
               </Text>
             ) : (
-              <Pressable
-                accessibilityRole="link"
-                onPress={() => Linking.openURL(contactFormUrl)}
-                className="self-start"
-              >
-                <Text className="font-medium text-[13px] text-primary">
+              <View className="items-start">
+                <TextLink href={contactFormUrl as Href} className="text-[13px]">
                   {contactLabel}
-                </Text>
-              </Pressable>
+                </TextLink>
+              </View>
             ))}
         </View>
       ))}

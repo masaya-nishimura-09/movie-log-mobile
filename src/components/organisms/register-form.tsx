@@ -8,6 +8,7 @@ import { Button } from "@/components/atoms/button";
 import { Icon } from "@/components/atoms/icon";
 import { Input } from "@/components/atoms/input";
 import { Text } from "@/components/atoms/text";
+import { TextLink } from "@/components/atoms/text-link";
 import { CountedInput } from "@/components/molecules/counted-input";
 import { FormAlert } from "@/components/molecules/form-alert";
 import { FormField } from "@/components/molecules/form-field";
@@ -44,15 +45,6 @@ export function RegisterForm({
   const failure = data?.success === false ? data : undefined;
   const message = (key: string) =>
     key in dict ? dict[key as keyof typeof dict] : dict.unexpectedError;
-
-  const link = (label: string, href: "/terms" | "/privacy") => (
-    <Text
-      onPress={() => router.push(href)}
-      className="font-medium text-primary"
-    >
-      {label}
-    </Text>
-  );
 
   return (
     <View className="gap-5">
@@ -127,13 +119,13 @@ export function RegisterForm({
           </View>
           <Text className="flex-1 font-medium text-foreground text-sm">
             {interpolateNode(dict.agreeTerms, {
-              terms: link(dict.termsLink, "/terms"),
+              terms: <TextLink href="/terms">{dict.termsLink}</TextLink>,
             })}
           </Text>
         </Pressable>
         <Text className="text-muted-foreground text-xs">
           {interpolateNode(dict.privacyNote, {
-            privacy: link(dict.privacyLink, "/privacy"),
+            privacy: <TextLink href="/privacy">{dict.privacyLink}</TextLink>,
           })}
         </Text>
       </View>

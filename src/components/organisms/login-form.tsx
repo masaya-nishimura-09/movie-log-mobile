@@ -6,6 +6,7 @@ import { loginAction } from "@/actions/auth/login";
 import { Button } from "@/components/atoms/button";
 import { Input } from "@/components/atoms/input";
 import { Text } from "@/components/atoms/text";
+import { TextLink } from "@/components/atoms/text-link";
 import { FormAlert } from "@/components/molecules/form-alert";
 import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
@@ -82,12 +83,7 @@ export function LoginForm({ dict, passwordDict }: LoginFormProps) {
       </Button>
       <Text className="text-center text-muted-foreground text-sm">
         {dict.toRegisterPrompt}{" "}
-        <Text
-          onPress={() => router.push("/register")}
-          className="font-medium text-primary"
-        >
-          {dict.toRegister}
-        </Text>
+        <TextLink href="/register">{dict.toRegister}</TextLink>
       </Text>
     </View>
   );

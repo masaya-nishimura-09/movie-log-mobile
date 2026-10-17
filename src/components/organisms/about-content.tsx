@@ -1,4 +1,4 @@
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
 import { View } from "react-native";
 import { Button } from "@/components/atoms/button";
@@ -6,6 +6,7 @@ import { Image } from "@/components/atoms/image";
 import { Logo } from "@/components/atoms/logo";
 import { SectionLabel } from "@/components/atoms/section-label";
 import { Text } from "@/components/atoms/text";
+import { TextLink } from "@/components/atoms/text-link";
 import type { Dictionary } from "@/i18n/get-dictionary";
 
 const tmdbLogo = require("../../../assets/images/tmdb-logo.png");
@@ -38,16 +39,12 @@ export function AboutContent({ dict }: AboutContentProps) {
         </Text>
       </View>
       <View className="items-start gap-2">
-        <Link href="/terms">
-          <Text className="font-medium text-primary text-sm">
-            {dict.register.termsLink}
-          </Text>
-        </Link>
-        <Link href="/privacy">
-          <Text className="font-medium text-primary text-sm">
-            {dict.register.privacyLink}
-          </Text>
-        </Link>
+        <TextLink href="/terms" className="text-sm">
+          {dict.register.termsLink}
+        </TextLink>
+        <TextLink href="/privacy" className="text-sm">
+          {dict.register.privacyLink}
+        </TextLink>
       </View>
       <Button
         variant="outline"
