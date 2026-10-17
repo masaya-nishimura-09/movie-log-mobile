@@ -15,6 +15,7 @@ import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import { cn } from "@/lib/style/cn";
+import { dictMessage } from "@/lib/text/dict-message";
 import { interpolateNode } from "@/lib/text/interpolate-node";
 
 type RegisterFormProps = {
@@ -43,13 +44,13 @@ export function RegisterForm({
     },
   });
   const failure = data?.success === false ? data : undefined;
-  const message = (key: string) =>
-    key in dict ? dict[key as keyof typeof dict] : dict.unexpectedError;
 
   return (
     <View className="gap-5">
       {failure && !failure.errors && (
-        <FormAlert>{message(failure.messageKey)}</FormAlert>
+        <FormAlert>
+          {dictMessage(dict, failure.messageKey) ?? dict.unexpectedError}
+        </FormAlert>
       )}
       <FormField
         label={dict.username}

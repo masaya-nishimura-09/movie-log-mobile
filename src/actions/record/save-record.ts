@@ -1,5 +1,4 @@
-import { z } from "zod";
-import type { ActionResult } from "@/actions/action-result";
+import { type ActionResult, invalidInput } from "@/actions/action-result";
 import { ApiError } from "@/api/client/api-error";
 import { createRecord } from "@/api/record/create-record";
 import { updateRecord } from "@/api/record/update-record";
@@ -11,11 +10,7 @@ export async function saveRecordAction(
 ): Promise<ActionResult<string>> {
   const input = recordInputSchema.safeParse(values);
   if (!input.success) {
-    return {
-      success: false,
-      messageKey: "invalidInput",
-      errors: z.flattenError(input.error).fieldErrors,
-    };
+    return invalidInput(input.error);
   }
 
   try {

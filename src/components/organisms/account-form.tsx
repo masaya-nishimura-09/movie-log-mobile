@@ -11,6 +11,7 @@ import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { useToast } from "@/components/molecules/toaster";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import { dictMessage } from "@/lib/text/dict-message";
 import type { User } from "@/schemas/user/user";
 
 type AccountFormProps = {
@@ -47,8 +48,6 @@ export function AccountForm({
     },
   });
   const failure = data?.success === false ? data : undefined;
-  const message = (key: string) =>
-    key in dict ? dict[key as keyof typeof dict] : dict.unexpectedError;
 
   useEffect(() => {
     setUsername(user.username);
@@ -58,7 +57,9 @@ export function AccountForm({
   return (
     <View className="gap-4 rounded-2xl bg-card p-4">
       {failure && !failure.errors && (
-        <FormAlert>{message(failure.messageKey)}</FormAlert>
+        <FormAlert>
+          {dictMessage(dict, failure.messageKey) ?? dict.unexpectedError}
+        </FormAlert>
       )}
       <FormField
         label={dict.username}

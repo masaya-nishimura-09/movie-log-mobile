@@ -1,5 +1,4 @@
-import { z } from "zod";
-import type { ActionResult } from "@/actions/action-result";
+import { type ActionResult, invalidInput } from "@/actions/action-result";
 import { login } from "@/api/auth/login";
 import { ApiError } from "@/api/client/api-error";
 import { updateUser } from "@/api/user/update-user";
@@ -11,11 +10,7 @@ export async function updateAccountAction(
 ): Promise<ActionResult<{ loggedIn: boolean }>> {
   const input = userInputSchema.safeParse(values);
   if (!input.success) {
-    return {
-      success: false,
-      messageKey: "invalidInput",
-      errors: z.flattenError(input.error).fieldErrors,
-    };
+    return invalidInput(input.error);
   }
 
   try {

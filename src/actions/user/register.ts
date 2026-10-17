@@ -1,5 +1,4 @@
-import { z } from "zod";
-import type { ActionResult } from "@/actions/action-result";
+import { type ActionResult, invalidInput } from "@/actions/action-result";
 import { login } from "@/api/auth/login";
 import { ApiError } from "@/api/client/api-error";
 import { registerUser } from "@/api/user/register-user";
@@ -22,11 +21,7 @@ export async function registerAction(
     password: values.password,
   } satisfies UserInput);
   if (!input.success) {
-    return {
-      success: false,
-      messageKey: "invalidInput",
-      errors: z.flattenError(input.error).fieldErrors,
-    };
+    return invalidInput(input.error);
   }
 
   if (!values.agreedToTerms) {

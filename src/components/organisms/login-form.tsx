@@ -11,6 +11,7 @@ import { FormAlert } from "@/components/molecules/form-alert";
 import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import { dictMessage } from "@/lib/text/dict-message";
 
 type LoginFormProps = {
   dict: Dictionary["login"];
@@ -28,20 +29,18 @@ export function LoginForm({ dict, passwordDict }: LoginFormProps) {
     },
   });
   const failure = data?.success === false ? data : undefined;
-  const message = (key: string | undefined) =>
-    key && key in dict ? dict[key as keyof typeof dict] : undefined;
   const submit = () => mutate({ email, password });
 
   return (
     <View className="gap-5">
       {failure && !failure.errors && (
         <FormAlert>
-          {message(failure.messageKey) ?? dict.unexpectedError}
+          {dictMessage(dict, failure.messageKey) ?? dict.unexpectedError}
         </FormAlert>
       )}
       <FormField
         label={dict.email}
-        error={message(failure?.errors?.email?.[0])}
+        error={dictMessage(dict, failure?.errors?.email?.[0])}
       >
         <Input
           value={email}
@@ -57,7 +56,7 @@ export function LoginForm({ dict, passwordDict }: LoginFormProps) {
       <FormField
         label={dict.password}
         hint={dict.passwordHint}
-        error={message(failure?.errors?.password?.[0])}
+        error={dictMessage(dict, failure?.errors?.password?.[0])}
       >
         <PasswordInput
           value={password}

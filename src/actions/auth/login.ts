@@ -1,5 +1,4 @@
-import { z } from "zod";
-import type { ActionResult } from "@/actions/action-result";
+import { type ActionResult, invalidInput } from "@/actions/action-result";
 import { login } from "@/api/auth/login";
 import { ApiError } from "@/api/client/api-error";
 import { saveTokens } from "@/lib/auth/token-storage";
@@ -10,11 +9,7 @@ export async function loginAction(
 ): Promise<ActionResult<null>> {
   const input = loginInputSchema.safeParse(values);
   if (!input.success) {
-    return {
-      success: false,
-      messageKey: "invalidInput",
-      errors: z.flattenError(input.error).fieldErrors,
-    };
+    return invalidInput(input.error);
   }
 
   try {
