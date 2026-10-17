@@ -1,31 +1,31 @@
 {
   "metadata": {
     "title": "Cinestamp",
-    "description": "Remember every film you have watched."
+    "description": "A film logbook you can search by mood. Keep the date, where you watched, a score, and how it felt."
   },
   "brand": {
     "name": "Cinestamp",
     "tagline": "Remember every film you have watched."
   },
   "landing": {
-    "headline": "Remember every film you have watched.",
-    "lead": "The date, a score, the mood, a memo. Keep how a film felt, right next to its poster.",
+    "headline": "A film logbook you can search by mood.",
+    "lead": "Log the date, where you watched, a score, and how it felt. Your records stay private, and only you can read them.",
     "start": "Sign up to start",
     "login": "Log in",
     "listAlt": "A grid of posters for the films you have logged",
     "detailAlt": "One film's record, with the watched date and platform under the poster",
     "features": [
       {
+        "title": "Find films by mood",
+        "text": "Tag films as poignant, absurd or bitter ending, among 18 mood tags. Later, filter for the mood you are in tonight."
+      },
+      {
         "title": "Keep it with the poster",
         "text": "The watched date, score and platform sit with the poster on a single card."
       },
       {
-        "title": "Film details fill in for you",
-        "text": "Type a title and the release year, genres and credits come from TMDB."
-      },
-      {
-        "title": "A logbook just for you",
-        "text": "Your records are not shown to anyone else. Available in Japanese and English."
+        "title": "Log where you watched",
+        "text": "Choose from 30 options, from cinemas and discs to Netflix and MUBI."
       }
     ],
     "recommend": {
@@ -33,7 +33,7 @@
       "text": "Love films, and people keep asking you what to watch. The right pick for someone else rarely comes to mind on the spot. Filter the films you have seen by platform and mood, and the answer is right there.",
       "alt": "Records filtered to the Netflix platform and the Moving mood"
     },
-    "closing": "Start with the last film you saw. A title and a date take about thirty seconds."
+    "closing": "Start with the last film you saw. A title, the date, a score, and where you watched are all you need."
   },
   "about": {
     "title": "About",
@@ -44,7 +44,7 @@
   },
   "legal": {
     "updatedLabel": "Last updated",
-    "updated": "October 10, 2026",
+    "updated": "October 11, 2026",
     "contactLabel": "Contact form",
     "contactPending": "Coming soon",
     "back": "Back",
@@ -169,7 +169,7 @@
             "- logging in and verifying who you are;",
             "- answering inquiries;",
             "- investigating and fixing problems;",
-            "- preventing abuse, such as limiting login attempts and blocking automated contact form submissions; and",
+            "- preventing abuse, such as limiting login attempts and blocking automated submissions of the login, sign-up, and contact forms; and",
             "- dealing with violations of the Terms of Use."
           ]
         },
@@ -186,9 +186,9 @@
             "The Service uses the following external services.",
             "- TMDB (film search and information): the words you search for are sent from our server to TMDB. When TMDB poster images are shown, your IP address and browser information are sent to TMDB.",
             "- Vercel (United States): the web server of the Service. Access logs are kept.",
-            "- Cloudflare Turnstile (United States): to block automated contact form submissions, your IP address and browser information are sent to Cloudflare.",
+            "- Cloudflare Turnstile (United States): to block automated submissions of the login, sign-up, and contact forms, your IP address and browser information are sent to Cloudflare.",
             "- Resend (United States): to deliver your inquiry to the Operator by email, the email address and message you enter are sent to Resend.",
-            "We will add the provider and country of the server that stores account information and records to this policy once it is decided.",
+            "We will add the provider and country of the server that stores account information, records, and uploaded images to this policy once it is decided.",
             "Information on the personal data protection system of the United States is available on the website of Japan's Personal Information Protection Commission.",
             "We do not use external services for advertising or analytics."
           ]
@@ -346,7 +346,7 @@
   },
   "emptyState": {
     "title": "No records yet",
-    "description": "Start with the last film you watched. A title and a date take about 30 seconds.",
+    "description": "Start with the last film you watched. A title, the date, a score, and where you watched are all you need.",
     "action": "Log your first film"
   },
   "recordCard": {
