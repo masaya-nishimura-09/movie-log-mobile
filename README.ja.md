@@ -89,6 +89,7 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 | データ取得       | TanStack Query                                  |
 | バリデーション   | Zod                                             |
 | 保存             | Expo SecureStore（トークン）、AsyncStorage（テーマ） |
+| テスト           | Vitest                                          |
 | 開発ツール       | Biome、pnpm                                     |
 
 ## セットアップ
@@ -129,16 +130,20 @@ pnpm start
 
 ### スクリプト
 
-| コマンド         | 説明                               |
-|------------------|------------------------------------|
-| `pnpm start`     | 開発サーバーの起動                 |
-| `pnpm android`   | Android 向けに開発サーバーを起動   |
-| `pnpm ios`       | iOS 向けに開発サーバーを起動       |
-| `pnpm web`       | Web 向けに開発サーバーを起動       |
-| `pnpm lint`      | Biome によるチェック               |
-| `pnpm fix`       | lint の指摘の自動修正              |
-| `pnpm format`    | Biome による整形                   |
-| `pnpm typecheck` | TypeScript の型チェック            |
+| コマンド          | 説明                                 |
+|-------------------|--------------------------------------|
+| `pnpm start`      | 開発サーバーの起動                   |
+| `pnpm android`    | Android 向けに開発サーバーを起動     |
+| `pnpm ios`        | iOS 向けに開発サーバーを起動         |
+| `pnpm web`        | Web 向けに開発サーバーを起動         |
+| `pnpm lint`       | Biome によるチェック                 |
+| `pnpm fix`        | lint の指摘の自動修正                |
+| `pnpm format`     | Biome による整形                     |
+| `pnpm typecheck`  | TypeScript の型チェック              |
+| `pnpm test`       | Vitest によるテストの実行            |
+| `pnpm test:watch` | ファイルの変更を監視してテストを実行 |
+
+単体テストは、対象のファイルの隣に `*.test.ts` として置いています（例：`src/lib/url/build-href.test.ts`）。ネイティブのモジュールは、`src/test/` のスタブに置き換えています。
 
 ## ディレクトリ構成
 

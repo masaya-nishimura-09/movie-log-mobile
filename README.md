@@ -99,6 +99,7 @@ Font weights depend on the role of the text: 400 for body text,
 | Data fetching   | TanStack Query                                  |
 | Validation      | Zod                                             |
 | Storage         | Expo SecureStore (tokens), AsyncStorage (theme) |
+| Testing         | Vitest                                          |
 | Tooling         | Biome, pnpm                                     |
 
 ## Setup
@@ -146,16 +147,20 @@ and restart `pnpm start` after changing them.
 
 ### Scripts
 
-| Command          | Description                                |
-|------------------|--------------------------------------------|
-| `pnpm start`     | Start the development server               |
-| `pnpm android`   | Start the development server for Android   |
-| `pnpm ios`       | Start the development server for iOS       |
-| `pnpm web`       | Start the development server for the web   |
-| `pnpm lint`      | Check the code with Biome                  |
-| `pnpm fix`       | Fix lint issues                            |
-| `pnpm format`    | Format the code with Biome                 |
-| `pnpm typecheck` | Run the TypeScript type check              |
+| Command           | Description                                  |
+|-------------------|----------------------------------------------|
+| `pnpm start`      | Start the development server                 |
+| `pnpm android`    | Start the development server for Android     |
+| `pnpm ios`        | Start the development server for iOS         |
+| `pnpm web`        | Start the development server for the web     |
+| `pnpm lint`       | Check the code with Biome                    |
+| `pnpm fix`        | Fix lint issues                              |
+| `pnpm format`     | Format the code with Biome                   |
+| `pnpm typecheck`  | Run the TypeScript type check                |
+| `pnpm test`       | Run the tests with Vitest                    |
+| `pnpm test:watch` | Run the tests and rerun them on file changes |
+
+Unit tests sit next to the file they test as `*.test.ts` (for example, `src/lib/url/build-href.test.ts`). Native modules are replaced with stubs in `src/test/`.
 
 ## Project Structure
 
