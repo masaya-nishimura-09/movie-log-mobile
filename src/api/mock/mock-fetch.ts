@@ -1,3 +1,4 @@
+import { mockNotes } from "@/api/mock/mock-notes";
 import { mockRecords } from "@/api/mock/mock-records";
 import { mockAccounts, toUserResponse } from "@/api/mock/mock-user";
 import {
@@ -55,14 +56,30 @@ function allOf(selected: string[], values: string[]): boolean {
   return selected.every((value) => values.includes(value));
 }
 
+function plainText(node: unknown): string {
+  const { text, content } = node as { text?: string; content?: unknown[] };
+  return `${text ?? ""}${(content ?? []).map(plainText).join(" ")}`;
+}
+
+function noteText(recordId: string): string {
+  const note = mockNotes.get(recordId);
+  return note ? plainText(note) : "";
+}
+
 function matches(record: RecordResponse, filter: Filter): boolean {
+  const keyword = filter.title.toLowerCase();
   return (
     (filter.score === null || filter.score === String(record.score)) &&
     (filter.platform === null || filter.platform === record.platform) &&
     allOf(filter.mood_tags, record.mood_tags) &&
     allOf(filter.genres, record.genres) &&
-    record.title.toLowerCase().includes(filter.title.toLowerCase())
+    (record.title.toLowerCase().includes(keyword) ||
+      noteText(record.record_id).toLowerCase().includes(keyword))
   );
+}
+
+function withNote(record: RecordResponse) {
+  return { ...record, note: mockNotes.get(record.record_id) ?? null };
 }
 
 function listRecords(params: URLSearchParams): Response {
@@ -71,7 +88,7 @@ function listRecords(params: URLSearchParams): Response {
     platform: params.get("platform"),
     mood_tags: params.getAll("mood_tags"),
     genres: params.getAll("genres"),
-    title: params.get("title") ?? "",
+    title: params.get("keyword") ?? "",
   };
   const sortField = params.get("sort_field") ?? "watched_at";
   const sortOrder = params.get("sort_order") ?? "desc";
@@ -99,7 +116,7 @@ function listRecords(params: URLSearchParams): Response {
 function getRecord(id: string): Response {
   const record = mockRecords.find((r) => r.record_id === id);
   if (!record) return error(404, "RECORD_NOT_FOUND");
-  return json(record);
+  return json(withNote(record));
 }
 
 const accessTokenLifetime = 60 * 60;
@@ -199,39 +216,49 @@ function deleteUser(account: Account): Response {
 type RecordBody = Omit<
   RecordResponse,
   "record_id" | "created_at" | "updated_at"
->;
+> & { note?: object | null };
+
+function saveNote(recordId: string, note: object | null | undefined) {
+  if (note) mockNotes.set(recordId, note);
+  else mockNotes.delete(recordId);
+}
 
 function createRecord(init: RequestInit): Response {
   const now = new Date().toISOString();
   const lastId = Math.max(0, ...mockRecords.map((r) => Number(r.record_id)));
+  const { note, ...body } = readJson(init) as RecordBody;
   const record: RecordResponse = {
-    ...(readJson(init) as RecordBody),
+    ...body,
     record_id: String(lastId + 1),
     created_at: now,
     updated_at: now,
   };
   mockRecords.push(record);
-  return json(record, 201);
+  saveNote(record.record_id, note);
+  return json(withNote(record), 201);
 }
 
 function updateRecord(id: string, init: RequestInit): Response {
   const index = mockRecords.findIndex((r) => r.record_id === id);
   const current = mockRecords[index];
   if (!current) return error(404, "RECORD_NOT_FOUND");
+  const { note, ...body } = readJson(init) as RecordBody;
   const record: RecordResponse = {
-    ...(readJson(init) as RecordBody),
+    ...body,
     record_id: id,
     created_at: current.created_at,
     updated_at: new Date().toISOString(),
   };
   mockRecords[index] = record;
-  return json(record);
+  saveNote(id, note);
+  return json(withNote(record));
 }
 
 function deleteRecord(id: string): Response {
   const index = mockRecords.findIndex((r) => r.record_id === id);
   if (index === -1) return error(404, "RECORD_NOT_FOUND");
   mockRecords.splice(index, 1);
+  mockNotes.delete(id);
   return new Response(null, { status: 204 });
 }
 
@@ -263,8 +290,8 @@ function getMovie(id: string): Response {
   return json({
     id: Number(record.record_id),
     title: record.title,
-    original_title: record.title,
-    overview: "",
+    original_title: record.original_title || record.title,
+    overview: record.overview ?? "",
     genres: record.genres,
     poster_url: record.poster_url,
     release_year: record.release_year,

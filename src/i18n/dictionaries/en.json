@@ -358,9 +358,11 @@
     "scoreCaption": "SCORE",
     "releaseYear": "{year}",
     "runtime": "{minutes} min",
-    "memo": "Memo",
-    "memoEmpty": "No memo yet.",
-    "memoAdd": "Add a memo",
+    "note": "Note",
+    "noteEmpty": "No note yet.",
+    "noteAdd": "Write a note",
+    "noteReadMore": "Read more",
+    "noteShowLess": "Show less",
     "credits": "Credits",
     "creditsEmpty": "No credits yet.",
     "creditsAdd": "Add credits",
@@ -385,6 +387,8 @@
     "stepImpression": "Impressions",
     "stepProgress": "Step {current} / {total}",
     "title": "Title",
+    "originalTitle": "Original title",
+    "overview": "Synopsis",
     "watchedAt": "Watched on",
     "today": "Today",
     "yesterday": "Yesterday",
@@ -418,7 +422,7 @@
     "optional": "Optional",
     "moodTags": "Mood",
     "moodTagsHint": "18 moods, no duplicates, zero is fine",
-    "memo": "Memo",
+    "note": "Note",
     "save": "Save record",
     "watchSection": "Viewing",
     "movieSection": "Film info",
@@ -441,7 +445,9 @@
       "credits": "Names must be 100 characters or fewer",
       "posterUrl": "Enter a URL starting with http or https",
       "moodTags": "Invalid mood tag",
-      "memo": "Enter 1000 characters or fewer"
+      "originalTitle": "Enter 255 characters or fewer",
+      "overview": "Enter 2000 characters or fewer",
+      "note": "The note is too long"
     },
     "movieSuggestions": "Film suggestions",
     "titleHint": "Type 2+ characters to see TMDB suggestions. Picking one fills in the film info",
@@ -565,5 +571,16 @@
     "title": "Couldn't load this page",
     "description": "Please try again in a moment.",
     "retry": "Try again"
+  },
+  "noteEditor": {
+    "toolbar": "Formatting",
+    "bold": "Bold",
+    "italic": "Italic",
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "bulletList": "Bulleted list",
+    "orderedList": "Numbered list",
+    "blockquote": "Quote",
+    "body": "Note"
   }
 }

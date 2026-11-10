@@ -358,9 +358,11 @@
     "scoreCaption": "SCORE",
     "releaseYear": "{year}年",
     "runtime": "{minutes}分",
-    "memo": "メモ",
-    "memoEmpty": "メモはまだありません。",
-    "memoAdd": "メモを書く",
+    "note": "ノート",
+    "noteEmpty": "ノートはまだありません。",
+    "noteAdd": "ノートを書く",
+    "noteReadMore": "続きを読む",
+    "noteShowLess": "閉じる",
     "credits": "クレジット",
     "creditsEmpty": "クレジットはまだありません。",
     "creditsAdd": "クレジットを足す",
@@ -385,6 +387,8 @@
     "stepImpression": "感想",
     "stepProgress": "ステップ {current} / {total}",
     "title": "タイトル",
+    "originalTitle": "原題",
+    "overview": "あらすじ",
     "watchedAt": "視聴日",
     "today": "今日",
     "yesterday": "昨日",
@@ -418,7 +422,7 @@
     "optional": "任意",
     "moodTags": "雰囲気タグ",
     "moodTagsHint": "18種類・重複不可・0個でもOK",
-    "memo": "メモ",
+    "note": "ノート",
     "save": "記録を保存",
     "watchSection": "視聴情報",
     "movieSection": "映画情報",
@@ -441,7 +445,9 @@
       "credits": "名前は100文字以内で入力してください",
       "posterUrl": "http か https で始まる URL を入れてください",
       "moodTags": "雰囲気タグが正しくありません",
-      "memo": "1000文字以内で入力してください"
+      "originalTitle": "255文字以内で入力してください",
+      "overview": "2000文字以内で入力してください",
+      "note": "ノートが長すぎます"
     },
     "movieSuggestions": "映画の候補",
     "titleHint": "2文字以上で TMDB の候補を表示。選ぶと映画の情報を入力します",
@@ -565,5 +571,16 @@
     "title": "読み込めませんでした",
     "description": "時間をおいて、もう一度お試しください。",
     "retry": "もう一度読み込む"
+  },
+  "noteEditor": {
+    "toolbar": "書式",
+    "bold": "太字",
+    "italic": "斜体",
+    "heading": "見出し",
+    "subheading": "小見出し",
+    "bulletList": "箇条書き",
+    "orderedList": "番号付きリスト",
+    "blockquote": "引用",
+    "body": "ノート"
   }
 }

@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { ChoiceChip } from "@/components/atoms/choice-chip";
-import { CountedTextarea } from "@/components/molecules/counted-textarea";
 import { FormField } from "@/components/molecules/form-field";
+import { NoteEditor } from "@/components/molecules/note-editor";
 import type { Dictionary } from "@/i18n/get-dictionary";
 import { fieldError, type RecordFieldErrors } from "@/lib/record/field-error";
 import type { RecordFormState } from "@/lib/record/record-form-state";
@@ -13,7 +13,7 @@ type RecordImpressionFieldsProps = {
   errors?: RecordFieldErrors;
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
-  counterTemplate: string;
+  editorDict: Dictionary["noteEditor"];
 };
 
 export function RecordImpressionFields({
@@ -22,7 +22,7 @@ export function RecordImpressionFields({
   errors,
   dict,
   enums,
-  counterTemplate,
+  editorDict,
 }: RecordImpressionFieldsProps) {
   return (
     <View className="gap-4.5">
@@ -53,13 +53,12 @@ export function RecordImpressionFields({
         </View>
       </FormField>
 
-      <FormField label={dict.memo} error={fieldError(errors, dict, "memo")}>
-        <CountedTextarea
-          value={form.memo}
-          onChangeText={(memo) => update({ memo })}
-          maxLength={1000}
-          counterTemplate={counterTemplate}
-          invalid={Boolean(errors?.memo)}
+      <FormField label={dict.note} error={fieldError(errors, dict, "note")}>
+        <NoteEditor
+          defaultValue={form.note}
+          onChange={(note) => update({ note })}
+          dict={editorDict}
+          invalid={Boolean(errors?.note)}
         />
       </FormField>
     </View>

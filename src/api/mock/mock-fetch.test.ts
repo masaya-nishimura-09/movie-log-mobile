@@ -53,7 +53,6 @@ const newRecord = {
   platform: "netflix",
   score: 5,
   mood_tags: ["moving"],
-  memo: "",
 };
 
 async function list(headers: HeadersInit, query = "") {
@@ -220,7 +219,7 @@ describe("mockFetch: 記録", () => {
     expect(await gone.json()).toMatchObject({ code: "RECORD_NOT_FOUND" });
   });
 
-  it("filters by score, platform, mood tags, genres and title", async () => {
+  it("filters by score, platform, mood tags, genres and keyword", async () => {
     const headers = await register();
     const records = [
       {
@@ -252,7 +251,7 @@ describe("mockFetch: 記録", () => {
       await mockFetch("/records/", post(record, "POST", headers));
     }
     const titles = async (query: string) =>
-      (await list(headers, `${query}&title=zz-`)).body.records
+      (await list(headers, `${query}&keyword=zz-`)).body.records
         .map((r: { title: string }) => r.title)
         .sort();
     expect(await titles("score=5")).toEqual(["zz-Alpha", "zz-Gamma"]);
@@ -261,10 +260,10 @@ describe("mockFetch: 記録", () => {
       "zz-Alpha",
     ]);
     expect(await titles("genres=crime")).toEqual(["zz-Alpha", "zz-Gamma"]);
-    expect(await titles("title=ZZ-ALP")).toEqual(["zz-Alpha"]);
-    expect((await list(headers, "score=5&title=zz-")).body.filtered_count).toBe(
-      2,
-    );
+    expect(await titles("keyword=ZZ-ALP")).toEqual(["zz-Alpha"]);
+    expect(
+      (await list(headers, "score=5&keyword=zz-")).body.filtered_count,
+    ).toBe(2);
   });
 
   it("sorts by each field in both orders, then by newest ID", async () => {
@@ -297,7 +296,10 @@ describe("mockFetch: 記録", () => {
     }
     const titles = async (field: string, order: string) =>
       (
-        await list(headers, `sort_field=${field}&sort_order=${order}&title=zz-`)
+        await list(
+          headers,
+          `sort_field=${field}&sort_order=${order}&keyword=zz-`,
+        )
       ).body.records.map((r: { title: string }) => r.title);
     expect(await titles("watched_at", "desc")).toEqual([
       "zz-C",
@@ -351,5 +353,64 @@ describe("mockFetch: 映画とメディア", () => {
   it("returns 404 for an unknown path", async () => {
     const response = await mockFetch("/unknown", { headers: await auth() });
     expect(await response.json()).toMatchObject({ code: "NOT_FOUND" });
+  });
+});
+
+describe("mockFetch: ノート", () => {
+  const note = (text: string) => ({
+    type: "doc",
+    content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+  });
+
+  it("saves, returns, updates and deletes the note of a record", async () => {
+    const headers = await auth();
+    const created = await (
+      await mockFetch(
+        "/records/",
+        post({ ...newRecord, note: note("最初") }, "POST", headers),
+      )
+    ).json();
+    expect(created.note).toEqual(note("最初"));
+    const path = `/records/${created.record_id}`;
+    const read = async () => (await mockFetch(path, { headers })).json();
+    expect((await read()).note).toEqual(note("最初"));
+    await mockFetch(
+      path,
+      post({ ...newRecord, note: note("二回目") }, "PUT", headers),
+    );
+    expect((await read()).note).toEqual(note("二回目"));
+    await mockFetch(path, post({ ...newRecord, note: null }, "PUT", headers));
+    expect((await read()).note).toBeNull();
+    await mockFetch(
+      path,
+      post({ ...newRecord, note: note("三回目") }, "PUT", headers),
+    );
+    await mockFetch(path, post({ ...newRecord }, "PUT", headers));
+    expect((await read()).note).toBeNull();
+  });
+
+  it("finds records by the text of their notes", async () => {
+    const headers = await auth();
+    await mockFetch(
+      "/records/",
+      post(
+        { ...newRecord, title: "別の題名", note: note("宇宙船の場面") },
+        "POST",
+        headers,
+      ),
+    );
+    const found = await list(
+      headers,
+      `keyword=${encodeURIComponent("宇宙船の場面")}`,
+    );
+    expect(found.body.records.map((r: { title: string }) => r.title)).toEqual([
+      "別の題名",
+    ]);
+  });
+
+  it("seeds notes for the initial records", async () => {
+    const headers = await auth();
+    const got = await (await mockFetch("/records/1", { headers })).json();
+    expect(got.note).toMatchObject({ type: "doc" });
   });
 });

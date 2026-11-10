@@ -6,9 +6,14 @@ import {
   platformSchema,
   scoreSchema,
 } from "@/schemas/record/enums";
+import { noteContentSchema } from "@/schemas/record/note";
+
+const noteMaxBytes = 100 * 1024;
 
 export const recordInputSchema = z.object({
   title: z.string().min(1).max(255),
+  originalTitle: z.string().max(255),
+  overview: z.string().max(2000),
   watchedAt: z.iso.datetime().refine((at) => Date.parse(at) <= Date.now()),
   score: z.coerce.number().pipe(scoreSchema),
   platform: platformSchema,
@@ -29,7 +34,14 @@ export const recordInputSchema = z.object({
   ),
   posterUrl: z.union([z.literal(""), z.url({ protocol: /^https?$/ })]),
   moodTags: z.array(moodTagSchema),
-  memo: z.string().max(1000),
+  note: noteContentSchema
+    .refine((content) => content.type === "doc")
+    .refine(
+      (content) =>
+        new TextEncoder().encode(JSON.stringify(content)).length <=
+        noteMaxBytes,
+    )
+    .nullable(),
 });
 
 export type RecordInput = z.infer<typeof recordInputSchema>;
@@ -39,6 +51,8 @@ export type RecordInputField = keyof RecordInput;
 export function toRecordRequest(input: RecordInput) {
   return {
     title: input.title,
+    original_title: input.originalTitle,
+    overview: input.overview,
     release_year: input.releaseYear,
     runtime: input.runtime,
     genres: input.genres,
@@ -53,6 +67,6 @@ export function toRecordRequest(input: RecordInput) {
     platform: input.platform,
     score: input.score,
     mood_tags: input.moodTags,
-    memo: input.memo,
+    note: input.note,
   };
 }

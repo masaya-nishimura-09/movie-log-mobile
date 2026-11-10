@@ -8,6 +8,7 @@ import { SectionLabel } from "@/components/atoms/section-label";
 import { Text } from "@/components/atoms/text";
 import { EmptyNote } from "@/components/molecules/empty-note";
 import { MetaItem } from "@/components/molecules/meta-item";
+import { NoteSheet } from "@/components/molecules/note-sheet";
 import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { RecordPoster } from "@/components/molecules/record-poster";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -17,11 +18,11 @@ import { languageName } from "@/lib/record/language-options";
 import { regionName } from "@/lib/record/region-names";
 import { formatList } from "@/lib/text/format-list";
 import { interpolate } from "@/lib/text/interpolate";
-import type { MovieRecord } from "@/schemas/record/record";
+import type { RecordDetail as RecordDetailData } from "@/schemas/record/record";
 
 type RecordDetailProps = {
   locale: Locale;
-  record: MovieRecord;
+  record: RecordDetailData;
   dict: Dictionary;
   refreshing: boolean;
   onRefresh: () => void;
@@ -155,17 +156,17 @@ export function RecordDetail({
       </View>
 
       <View className="gap-2.5">
-        <SectionLabel>{d.memo}</SectionLabel>
-        {record.memo !== "" ? (
-          <View className="rounded-2xl bg-card px-5.5 py-5">
-            <Text className="text-[15px] text-foreground leading-loose">
-              {record.memo}
-            </Text>
-          </View>
+        <SectionLabel>{d.note}</SectionLabel>
+        {record.note ? (
+          <NoteSheet
+            content={record.note}
+            readMoreLabel={d.noteReadMore}
+            showLessLabel={d.noteShowLess}
+          />
         ) : (
           <EmptyNote
-            text={d.memoEmpty}
-            actionLabel={d.memoAdd}
+            text={d.noteEmpty}
+            actionLabel={d.noteAdd}
             href={editHref}
           />
         )}

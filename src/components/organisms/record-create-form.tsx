@@ -28,6 +28,7 @@ type RecordCreateFormProps = {
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
   counterTemplate: string;
+  editorDict: Dictionary["noteEditor"];
   closeLabel: string;
   onSaved: () => void;
 };
@@ -43,7 +44,7 @@ const stepFields = [
     "credits",
     "posterUrl",
   ],
-  ["moodTags", "memo"],
+  ["moodTags", "note"],
 ];
 
 function stepOf(field: string): number {
@@ -58,6 +59,7 @@ export function RecordCreateForm({
   dict,
   enums,
   counterTemplate,
+  editorDict,
   closeLabel,
   onSaved,
 }: RecordCreateFormProps) {
@@ -181,7 +183,7 @@ export function RecordCreateForm({
                 errors={errors}
                 dict={dict}
                 enums={enums}
-                counterTemplate={counterTemplate}
+                editorDict={editorDict}
               />
             </>
           )}

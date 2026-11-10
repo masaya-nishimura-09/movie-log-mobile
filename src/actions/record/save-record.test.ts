@@ -12,6 +12,8 @@ const { saveRecordAction } = await import("@/actions/record/save-record");
 function values(fields: Record<string, unknown> = {}) {
   return {
     title: "Arrival",
+    originalTitle: "",
+    overview: "",
     watchedAt: "2026-10-01T12:00:00Z",
     score: 5,
     platform: "netflix",
@@ -23,7 +25,7 @@ function values(fields: Record<string, unknown> = {}) {
     credits: [{ personName: "Amy Adams", creditRole: "cast" }],
     posterUrl: "",
     moodTags: [],
-    memo: "",
+    note: null,
     ...fields,
   };
 }

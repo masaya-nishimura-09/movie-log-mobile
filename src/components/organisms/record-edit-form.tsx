@@ -24,6 +24,7 @@ type RecordEditFormProps = {
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
   counterTemplate: string;
+  editorDict: Dictionary["noteEditor"];
   closeLabel: string;
 };
 
@@ -44,6 +45,7 @@ export function RecordEditForm({
   dict,
   enums,
   counterTemplate,
+  editorDict,
   closeLabel,
 }: RecordEditFormProps) {
   const router = useRouter();
@@ -85,7 +87,7 @@ export function RecordEditForm({
             errors={failure?.errors}
             dict={dict}
             enums={enums}
-            counterTemplate={counterTemplate}
+            editorDict={editorDict}
           />
         </Panel>
         <Panel title={dict.movieSection}>

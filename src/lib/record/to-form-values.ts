@@ -1,9 +1,11 @@
-import type { MovieRecord } from "@/schemas/record/record";
+import type { RecordDetail } from "@/schemas/record/record";
 import type { RecordFormValues } from "@/schemas/record/record-form";
 
 export function emptyFormValues(): RecordFormValues {
   return {
     title: "",
+    originalTitle: "",
+    overview: "",
     watchedAt: "",
     runtime: 0,
     genres: [],
@@ -12,13 +14,14 @@ export function emptyFormValues(): RecordFormValues {
     credits: [],
     posterUrl: "",
     moodTags: [],
-    memo: "",
   };
 }
 
-export function toFormValues(record: MovieRecord): RecordFormValues {
+export function toFormValues(record: RecordDetail): RecordFormValues {
   return {
     title: record.title,
+    originalTitle: record.originalTitle,
+    overview: record.overview,
     watchedAt: record.watchedAt,
     releaseYear: record.releaseYear,
     runtime: record.runtime,
@@ -30,7 +33,7 @@ export function toFormValues(record: MovieRecord): RecordFormValues {
     platform: record.platform,
     score: record.score,
     moodTags: record.moodTags,
-    memo: record.memo,
+    note: record.note ?? undefined,
   };
 }
 
