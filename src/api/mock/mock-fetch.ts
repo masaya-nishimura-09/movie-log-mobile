@@ -1,3 +1,4 @@
+import { mockAttachments } from "@/api/mock/mock-attachments";
 import { mockNotes } from "@/api/mock/mock-notes";
 import { mockRecords } from "@/api/mock/mock-records";
 import { mockAccounts, toUserResponse } from "@/api/mock/mock-user";
@@ -7,6 +8,8 @@ import {
   readJwtPayload,
 } from "@/lib/auth/jwt";
 import type { ApiErrorResponse } from "@/schemas/error/api-error";
+import { posterContentTypes } from "@/schemas/media/media";
+import { maxAttachments } from "@/schemas/record/attachment";
 import type { RecordResponse } from "@/schemas/record/record";
 
 function json(body: unknown, status = 200): Response {
@@ -259,6 +262,9 @@ function deleteRecord(id: string): Response {
   if (index === -1) return error(404, "RECORD_NOT_FOUND");
   mockRecords.splice(index, 1);
   mockNotes.delete(id);
+  for (let i = mockAttachments.length - 1; i >= 0; i -= 1) {
+    if (mockAttachments[i]?.record_id === id) mockAttachments.splice(i, 1);
+  }
   return new Response(null, { status: 204 });
 }
 
@@ -302,6 +308,72 @@ function getMovie(id: string): Response {
   });
 }
 
+function toAttachmentResponse({
+  attachment_id,
+  image_url,
+  created_at,
+}: (typeof mockAttachments)[number]) {
+  return { attachment_id, image_url, created_at };
+}
+
+function hasRecord(id: string): boolean {
+  return mockRecords.some((r) => r.record_id === id);
+}
+
+function listAttachments(id: string): Response {
+  if (!hasRecord(id)) return error(404, "RECORD_NOT_FOUND");
+  return json({
+    attachments: mockAttachments
+      .filter((attachment) => attachment.record_id === id)
+      .map(toAttachmentResponse),
+  });
+}
+
+type FormPart = { fieldName?: string; uri?: unknown; type?: unknown };
+
+function readUploadedFile(init: RequestInit) {
+  const body = init.body as { getParts?: () => FormPart[] } | null;
+  const part = body?.getParts?.().find((p) => p.fieldName === "file");
+  return typeof part?.uri === "string" && typeof part.type === "string"
+    ? { uri: part.uri, type: part.type }
+    : undefined;
+}
+
+function addAttachment(id: string, init: RequestInit): Response {
+  if (!hasRecord(id)) return error(404, "RECORD_NOT_FOUND");
+  const file = readUploadedFile(init);
+  if (!file || !posterContentTypes.includes(file.type)) {
+    return error(400, "INVALID_INPUT");
+  }
+  if (
+    mockAttachments.filter((a) => a.record_id === id).length >= maxAttachments
+  ) {
+    return error(400, "INVALID_INPUT");
+  }
+  const lastId = Math.max(
+    0,
+    ...mockAttachments.map((a) => Number(a.attachment_id)),
+  );
+  const attachment = {
+    attachment_id: String(lastId + 1),
+    record_id: id,
+    image_url: file.uri,
+    created_at: new Date().toISOString(),
+  };
+  mockAttachments.push(attachment);
+  return json(toAttachmentResponse(attachment), 201);
+}
+
+function deleteAttachment(id: string, attachmentId: string): Response {
+  if (!hasRecord(id)) return error(404, "RECORD_NOT_FOUND");
+  const index = mockAttachments.findIndex(
+    (a) => a.record_id === id && a.attachment_id === attachmentId,
+  );
+  if (index === -1) return error(404, "ATTACHMENT_NOT_FOUND");
+  mockAttachments.splice(index, 1);
+  return new Response(null, { status: 204 });
+}
+
 function uploadMedia(): Response {
   return json({ url: `https://mock.invalid/posters/${randomId()}` }, 201);
 }
@@ -312,7 +384,7 @@ export async function mockFetch(
 ): Promise<Response> {
   const url = new URL(path, "http://mock");
   const method = init.method ?? "GET";
-  const [resource, id, sub] = url.pathname.split("/").filter(Boolean);
+  const [resource, id, sub, subId] = url.pathname.split("/").filter(Boolean);
 
   if (method === "POST" && resource === "auth") {
     if (id === "login") return login(init);
@@ -334,6 +406,15 @@ export async function mockFetch(
   if (resource === "records" && id === undefined) {
     if (method === "GET") return listRecords(url.searchParams);
     if (method === "POST") return createRecord(init);
+  }
+  if (resource === "records" && id !== undefined && sub === "attachments") {
+    if (method === "GET" && subId === undefined) return listAttachments(id);
+    if (method === "POST" && subId === undefined) {
+      return addAttachment(id, init);
+    }
+    if (method === "DELETE" && subId !== undefined) {
+      return deleteAttachment(id, subId);
+    }
   }
   if (resource === "records" && id !== undefined && sub === undefined) {
     if (method === "GET") return getRecord(id);

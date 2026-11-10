@@ -5,6 +5,7 @@ import { saveRecordAction } from "@/actions/record/save-record";
 export function useSaveRecord(
   recordId: string | undefined,
   onSaved?: () => void,
+  afterSave?: (savedId: string) => Promise<void>,
 ) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -13,6 +14,7 @@ export function useSaveRecord(
     mutationFn: (values: unknown) => saveRecordAction(recordId, values),
     onSuccess: async (result) => {
       if (!result.success) return;
+      await afterSave?.(result.data);
       await queryClient.invalidateQueries({ queryKey: ["records"] });
       if (recordId) router.dismissTo(`/records/${result.data}`);
       else router.navigate(`/records/${result.data}`);

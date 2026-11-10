@@ -4,6 +4,7 @@ import type { PosterFile } from "@/api/media/upload-poster";
 import { ChoiceChip } from "@/components/atoms/choice-chip";
 import { Input } from "@/components/atoms/input";
 import { Text } from "@/components/atoms/text";
+import { CountedTextarea } from "@/components/molecules/counted-textarea";
 import { CountryInput } from "@/components/molecules/country-input";
 import { CreditRows } from "@/components/molecules/credit-rows";
 import { FormField } from "@/components/molecules/form-field";
@@ -28,6 +29,7 @@ type RecordMovieFieldsProps = {
   ) => Promise<ActionResult<string>>;
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
+  counterTemplate: string;
   closeLabel: string;
 };
 
@@ -40,6 +42,7 @@ export function RecordMovieFields({
   uploadPoster,
   dict,
   enums,
+  counterTemplate,
   closeLabel,
 }: RecordMovieFieldsProps) {
   const languageOptions = buildLanguageOptions(
@@ -50,6 +53,31 @@ export function RecordMovieFields({
 
   return (
     <View className="gap-4.5">
+      <FormField
+        label={dict.originalTitle}
+        error={fieldError(errors, dict, "originalTitle")}
+      >
+        <Input
+          value={form.originalTitle}
+          onChangeText={(originalTitle) => update({ originalTitle })}
+          maxLength={255}
+          invalid={Boolean(errors?.originalTitle)}
+        />
+      </FormField>
+
+      <FormField
+        label={dict.overview}
+        error={fieldError(errors, dict, "overview")}
+      >
+        <CountedTextarea
+          value={form.overview}
+          onChangeText={(overview) => update({ overview })}
+          maxLength={2000}
+          counterTemplate={counterTemplate}
+          invalid={Boolean(errors?.overview)}
+        />
+      </FormField>
+
       <View className="flex-row gap-4">
         <FormField
           label={dict.releaseYear}

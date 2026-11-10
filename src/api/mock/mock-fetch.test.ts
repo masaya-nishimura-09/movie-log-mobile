@@ -414,3 +414,57 @@ describe("mockFetch: ノート", () => {
     expect(got.note).toMatchObject({ type: "doc" });
   });
 });
+
+describe("mockFetch: 添付", () => {
+  function upload(type = "image/png") {
+    const part = {
+      fieldName: "file",
+      uri: "file:///a.png",
+      name: "a.png",
+      type,
+    };
+    return { getParts: () => [part] } as unknown as FormData;
+  }
+
+  it("lists, adds and deletes the attachments of a record", async () => {
+    const headers = await auth();
+    const path = "/records/1/attachments";
+    const count = async () =>
+      (await (await mockFetch(path, { headers })).json()).attachments.length;
+    const before = await count();
+    const added = await mockFetch(path, {
+      method: "POST",
+      headers,
+      body: upload(),
+    });
+    expect(added.status).toBe(201);
+    const { attachment_id, image_url } = await added.json();
+    expect(image_url).toBe("file:///a.png");
+    expect(await count()).toBe(before + 1);
+    const removed = await mockFetch(`${path}/${attachment_id}`, {
+      method: "DELETE",
+      headers,
+    });
+    expect(removed.status).toBe(204);
+    expect(await count()).toBe(before);
+    const gone = await mockFetch(`${path}/${attachment_id}`, {
+      method: "DELETE",
+      headers,
+    });
+    expect(await gone.json()).toMatchObject({ code: "ATTACHMENT_NOT_FOUND" });
+  });
+
+  it("refuses a file that is not an image and a missing record", async () => {
+    const headers = await auth();
+    const gif = await mockFetch("/records/1/attachments", {
+      method: "POST",
+      headers,
+      body: upload("image/gif"),
+    });
+    expect(gif.status).toBe(400);
+    const missing = await mockFetch("/records/999999/attachments", {
+      headers,
+    });
+    expect(await missing.json()).toMatchObject({ code: "RECORD_NOT_FOUND" });
+  });
+});

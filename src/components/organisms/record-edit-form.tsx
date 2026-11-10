@@ -80,16 +80,6 @@ export function RecordEditForm({
             counterTemplate={counterTemplate}
           />
         </Panel>
-        <Panel title={dict.stepImpression}>
-          <RecordImpressionFields
-            form={form}
-            update={update}
-            errors={failure?.errors}
-            dict={dict}
-            enums={enums}
-            editorDict={editorDict}
-          />
-        </Panel>
         <Panel title={dict.movieSection}>
           <RecordMovieFields
             locale={locale}
@@ -100,7 +90,18 @@ export function RecordEditForm({
             uploadPoster={uploadPosterAction}
             dict={dict}
             enums={enums}
+            counterTemplate={counterTemplate}
             closeLabel={closeLabel}
+          />
+        </Panel>
+        <Panel title={dict.stepImpression}>
+          <RecordImpressionFields
+            form={form}
+            update={update}
+            errors={failure?.errors}
+            dict={dict}
+            enums={enums}
+            editorDict={editorDict}
           />
         </Panel>
       </ScrollView>

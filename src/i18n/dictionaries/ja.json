@@ -369,11 +369,39 @@
     "watchedAt": "視聴日",
     "platform": "プラットフォーム",
     "createdAt": "記録日時",
-    "updatedAt": "最終更新"
+    "updatedAt": "最終更新",
+    "tabRecord": "記録",
+    "tabMovie": "映画情報",
+    "attachments": "添付",
+    "attachmentsEmpty": "添付はまだありません。",
+    "attachmentOpen": "添付 {number} を開く",
+    "overview": "あらすじ",
+    "overviewEmpty": "あらすじはまだありません。",
+    "overviewAdd": "あらすじを書く",
+    "originalTitle": "原題",
+    "attachmentsAdd": "画像を添付",
+    "attachmentsUploading": "アップロード中",
+    "attachmentsUploadError": "添付できませんでした。JPEG・PNG・WebP の5MBまでです",
+    "attachmentClose": "閉じる",
+    "attachmentDelete": "削除",
+    "attachmentPosition": "{number} / {total}",
+    "attachmentPrev": "前の画像",
+    "attachmentNext": "次の画像",
+    "attachmentsLimit": "添付できるのは{max}枚までです",
+    "infoLabel": "{name}の説明",
+    "attachmentsInfo": "パンフレットやチラシ、描いた絵などの画像を10枚まで貼れます。",
+    "moodTags": "雰囲気"
   },
   "deleteRecord": {
     "title": "この記録を削除しますか？",
     "description": "「{title}」（{date}）とメモが消えます。取り消しできません。",
+    "cancel": "やめる",
+    "confirm": "削除する",
+    "unexpectedError": "削除できませんでした。時間をおいてやり直してください"
+  },
+  "deleteAttachment": {
+    "title": "この画像を削除しますか？",
+    "description": "添付した画像が消えます。取り消しできません。",
     "cancel": "やめる",
     "confirm": "削除する",
     "unexpectedError": "削除できませんでした。時間をおいてやり直してください"
@@ -453,7 +481,15 @@
     "titleHint": "2文字以上で TMDB の候補を表示。選ぶと映画の情報を入力します",
     "uploadPoster": "画像をアップロード",
     "uploadingPoster": "アップロード中",
-    "posterUploadError": "アップロードできませんでした。JPEG・PNG・WebP の5MBまでです"
+    "posterUploadError": "アップロードできませんでした。JPEG・PNG・WebP の5MBまでです",
+    "attachments": "添付",
+    "attachmentsHint": "パンフレットやチラシ、描いた絵などの画像。JPEG・PNG・WebP の5MBまで、10枚まで",
+    "attachmentsAdd": "画像を選ぶ",
+    "attachmentRemove": "{number}枚目を外す",
+    "attachmentsInvalid": "JPEG・PNG・WebP の5MBまでの画像を選んでください",
+    "attachmentsLimit": "添付できるのは{max}枚までです",
+    "attachmentsUploadFailed": "記録は保存しましたが、添付できなかった画像があります",
+    "uploadingAttachments": "画像を添付中"
   },
   "account": {
     "back": "もどる",

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { Inset } from "@/components/atoms/inset";
-import { PageTopBar } from "@/components/organisms/page-top-bar";
+import { Text } from "@/components/atoms/text";
 import { RecordCreateForm } from "@/components/organisms/record-create-form";
 import { useI18n } from "@/i18n/use-i18n";
 import { emptyFormValues, maxReleaseYear } from "@/lib/record/to-form-values";
@@ -13,7 +13,12 @@ export default function NewRecordPage() {
   return (
     <Inset>
       <View className="flex-1 bg-background">
-        <PageTopBar title={dict.recordForm.createTitle} />
+        <Text
+          accessibilityRole="header"
+          className="px-4 pt-5 font-bold text-2xl text-foreground"
+        >
+          {dict.recordForm.createTitle}
+        </Text>
         <RecordCreateForm
           key={formKey}
           locale={locale}
