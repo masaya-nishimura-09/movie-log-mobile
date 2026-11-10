@@ -42,7 +42,7 @@ export function RecordGrid({
       refreshControl={
         <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      renderItem={({ item }) => {
+      renderItem={({ item, index }) => {
         if (!item) return <View className="flex-1" />;
         const year = item.releaseYear > 0 ? String(item.releaseYear) : "";
         const platformLabel = dict.enums.platform[item.platform];
@@ -60,6 +60,7 @@ export function RecordGrid({
               meta={[year, platformLabel].filter(Boolean).join(" · ")}
               watchedStamp={watchedShort}
               noPosterLabel={dict.recordCard.noPoster}
+              index={index}
             />
           </View>
         );

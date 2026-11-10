@@ -1,6 +1,7 @@
 import { CalendarDays, Clock, Languages, MapPin } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 import { GenreTag } from "@/components/atoms/genre-tag";
+import { MaskingTape } from "@/components/atoms/masking-tape";
 import { MoodTag } from "@/components/atoms/mood-tag";
 import { ScoreBadge } from "@/components/atoms/score-badge";
 import { SectionLabel } from "@/components/atoms/section-label";
@@ -91,11 +92,19 @@ export function RecordDetail({
       }
     >
       <View className="flex-row gap-4">
-        <RecordPoster
-          posterUrl={record.posterUrl}
-          noPosterLabel={dict.recordCard.noPoster}
-          className="w-29 shrink-0 self-start rounded-xl"
-        />
+        <View className="relative w-29 shrink-0 self-start pt-1.5">
+          <View
+            className="rounded-[3px]"
+            style={{ boxShadow: "0 10px 24px -12px rgba(10, 41, 71, 0.55)" }}
+          >
+            <RecordPoster
+              posterUrl={record.posterUrl}
+              noPosterLabel={dict.recordCard.noPoster}
+              className="rounded-[3px]"
+            />
+          </View>
+          <MaskingTape className="top-0" tapeClassName="h-3.5 w-11" />
+        </View>
         <View className="min-w-0 flex-1 gap-3">
           <ScoreBadge
             score={record.score}
