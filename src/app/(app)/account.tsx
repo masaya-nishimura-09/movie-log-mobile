@@ -5,7 +5,9 @@ import { Inset } from "@/components/atoms/inset";
 import { Text } from "@/components/atoms/text";
 import { ErrorState } from "@/components/molecules/error-state";
 import { LoadingState } from "@/components/molecules/loading-state";
-import { AccountForm } from "@/components/organisms/account-form";
+import { AccountEmailForm } from "@/components/organisms/account-email-form";
+import { AccountPasswordForm } from "@/components/organisms/account-password-form";
+import { AccountUsernameForm } from "@/components/organisms/account-username-form";
 import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { WithdrawSection } from "@/components/organisms/withdraw-section";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -33,11 +35,19 @@ export default function AccountPage() {
             {dict.account.notice}
           </Text>
         </View>
-        <AccountForm
+        <AccountUsernameForm
+          user={user}
+          dict={dict.account}
+          counterTemplate={dict.characterCount}
+        />
+        <AccountEmailForm
           user={user}
           dict={dict.account}
           passwordDict={dict.passwordInput}
-          counterTemplate={dict.characterCount}
+        />
+        <AccountPasswordForm
+          dict={dict.account}
+          passwordDict={dict.passwordInput}
         />
         <WithdrawSection dict={dict.account} />
       </ScrollView>

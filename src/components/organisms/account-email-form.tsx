@@ -1,78 +1,52 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
-import { updateAccountAction } from "@/actions/user/update-account";
-import { Button } from "@/components/atoms/button";
-import { FormAlert } from "@/components/atoms/form-alert";
+import { updateEmailAction } from "@/actions/user/update-email";
 import { Input } from "@/components/atoms/input";
-import { CountedInput } from "@/components/molecules/counted-input";
+import { AccountFormCard } from "@/components/molecules/account-form-card";
 import { FormField } from "@/components/molecules/form-field";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { useToast } from "@/components/molecules/toaster";
 import type { Dictionary } from "@/i18n/get-dictionary";
-import { dictMessage } from "@/lib/text/dict-message";
 import type { User } from "@/schemas/user/user";
 
-type AccountFormProps = {
+type AccountEmailFormProps = {
   user: User;
   dict: Dictionary["account"];
   passwordDict: Dictionary["passwordInput"];
-  counterTemplate: string;
 };
 
-export function AccountForm({
+export function AccountEmailForm({
   user,
   dict,
   passwordDict,
-  counterTemplate,
-}: AccountFormProps) {
-  const router = useRouter();
+}: AccountEmailFormProps) {
   const queryClient = useQueryClient();
   const toast = useToast();
-  const [username, setUsername] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
   const { mutate, data, isPending } = useMutation({
-    mutationFn: updateAccountAction,
+    mutationFn: updateEmailAction,
     onSuccess: async (result) => {
       if (!result.success) return;
       setPassword("");
       toast(dict.saved);
-      if (!result.data.loggedIn) {
-        queryClient.clear();
-        router.replace("/login");
-        return;
-      }
       await queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
   const failure = data?.success === false ? data : undefined;
 
   useEffect(() => {
-    setUsername(user.username);
     setEmail(user.email);
-  }, [user]);
+  }, [user.email]);
 
   return (
-    <View className="gap-4 rounded-2xl bg-card p-4">
-      {failure && !failure.errors && (
-        <FormAlert>
-          {dictMessage(dict, failure.messageKey) ?? dict.unexpectedError}
-        </FormAlert>
-      )}
-      <FormField
-        label={dict.username}
-        error={failure?.errors?.username && dict.usernameError}
-      >
-        <CountedInput
-          value={username}
-          onChangeText={setUsername}
-          maxLength={100}
-          counterTemplate={counterTemplate}
-          invalid={Boolean(failure?.errors?.username)}
-        />
-      </FormField>
+    <AccountFormCard
+      title={dict.emailTitle}
+      failure={failure}
+      pending={isPending}
+      onSave={() => mutate({ email, password })}
+      dict={dict}
+    >
       <FormField
         label={dict.email}
         error={failure?.errors?.email && dict.emailError}
@@ -87,15 +61,15 @@ export function AccountForm({
         />
       </FormField>
       <FormField
-        label={dict.password}
-        hint={dict.passwordHint}
+        label={dict.currentPassword}
+        hint={dict.currentPasswordHint}
         error={failure?.errors?.password && dict.passwordError}
       >
         <PasswordInput
           value={password}
           onChangeText={setPassword}
           autoCapitalize="none"
-          autoComplete="new-password"
+          autoComplete="current-password"
           autoCorrect={false}
           maxLength={72}
           invalid={Boolean(failure?.errors?.password)}
@@ -103,15 +77,6 @@ export function AccountForm({
           hideLabel={passwordDict.hide}
         />
       </FormField>
-      <View className="flex-row justify-end gap-2 border-secondary border-t pt-3.5">
-        <Button
-          className="h-12 flex-1"
-          disabled={isPending}
-          onPress={() => mutate({ username, email, password })}
-        >
-          {dict.save}
-        </Button>
-      </View>
-    </View>
+    </AccountFormCard>
   );
 }

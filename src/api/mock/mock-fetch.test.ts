@@ -148,23 +148,37 @@ describe("mockFetch: ユーザー", () => {
       username: "tester",
       email: "tester@example.com",
     });
-    const updated = await mockFetch(
-      "/users/",
+    await mockFetch(
+      "/users/username",
+      post({ name: "renamed" }, "PUT", headers),
+    );
+    await mockFetch(
+      "/users/email",
       post(
-        {
-          name: "renamed",
-          email: "renamed@example.com",
-          password: "password2",
-        },
+        { email: "renamed@example.com", password: "password" },
         "PUT",
         headers,
       ),
     );
+    await mockFetch(
+      "/users/password",
+      post(
+        { old_password: "password", new_password: "password2" },
+        "PUT",
+        headers,
+      ),
+    );
+    const updated = await mockFetch("/users/", { headers });
     expect(await updated.json()).toEqual({
       user_id: "2",
       username: "renamed",
       email: "renamed@example.com",
     });
+    const relogin = await mockFetch(
+      "/auth/login",
+      post({ email: "renamed@example.com", password: "password2" }),
+    );
+    expect(relogin.status).toBe(200);
     const deleted = await mockFetch("/users/", { method: "DELETE", headers });
     expect(deleted.status).toBe(204);
     const login = await mockFetch(
@@ -174,18 +188,30 @@ describe("mockFetch: ユーザー", () => {
     expect(login.status).toBe(401);
   });
 
-  it("rejects an email used by another user", async () => {
+  it("rejects an email used by another user and a wrong current password", async () => {
     const headers = await register();
-    const response = await mockFetch(
-      "/users/",
+    const taken = await mockFetch(
+      "/users/email",
+      post({ email: "demo@example.com", password: "password" }, "PUT", headers),
+    );
+    expect(await taken.json()).toMatchObject({ code: "USER_ALREADY_EXISTS" });
+    const wrongForEmail = await mockFetch(
+      "/users/email",
+      post({ email: "new@example.com", password: "wrongpass" }, "PUT", headers),
+    );
+    expect(await wrongForEmail.json()).toMatchObject({
+      code: "INVALID_CURRENT_PASSWORD",
+    });
+    const wrongForPassword = await mockFetch(
+      "/users/password",
       post(
-        { name: "tester", email: "demo@example.com", password: "password" },
+        { old_password: "wrongpass", new_password: "password3" },
         "PUT",
         headers,
       ),
     );
-    expect(await response.json()).toMatchObject({
-      code: "USER_ALREADY_EXISTS",
+    expect(await wrongForPassword.json()).toMatchObject({
+      code: "INVALID_CURRENT_PASSWORD",
     });
   });
 });
