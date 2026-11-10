@@ -6,8 +6,8 @@
 
 The mobile app of Cinelier, an app for keeping a record of the films you watch.<br/>Each record keeps the poster, viewing date, score, mood, and notes for a film.
 
-![Expo](https://img.shields.io/badge/Expo-57-0a2947?logo=expo&logoColor=f3e4c9)
-![React Native](https://img.shields.io/badge/React_Native-0.86-0a2947?logo=react&logoColor=f3e4c9)
+![Expo](https://img.shields.io/badge/Expo-58-0a2947?logo=expo&logoColor=f3e4c9)
+![React Native](https://img.shields.io/badge/React_Native-0.88-0a2947?logo=react&logoColor=f3e4c9)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-0a2947?logo=typescript&logoColor=f3e4c9)
 ![NativeWind](https://img.shields.io/badge/NativeWind-4-0a2947?logo=tailwindcss&logoColor=f3e4c9)
 ![pnpm](https://img.shields.io/badge/pnpm-11-0a2947?logo=pnpm&logoColor=f3e4c9)
@@ -53,13 +53,16 @@ UI components are organized into atoms, molecules, and organisms.
 **Viewing records**
 
 - Create, view, update, and delete viewing records
-- Film details (release year, runtime, language, countries, genres, credits, and poster) filled in from TMDB
+- Film details (original title, synopsis, release year, runtime, language, countries, genres, credits, and poster) filled in from TMDB
 - Poster image uploads from the photo library
 - Viewing date selection from a calendar, with shortcuts for today and yesterday
+- Image attachments such as pamphlets, flyers, and drawings (up to 10 per record, added when creating or later, and shown one at a time on a full screen)
+- One note per record, written in an editor with bold, italic, headings, subheadings, bulleted and numbered lists, and quotes
+- A record page split into a log tab (mood, note, attachments) and a film info tab (original title, synopsis, genres, credits)
 
 **Finding records**
 
-- Title search, sorting, and pagination
+- Search by title and note text, sorting, and pagination
 - Filtering by score, platform, mood, and genre
   (one score and one platform; moods and genres match only records that have all of them)
 - Pull down on the list or a record to reload it
@@ -67,7 +70,8 @@ UI components are organized into atoms, molecules, and organisms.
 **Accounts**
 
 - Registration, login, and logout, with automatic token refresh
-- Account updates and deletion
+- Changing the display name, email, and password one at a time, and deleting the account
+- Exporting the film log as CSV and the notes as Markdown files in a ZIP, saved through the share sheet
 
 **Interface**
 
@@ -93,9 +97,10 @@ Font weights depend on the role of the text: 400 for body text,
 
 | Category        | Technologies                                    |
 |-----------------|-------------------------------------------------|
-| Framework       | Expo (SDK 57), React Native, Expo Router        |
+| Framework       | Expo (SDK 58), React Native, Expo Router        |
 | Language        | TypeScript                                      |
 | Styling         | NativeWind (Tailwind CSS 3), Lucide             |
+| Editor          | TenTap (Tiptap)                                 |
 | Data fetching   | TanStack Query                                  |
 | Validation      | Zod                                             |
 | Storage         | Expo SecureStore (tokens), AsyncStorage (theme) |
