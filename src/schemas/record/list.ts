@@ -5,7 +5,12 @@ import {
   platformSchema,
   scoreSchema,
 } from "@/schemas/record/enums";
-import { recordResponseSchema, recordSchema } from "@/schemas/record/record";
+import {
+  type MovieRecord,
+  recordDetailResponseSchema,
+  recordResponseSchema,
+  recordSchema,
+} from "@/schemas/record/record";
 
 export const recordSortSchema = z.enum([
   "watchedAtDesc",
@@ -45,6 +50,17 @@ export const recordListResponseSchema = z
     totalCount: r.total_count,
   }));
 
+export const recordNoteListResponseSchema = z
+  .object({
+    records: z.array(recordDetailResponseSchema),
+    filtered_count: countSchema,
+    total_count: countSchema,
+  })
+  .transform((r) => ({
+    records: r.records,
+    filteredCount: r.filtered_count,
+  }));
+
 const recordListSchema = z.object({
   records: z.array(recordSchema),
   totalCount: countSchema,
@@ -54,3 +70,8 @@ const recordListSchema = z.object({
 });
 
 export type RecordList = z.infer<typeof recordListSchema>;
+
+export type RecordOption = Pick<
+  MovieRecord,
+  "recordId" | "title" | "releaseYear"
+>;

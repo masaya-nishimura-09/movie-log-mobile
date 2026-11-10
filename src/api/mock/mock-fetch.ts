@@ -97,7 +97,12 @@ function listRecords(params: URLSearchParams): Response {
   const sortOrder = params.get("sort_order") ?? "desc";
   const page = Number(params.get("page") ?? "1");
   const perPage = Number(params.get("per_page") ?? "20");
-  if (!isSortField(sortField) || !["asc", "desc"].includes(sortOrder)) {
+  const includeNote = params.get("include_note") ?? "false";
+  if (
+    !isSortField(sortField) ||
+    !["asc", "desc"].includes(sortOrder) ||
+    !["true", "false"].includes(includeNote)
+  ) {
     return error(400, "INVALID_INPUT");
   }
   const compare = comparators[sortField];
@@ -110,7 +115,9 @@ function listRecords(params: URLSearchParams): Response {
     );
 
   return json({
-    records: filtered.slice((page - 1) * perPage, page * perPage),
+    records: filtered
+      .slice((page - 1) * perPage, page * perPage)
+      .map((record) => (includeNote === "true" ? withNote(record) : record)),
     filtered_count: filtered.length,
     total_count: mockRecords.length,
   });

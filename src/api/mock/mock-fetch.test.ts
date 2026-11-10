@@ -494,3 +494,14 @@ describe("mockFetch: 添付", () => {
     expect(await missing.json()).toMatchObject({ code: "RECORD_NOT_FOUND" });
   });
 });
+
+describe("mockFetch: 書き出し", () => {
+  it("includes notes only with include_note=true", async () => {
+    const headers = await auth();
+    const plain = await list(headers);
+    expect(plain.body.records[0]).not.toHaveProperty("note");
+    const withNotes = await list(headers, "include_note=true");
+    expect(withNotes.body.records[0]).toHaveProperty("note");
+    expect((await list(headers, "include_note=yes")).status).toBe(400);
+  });
+});
