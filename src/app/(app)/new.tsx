@@ -28,7 +28,7 @@ export default function NewRecordPage() {
           enums={dict.enums}
           counterTemplate={dict.characterCount}
           editorDict={dict.noteEditor}
-          closeLabel={dict.recordForm.back}
+          closeLabel={dict.header.close}
           onSaved={() => setFormKey((key) => key + 1)}
         />
       </View>

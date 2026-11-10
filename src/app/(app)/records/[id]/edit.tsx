@@ -39,7 +39,7 @@ export default function EditRecordPage() {
         enums={dict.enums}
         counterTemplate={dict.characterCount}
         editorDict={dict.noteEditor}
-        closeLabel={dict.recordForm.back}
+        closeLabel={dict.header.close}
       />
     );
   };
