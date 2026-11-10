@@ -38,7 +38,7 @@ export function RecordGrid({
       columnWrapperClassName="gap-3.5"
       contentContainerClassName="gap-3.5 px-4 pt-5 pb-7"
       ListHeaderComponent={header}
-      ListFooterComponent={footer}
+      ListFooterComponent={footer ?? undefined}
       refreshControl={
         <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
