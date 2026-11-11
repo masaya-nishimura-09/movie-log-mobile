@@ -2,6 +2,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import { type Href, Link, useLocalSearchParams, useRouter } from "expo-router";
 import { Pencil } from "lucide-react-native";
 import { View } from "react-native";
+import {
+  addAttachmentAction,
+  deleteAttachmentAction,
+} from "@/actions/record/attachment";
 import { deleteRecordAction } from "@/actions/record/delete-record";
 import { Button } from "@/components/atoms/button";
 import { EmptyState } from "@/components/molecules/empty-state";
@@ -12,6 +16,7 @@ import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { RecordDetail } from "@/components/organisms/record-detail";
 import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecord } from "@/hooks/use-record";
+import { useRecordAttachments } from "@/hooks/use-record-attachments";
 import { useI18n } from "@/i18n/use-i18n";
 
 export default function RecordPage() {
@@ -20,7 +25,15 @@ export default function RecordPage() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: record, isPending, isError, refetch } = useRecord(id);
-  const { refreshing, onRefresh } = usePullRefresh(refetch);
+  const attachments = useRecordAttachments(id);
+  const { refreshing, onRefresh } = usePullRefresh(async () => {
+    await Promise.all([refetch(), attachments.refetch()]);
+  });
+
+  const refreshAttachments = () =>
+    queryClient.invalidateQueries({
+      queryKey: ["records", "attachments", id],
+    });
 
   const body = () => {
     if (isPending) return <LoadingState />;
@@ -41,6 +54,17 @@ export default function RecordPage() {
       <RecordDetail
         locale={locale}
         record={record}
+        attachments={attachments.data ?? []}
+        addAttachment={async (file) => {
+          const result = await addAttachmentAction(id, file);
+          await refreshAttachments();
+          return result;
+        }}
+        deleteAttachment={async (attachmentId) => {
+          const result = await deleteAttachmentAction(id, attachmentId);
+          await refreshAttachments();
+          return result;
+        }}
         dict={dict}
         refreshing={refreshing}
         onRefresh={onRefresh}

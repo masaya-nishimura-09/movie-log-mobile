@@ -1,31 +1,31 @@
 {
   "metadata": {
-    "title": "Cinestamp",
-    "description": "A film logbook you can search by mood. Keep the date, where you watched, a score, and how it felt."
+    "title": "Cinelier",
+    "description": "A film logbook with one note for each film, searchable by mood and by what you wrote."
   },
   "brand": {
-    "name": "Cinestamp",
+    "name": "Cinelier",
     "tagline": "Remember every film you have watched."
   },
   "landing": {
-    "headline": "A film logbook you can search by mood.",
-    "lead": "Log the date, where you watched, a score, and how it felt. Your records stay private, and only you can read them.",
+    "headline": "One note for every film you watch.",
+    "lead": "Write down what you thought, next to the date, a score, and the mood of the film. Your records stay private, and only you can read them.",
     "start": "Sign up to start",
     "login": "Log in",
     "listAlt": "A grid of posters for the films you have logged",
     "detailAlt": "One film's record, with the watched date and platform under the poster",
     "features": [
       {
+        "title": "A page for each film",
+        "text": "Write what you thought after watching, with headings, lists, and quotes. Export your notes as Markdown at any time."
+      },
+      {
         "title": "Find films by mood",
         "text": "Tag films as poignant, absurd or bitter ending, among 18 mood tags. Later, filter for the mood you are in tonight."
       },
       {
-        "title": "Keep it with the poster",
-        "text": "The watched date, score and platform sit with the poster on a single card."
-      },
-      {
-        "title": "Log where you watched",
-        "text": "Choose from 30 options, from cinemas and discs to Netflix and MUBI."
+        "title": "Search what you wrote",
+        "text": "Search looks at your notes as well as titles, so you can find the film where you wrote about that one scene."
       }
     ],
     "recommend": {
@@ -33,7 +33,12 @@
       "text": "Love films, and people keep asking you what to watch. The right pick for someone else rarely comes to mind on the spot. Filter the films you have seen by platform and mood, and the answer is right there.",
       "alt": "Records filtered to the Netflix platform and the Moving mood"
     },
-    "closing": "Start with the last film you saw. A title, the date, a score, and where you watched are all you need."
+    "closing": "Start with the last film you saw. A title, the date, a score, and where you watched are all you need. You can add a note later.",
+    "note": {
+      "title": "Your note, right next to the poster.",
+      "text": "The note you wrote sits on the same page as the date and mood. You can also attach up to 10 photos of pamphlets or flyers to each film.",
+      "alt": "One film's record, with a note of headings and text under the poster and the watched date"
+    }
   },
   "about": {
     "title": "About",
@@ -44,18 +49,18 @@
   },
   "legal": {
     "updatedLabel": "Last updated",
-    "updated": "October 11, 2026",
+    "updated": "November 9, 2026",
     "contactLabel": "Contact form",
     "contactPending": "Coming soon",
     "back": "Back",
     "terms": {
       "title": "Terms of Use",
-      "intro": "These Terms of Use (the \"Terms\") set out the conditions for using Cinestamp (the \"Service\") between the Cinestamp operator (the \"Operator\") and its users. You must agree to these Terms to use the Service.",
+      "intro": "These Terms of Use (the \"Terms\") set out the conditions for using Cinelier (the \"Service\") between the Cinelier operator (the \"Operator\") and its users. You must agree to these Terms to use the Service.",
       "sections": [
         {
           "h": "1. About the Service",
           "p": [
-            "The Service is a personal log for films you have watched. You can save, list, search and edit records such as the watched date, score and memo.",
+            "The Service is a personal log for films you have watched. You can save, list, search, edit and export records such as the watched date, score, notes and images.",
             "Film information is searched through TMDB (The Movie Database).",
             "The Service is provided free of charge."
           ]
@@ -82,7 +87,7 @@
         {
           "h": "4. Your records",
           "p": [
-            "You keep the rights to the records you save, such as memos and images.",
+            "You keep the rights to the records you save, such as notes and images.",
             "With the current features, your records are not shown to other users.",
             "The Operator handles your records only as needed to provide and maintain the Service and to respond to problems.",
             "You confirm that you hold the necessary rights to any image you upload."
@@ -120,7 +125,7 @@
           "p": [
             "The Service is provided as is. We do not guarantee accuracy, continuity or that data will not be lost.",
             "Except where the Operator acts intentionally or with gross negligence, the Operator is not liable for damages arising from your use of the Service.",
-            "We recommend keeping your own copy of records that matter to you."
+            "We recommend keeping your own copy of records that matter to you. You can export your records from the account settings."
           ]
         },
         {
@@ -147,15 +152,16 @@
     },
     "privacy": {
       "title": "Privacy Policy",
-      "intro": "The Cinestamp operator (the \"Operator\") sets out below how it handles users' information in Cinestamp (the \"Service\").",
+      "intro": "The Cinelier operator (the \"Operator\") sets out below how it handles users' information in Cinelier (the \"Service\").",
       "sections": [
         {
           "h": "1. Information we collect",
           "p": [
             "The Service collects the following.",
             "- Account information: display name, email address, and password (stored in a form that cannot be turned back into the original text)",
-            "- Record information: title, release year, runtime, language, countries, genres, credits, watched date, platform, score, mood tags and memo",
+            "- Record information: title, original title, synopsis, release year, runtime, language, countries, genres, credits, watched date, platform, score, mood tags and note",
             "- Poster images: the image URL you enter, or the image you upload",
+            "- Attached images: the images you upload to attach to a record, such as photos of pamphlets or flyers",
             "- Contact information: the email address and message you enter in the contact form",
             "- Information used to keep you logged in",
             "- Activity logs: access time, IP address, browser type, and your user ID when an error occurs"
@@ -165,7 +171,7 @@
           "h": "2. How we use it",
           "p": [
             "We use the information for:",
-            "- providing the Service (saving, showing, searching and editing records);",
+            "- providing the Service (saving, showing, searching, editing and exporting records);",
             "- logging in and verifying who you are;",
             "- answering inquiries;",
             "- investigating and fixing problems;",
@@ -243,7 +249,7 @@
   "contact": {
     "title": "Contact",
     "link": "Contact",
-    "intro": "Send us questions about Cinestamp or report a problem here. We will reply to the email address you enter.",
+    "intro": "Send us questions about Cinelier or report a problem here. We will reply to the email address you enter.",
     "email": "Email",
     "emailHint": "We use this to reply",
     "message": "Message",
@@ -258,15 +264,16 @@
     "unexpectedError": "Your message could not be sent. Try again later"
   },
   "header": {
-    "searchPlaceholder": "Search by title",
-    "searchLabel": "Search by title",
+    "searchPlaceholder": "Search titles and notes",
+    "searchLabel": "Search titles and notes",
     "themeToggle": "Toggle theme",
     "accountMenu": "Account menu",
     "account": "Account settings",
     "about": "About this app",
     "logout": "Log out",
     "openSearch": "Search",
-    "contact": "Contact"
+    "contact": "Contact",
+    "close": "Close"
   },
   "bottomNav": {
     "records": "Films",
@@ -358,20 +365,50 @@
     "scoreCaption": "SCORE",
     "releaseYear": "{year}",
     "runtime": "{minutes} min",
-    "memo": "Memo",
-    "memoEmpty": "No memo yet.",
-    "memoAdd": "Add a memo",
+    "note": "Note",
+    "noteEmpty": "No note yet.",
+    "noteAdd": "Write a note",
+    "noteReadMore": "Read more",
+    "noteShowLess": "Show less",
     "credits": "Credits",
     "creditsEmpty": "No credits yet.",
     "creditsAdd": "Add credits",
     "watchedAt": "Watched on",
     "platform": "Platform",
     "createdAt": "Logged",
-    "updatedAt": "Last updated"
+    "updatedAt": "Last updated",
+    "tabRecord": "Log",
+    "tabMovie": "Film info",
+    "attachments": "Attachments",
+    "attachmentsEmpty": "No attachments yet.",
+    "attachmentOpen": "Open attachment {number}",
+    "overview": "Synopsis",
+    "overviewEmpty": "No synopsis yet.",
+    "overviewAdd": "Add a synopsis",
+    "originalTitle": "Original title",
+    "attachmentsAdd": "Attach images",
+    "attachmentsUploading": "Uploading",
+    "attachmentsUploadError": "Couldn't attach. Use a JPEG, PNG, or WebP up to 5 MB",
+    "attachmentClose": "Close",
+    "attachmentDelete": "Delete",
+    "attachmentPosition": "{number} / {total}",
+    "attachmentPrev": "Previous image",
+    "attachmentNext": "Next image",
+    "attachmentsLimit": "You can attach up to {max} images",
+    "infoLabel": "About {name}",
+    "attachmentsInfo": "Paste up to 10 images, such as pamphlets, flyers, or your drawings.",
+    "moodTags": "Mood"
   },
   "deleteRecord": {
     "title": "Delete this record?",
-    "description": "\"{title}\" ({date}) and its memo will be deleted. This cannot be undone.",
+    "description": "\"{title}\" ({date}) and its note and attachments will be deleted. This cannot be undone.",
+    "cancel": "Cancel",
+    "confirm": "Delete",
+    "unexpectedError": "Couldn't delete. Please try again later"
+  },
+  "deleteAttachment": {
+    "title": "Delete this image?",
+    "description": "The attached image will be deleted. This cannot be undone.",
     "cancel": "Cancel",
     "confirm": "Delete",
     "unexpectedError": "Couldn't delete. Please try again later"
@@ -385,6 +422,8 @@
     "stepImpression": "Impressions",
     "stepProgress": "Step {current} / {total}",
     "title": "Title",
+    "originalTitle": "Original title",
+    "overview": "Synopsis",
     "watchedAt": "Watched on",
     "today": "Today",
     "yesterday": "Yesterday",
@@ -418,7 +457,7 @@
     "optional": "Optional",
     "moodTags": "Mood",
     "moodTagsHint": "18 moods, no duplicates, zero is fine",
-    "memo": "Memo",
+    "note": "Note",
     "save": "Save record",
     "watchSection": "Viewing",
     "movieSection": "Film info",
@@ -441,26 +480,36 @@
       "credits": "Names must be 100 characters or fewer",
       "posterUrl": "Enter a URL starting with http or https",
       "moodTags": "Invalid mood tag",
-      "memo": "Enter 1000 characters or fewer"
+      "originalTitle": "Enter 255 characters or fewer",
+      "overview": "Enter 2000 characters or fewer",
+      "note": "The note is too long"
     },
     "movieSuggestions": "Film suggestions",
     "titleHint": "Type 2+ characters to see TMDB suggestions. Picking one fills in the film info",
     "uploadPoster": "Upload image",
     "uploadingPoster": "Uploading",
-    "posterUploadError": "Couldn't upload. Use a JPEG, PNG, or WebP up to 5 MB"
+    "posterUploadError": "Couldn't upload. Use a JPEG, PNG, or WebP up to 5 MB",
+    "attachments": "Attachments",
+    "attachmentsHint": "Images such as pamphlets, flyers, or your drawings. JPEG, PNG, or WebP up to 5 MB, up to 10 images",
+    "attachmentsAdd": "Choose images",
+    "attachmentRemove": "Remove image {number}",
+    "attachmentsInvalid": "Choose JPEG, PNG, or WebP images up to 5 MB",
+    "attachmentsLimit": "You can attach up to {max} images",
+    "attachmentsUploadFailed": "The record was saved, but some images couldn't be attached",
+    "uploadingAttachments": "Attaching images"
   },
   "account": {
     "back": "Back",
     "title": "Account settings",
-    "notice": "This form updates your display name, email, and password together. Enter your password even if you are not changing it. Changing your password signs out your other devices.",
+    "notice": "Each section is saved separately. Changing your email or password requires your current password. Changing your password signs out your other devices.",
     "username": "Display name",
     "email": "Email",
     "password": "Password",
-    "passwordHint": "8 to 72 characters. Enter your current one to keep it",
+    "passwordHint": "8 to 72 characters",
     "cancel": "Discard",
     "save": "Save changes",
     "withdrawTitle": "Delete account",
-    "withdrawDescription": "All your records and memos will be deleted. This cannot be undone.",
+    "withdrawDescription": "All your records, notes and attachments will be deleted. This cannot be undone.",
     "withdrawAction": "Delete account",
     "withdrawConfirmTitle": "Delete your account?",
     "withdrawConfirm": "Delete",
@@ -471,7 +520,22 @@
     "userAlreadyExists": "This email address is already in use",
     "unexpectedError": "Couldn't save. Please try again later",
     "saved": "Saved",
-    "withdrawFailed": "Couldn't delete your account. Please try again later"
+    "withdrawFailed": "Couldn't delete your account. Please try again later",
+    "usernameTitle": "Change display name",
+    "emailTitle": "Change email",
+    "passwordTitle": "Change password",
+    "currentPassword": "Current password",
+    "currentPasswordHint": "Used to confirm the change",
+    "newPassword": "New password",
+    "invalidCurrentPassword": "The current password is incorrect",
+    "tooManyRequests": "Too many attempts. Please wait a while and try again",
+    "exportTitle": "Export data",
+    "exportDescription": "Exports your film log as a CSV file, and each record's note as a Markdown file bundled in a ZIP.",
+    "exportAction": "Export the film log as CSV",
+    "exporting": "Exporting",
+    "exportFailed": "Couldn't export. Please try again later",
+    "exportUpdatedAt": "Updated",
+    "exportNotesAction": "Export notes as Markdown (ZIP)"
   },
   "characterCount": "{current} / {max}",
   "enums": {
@@ -565,5 +629,16 @@
     "title": "Couldn't load this page",
     "description": "Please try again in a moment.",
     "retry": "Try again"
+  },
+  "noteEditor": {
+    "toolbar": "Formatting",
+    "bold": "Bold",
+    "italic": "Italic",
+    "heading": "Heading",
+    "subheading": "Subheading",
+    "bulletList": "Bulleted list",
+    "orderedList": "Numbered list",
+    "blockquote": "Quote",
+    "body": "Note"
   }
 }

@@ -24,6 +24,7 @@ type RecordEditFormProps = {
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
   counterTemplate: string;
+  editorDict: Dictionary["noteEditor"];
   closeLabel: string;
 };
 
@@ -44,6 +45,7 @@ export function RecordEditForm({
   dict,
   enums,
   counterTemplate,
+  editorDict,
   closeLabel,
 }: RecordEditFormProps) {
   const router = useRouter();
@@ -78,16 +80,6 @@ export function RecordEditForm({
             counterTemplate={counterTemplate}
           />
         </Panel>
-        <Panel title={dict.stepImpression}>
-          <RecordImpressionFields
-            form={form}
-            update={update}
-            errors={failure?.errors}
-            dict={dict}
-            enums={enums}
-            counterTemplate={counterTemplate}
-          />
-        </Panel>
         <Panel title={dict.movieSection}>
           <RecordMovieFields
             locale={locale}
@@ -98,7 +90,18 @@ export function RecordEditForm({
             uploadPoster={uploadPosterAction}
             dict={dict}
             enums={enums}
+            counterTemplate={counterTemplate}
             closeLabel={closeLabel}
+          />
+        </Panel>
+        <Panel title={dict.stepImpression}>
+          <RecordImpressionFields
+            form={form}
+            update={update}
+            errors={failure?.errors}
+            dict={dict}
+            enums={enums}
+            editorDict={editorDict}
           />
         </Panel>
       </ScrollView>

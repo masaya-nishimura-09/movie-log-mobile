@@ -57,6 +57,7 @@
   --sidebar-accent-foreground: #5f4d45;
   --sidebar-border: #d3d4c0;
   --sidebar-ring: #8b5e3c;
+  --logo-ring: #8b5e3c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -115,6 +116,7 @@
     --sidebar-accent-foreground: #f3e4c9;
     --sidebar-border: #2b435a;
     --sidebar-ring: #aa8465;
+    --logo-ring: #b98a63;
   }
 }
 
@@ -173,6 +175,7 @@
   --sidebar-accent-foreground: #f3e4c9;
   --sidebar-border: #2b435a;
   --sidebar-ring: #8b5e3c;
+  --logo-ring: #b98a63;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -231,6 +234,7 @@
     --sidebar-accent-foreground: #f3e4c9;
     --sidebar-border: #2b435a;
     --sidebar-ring: #aa8465;
+    --logo-ring: #b98a63;
   }
 }
 
@@ -289,6 +293,7 @@
   --sidebar-accent-foreground: #5f4d45;
   --sidebar-border: #d3d4c0;
   --sidebar-ring: #8b5e3c;
+  --logo-ring: #8b5e3c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -347,5 +352,6 @@
     --sidebar-accent-foreground: #f3e4c9;
     --sidebar-border: #2b435a;
     --sidebar-ring: #aa8465;
+    --logo-ring: #b98a63;
   }
 }

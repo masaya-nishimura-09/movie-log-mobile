@@ -12,6 +12,7 @@ export default defineConfig({
       "expo-localization": stub("expo-localization"),
       "expo-secure-store": stub("expo-secure-store"),
       "@/api/mock/mock-posters": stub("mock-posters"),
+      "@/api/mock/mock-attachment-images": stub("mock-attachment-images"),
     },
   },
   test: {

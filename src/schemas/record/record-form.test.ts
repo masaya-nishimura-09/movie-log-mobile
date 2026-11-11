@@ -4,6 +4,8 @@ import { recordFormValuesSchema } from "@/schemas/record/record-form";
 describe("recordFormValuesSchema", () => {
   const values = {
     title: "",
+    originalTitle: "",
+    overview: "",
     watchedAt: "",
     runtime: 0,
     genres: [],
@@ -12,7 +14,6 @@ describe("recordFormValuesSchema", () => {
     credits: [],
     posterUrl: "",
     moodTags: [],
-    memo: "",
   };
 
   it("allows a new record without release year, platform and score", () => {

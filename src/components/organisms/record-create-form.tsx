@@ -3,9 +3,16 @@ import { useEffect, useState } from "react";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
 import { z } from "zod";
 import { uploadPosterAction } from "@/actions/media/upload-poster";
+import {
+  type AttachmentFile,
+  addAttachmentAction,
+} from "@/actions/record/attachment";
 import { Button } from "@/components/atoms/button";
 import { FormAlert } from "@/components/atoms/form-alert";
 import { Text } from "@/components/atoms/text";
+import { FormField } from "@/components/molecules/form-field";
+import { PendingAttachmentsField } from "@/components/molecules/pending-attachments-field";
+import { useToast } from "@/components/molecules/toaster";
 import { RecordBasicsFields } from "@/components/organisms/record-basics-fields";
 import { RecordImpressionFields } from "@/components/organisms/record-impression-fields";
 import { RecordMovieFields } from "@/components/organisms/record-movie-fields";
@@ -28,6 +35,7 @@ type RecordCreateFormProps = {
   dict: Dictionary["recordForm"];
   enums: Dictionary["enums"];
   counterTemplate: string;
+  editorDict: Dictionary["noteEditor"];
   closeLabel: string;
   onSaved: () => void;
 };
@@ -35,6 +43,8 @@ type RecordCreateFormProps = {
 const stepFields = [
   ["title", "watchedAt", "score", "platform"],
   [
+    "originalTitle",
+    "overview",
     "releaseYear",
     "runtime",
     "language",
@@ -43,7 +53,7 @@ const stepFields = [
     "credits",
     "posterUrl",
   ],
-  ["moodTags", "memo"],
+  ["moodTags", "note"],
 ];
 
 function stepOf(field: string): number {
@@ -58,6 +68,7 @@ export function RecordCreateForm({
   dict,
   enums,
   counterTemplate,
+  editorDict,
   closeLabel,
   onSaved,
 }: RecordCreateFormProps) {
@@ -67,7 +78,24 @@ export function RecordCreateForm({
   );
   const [step, setStep] = useState(0);
   const [stepErrors, setStepErrors] = useState<RecordFieldErrors>();
-  const { mutate, data, isPending } = useSaveRecord(undefined, onSaved);
+  const [files, setFiles] = useState<AttachmentFile[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const toast = useToast();
+  const { mutate, data, isPending } = useSaveRecord(
+    undefined,
+    onSaved,
+    async (savedId) => {
+      if (files.length === 0) return;
+      setUploading(true);
+      let ok = true;
+      for (const file of files) {
+        const result = await addAttachmentAction(savedId, file);
+        if (!result.success) ok = false;
+      }
+      setUploading(false);
+      if (!ok) toast(dict.attachmentsUploadFailed);
+    },
+  );
   const failure = data?.success === false ? data : undefined;
   const errors = stepErrors ?? failure?.errors;
   const steps = [dict.stepBasics, dict.stepMovieInfo, dict.stepImpression];
@@ -161,6 +189,7 @@ export function RecordCreateForm({
                 uploadPoster={uploadPosterAction}
                 dict={dict}
                 enums={enums}
+                counterTemplate={counterTemplate}
                 closeLabel={closeLabel}
               />
             </>
@@ -181,8 +210,15 @@ export function RecordCreateForm({
                 errors={errors}
                 dict={dict}
                 enums={enums}
-                counterTemplate={counterTemplate}
+                editorDict={editorDict}
               />
+              <FormField label={dict.attachments} hint={dict.attachmentsHint}>
+                <PendingAttachmentsField
+                  files={files}
+                  onChange={setFiles}
+                  dict={dict}
+                />
+              </FormField>
             </>
           )}
         </View>
@@ -208,7 +244,7 @@ export function RecordCreateForm({
             disabled={isPending}
             onPress={() => mutate(toRecordInputValues(form))}
           >
-            {dict.save}
+            {uploading ? dict.uploadingAttachments : dict.save}
           </Button>
         )}
       </View>

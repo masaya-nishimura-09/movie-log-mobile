@@ -16,6 +16,7 @@ module.exports = {
     "border-primary-edge",
     "border-destructive-border",
     "border-destructive-edge",
+    "fill-logo-ring",
   ],
   presets: [require("nativewind/preset")],
   theme: {
@@ -98,6 +99,7 @@ module.exports = {
           foreground: "var(--mood-foreground)",
         },
         "dash-line": "var(--dash-line)",
+        "logo-ring": "var(--logo-ring)",
         sidebar: {
           DEFAULT: "var(--sidebar)",
           foreground: "var(--sidebar-foreground)",

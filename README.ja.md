@@ -1,13 +1,13 @@
 <div align="center">
 
-# Cinestamp
+# Cinelier
 
 [English](README.md) | **日本語**
 
-映画鑑賞記録アプリ「Cinestamp」のモバイルアプリです。<br/>観た映画ごとに、ポスター、鑑賞日、スコア、気分、メモを記録できます。
+映画鑑賞記録アプリ「Cinelier」のモバイルアプリです。<br/>観た映画ごとに、ポスター、鑑賞日、スコア、気分、ノートを記録できます。
 
-![Expo](https://img.shields.io/badge/Expo-57-0a2947?logo=expo&logoColor=f3e4c9)
-![React Native](https://img.shields.io/badge/React_Native-0.86-0a2947?logo=react&logoColor=f3e4c9)
+![Expo](https://img.shields.io/badge/Expo-58-0a2947?logo=expo&logoColor=f3e4c9)
+![React Native](https://img.shields.io/badge/React_Native-0.88-0a2947?logo=react&logoColor=f3e4c9)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-0a2947?logo=typescript&logoColor=f3e4c9)
 ![NativeWind](https://img.shields.io/badge/NativeWind-4-0a2947?logo=tailwindcss&logoColor=f3e4c9)
 ![pnpm](https://img.shields.io/badge/pnpm-11-0a2947?logo=pnpm&logoColor=f3e4c9)
@@ -16,7 +16,7 @@
 
 </div>
 
-本リポジトリでは、Cinestamp のモバイルアプリを管理しています。データの取得と保存には [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api) を利用し、モックデータを使えば API なしでも動作します。[Web アプリ](https://github.com/masaya-nishimura-09/movie-log)もあります。
+本リポジトリでは、Cinelier のモバイルアプリを管理しています。データの取得と保存には [Cinelier API](https://github.com/masaya-nishimura-09/movie-log-api) を利用し、モックデータを使えば API なしでも動作します。[Web アプリ](https://github.com/masaya-nishimura-09/movie-log)もあります。
 
 ## 概要
 
@@ -34,7 +34,7 @@
 
 ```mermaid
 flowchart LR
-    phone["Cinestamp Mobile<br/>(Expo / React Native)"] --> api["Cinestamp API<br/>(Go / Gin)"]
+    phone["Cinelier Mobile<br/>(Expo / React Native)"] --> api["Cinelier API<br/>(Go / Gin)"]
 ```
 
 アプリから API へは直接アクセスします。アクセストークンとリフレッシュトークンは端末の安全な保存領域（iOS はキーチェーン、Android はキーストア）に保存し、アクセストークンの期限が切れたときは自動で更新します。
@@ -46,13 +46,16 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 **鑑賞記録**
 
 - 鑑賞記録の作成・表示・更新・削除
-- TMDB を利用した映画情報（公開年、上映時間、言語、制作国、ジャンル、クレジット、ポスター）の入力
+- TMDB を利用した映画情報（原題、あらすじ、公開年、上映時間、言語、制作国、ジャンル、クレジット、ポスター）の入力
 - 写真ライブラリからのポスター画像のアップロード
 - カレンダーによる鑑賞日の選択（「今日」「昨日」の入力にも対応）
+- パンフレットやチラシ、描いた絵などの画像の添付（1 件の記録につき 10 枚まで、作成時にも後からでも追加でき、全画面で 1 枚ずつ表示）
+- 1 件の記録に 1 つのノート（太字、斜体、見出し、小見出し、箇条書き、番号付きリスト、引用を使えるエディタで書く）
+- 記録のタブ（雰囲気、ノート、添付）と映画情報のタブ（原題、あらすじ、ジャンル、クレジット）に分けた詳細画面
 
 **記録の検索**
 
-- タイトル検索、並び替え、ページ送り
+- タイトルとノートの検索、並び替え、ページ送り
 - スコア、プラットフォーム、気分、ジャンルによる絞り込み
   （スコアとプラットフォームは 1 つだけ。気分とジャンルは、選んだものをすべて持つ記録だけを表示）
 - 一覧や記録の画面を下に引っ張って再読み込み
@@ -60,7 +63,8 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 **アカウント**
 
 - ユーザー登録、ログイン、ログアウト（トークンは自動で更新）
-- アカウント情報の更新と削除
+- 表示名、メールアドレス、パスワードの項目ごとの変更と退会
+- 鑑賞記録の CSV と、ノートの Markdown（ZIP にまとめたもの）の書き出し（共有シートから保存）
 
 **画面**
 
@@ -83,9 +87,10 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 
 | 分類             | 使用技術                                        |
 |------------------|-------------------------------------------------|
-| フレームワーク   | Expo（SDK 57）、React Native、Expo Router       |
+| フレームワーク   | Expo（SDK 58）、React Native、Expo Router       |
 | 言語             | TypeScript                                      |
 | スタイル         | NativeWind（Tailwind CSS 3）、Lucide            |
+| エディタ         | TenTap（Tiptap）                                |
 | データ取得       | TanStack Query                                  |
 | バリデーション   | Zod                                             |
 | 保存             | Expo SecureStore（トークン）、AsyncStorage（テーマ） |
@@ -99,7 +104,7 @@ UI コンポーネントは、atoms、molecules、organisms の 3 層に分け�
 - Node.js 22.13 以上
 - pnpm
 - スマホの Expo Go
-- [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)（モックモードでは不要）
+- [Cinelier API](https://github.com/masaya-nishimura-09/movie-log-api)（モックモードでは不要）
 
 ### インストール
 
@@ -124,7 +129,7 @@ pnpm start
 
 | 変数                       | 必須/任意 | 説明                                                                                   |
 |----------------------------|-----------|----------------------------------------------------------------------------------------|
-| `EXPO_PUBLIC_API_BASE_URL` | 必須      | Cinestamp API のベース URL。`localhost` ではなく、パソコンの LAN アドレスを指定（モックモードでは不要） |
+| `EXPO_PUBLIC_API_BASE_URL` | 必須      | Cinelier API のベース URL。`localhost` ではなく、パソコンの LAN アドレスを指定（モックモードでは不要） |
 | `EXPO_PUBLIC_USE_MOCK`     | 任意      | `true` にすると、API の代わりにモックデータを使用                                      |
 | `EXPO_PUBLIC_MOCK_DATASET` | 任意      | `demo` にすると、モックモードで架空のデモ映画を使用                                    |
 

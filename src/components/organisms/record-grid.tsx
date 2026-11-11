@@ -38,11 +38,11 @@ export function RecordGrid({
       columnWrapperClassName="gap-3.5"
       contentContainerClassName="gap-3.5 px-4 pt-5 pb-7"
       ListHeaderComponent={header}
-      ListFooterComponent={footer}
+      ListFooterComponent={footer ?? undefined}
       refreshControl={
         <PullRefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      renderItem={({ item }) => {
+      renderItem={({ item, index }) => {
         if (!item) return <View className="flex-1" />;
         const year = item.releaseYear > 0 ? String(item.releaseYear) : "";
         const platformLabel = dict.enums.platform[item.platform];
@@ -60,6 +60,7 @@ export function RecordGrid({
               meta={[year, platformLabel].filter(Boolean).join(" · ")}
               watchedStamp={watchedShort}
               noPosterLabel={dict.recordCard.noPoster}
+              index={index}
             />
           </View>
         );

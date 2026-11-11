@@ -64,7 +64,7 @@ export function RecordListHeader({
             activeCount={activeCount}
             resultCount={filteredCount}
             clearHref={clearHref}
-            closeLabel={dict.recordForm.back}
+            closeLabel={dict.header.close}
             dict={dict.recordFilter}
           >
             <RecordFilterPanel
@@ -74,7 +74,7 @@ export function RecordListHeader({
               enums={dict.enums}
               dict={dict.recordFilter}
               sortDict={dict.recordSort}
-              closeLabel={dict.recordForm.back}
+              closeLabel={dict.header.close}
             />
           </RecordFilterSheet>
         )}

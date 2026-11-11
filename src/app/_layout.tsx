@@ -2,8 +2,10 @@ import "../../global.css";
 
 import {
   Poppins_400Regular,
+  Poppins_400Regular_Italic,
   Poppins_500Medium,
   Poppins_700Bold,
+  Poppins_700Bold_Italic,
   useFonts,
 } from "@expo-google-fonts/poppins";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -22,8 +24,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
     Poppins_400Regular,
+    Poppins_400Regular_Italic,
     Poppins_500Medium,
     Poppins_700Bold,
+    Poppins_700Bold_Italic,
   });
 
   useEffect(subscribeAppFocus, []);

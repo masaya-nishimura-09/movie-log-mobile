@@ -56,19 +56,24 @@ type BottomNavProps = TabBarProps & {
   dict: Dictionary["bottomNav"];
 };
 
-export function BottomNav({ state, navigation, dict }: BottomNavProps) {
+export function BottomNav({
+  state,
+  emitter,
+  navigateToTab,
+  dict,
+}: BottomNavProps) {
   const activeName = state.routes[state.index]?.name;
 
   const go = (name: TabName) => {
     const route = state.routes.find((r) => r.name === name);
     if (!route) return;
-    const event = navigation.emit({
+    const event = emitter.emit({
       type: "tabPress",
       target: route.key,
       canPreventDefault: true,
     });
     if (activeName !== name && !event.defaultPrevented) {
-      navigation.navigate(name);
+      navigateToTab(route.key);
     }
   };
 

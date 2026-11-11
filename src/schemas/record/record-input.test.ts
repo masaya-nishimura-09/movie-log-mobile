@@ -6,6 +6,8 @@ import {
 
 const validInput = {
   title: "Arrival",
+  originalTitle: "Story of Your Life",
+  overview: "Linguists meet aliens.",
   watchedAt: "2026-10-01T12:00:00Z",
   score: "5",
   platform: "netflix",
@@ -17,7 +19,7 @@ const validInput = {
   credits: [{ personName: "Denis Villeneuve", creditRole: "director" }],
   posterUrl: "https://example.com/arrival.jpg",
   moodTags: ["moving"],
-  memo: "",
+  note: null,
 };
 
 function issuePaths(input: Record<string, unknown>) {
@@ -79,10 +81,61 @@ describe("recordInputSchema", () => {
   });
 });
 
+describe("recordInputSchema: 原題とあらすじ", () => {
+  it("accepts an original title up to 255 characters and an overview up to 2000", () => {
+    expect(
+      issuePaths({
+        originalTitle: "a".repeat(255),
+        overview: "a".repeat(2000),
+      }),
+    ).toEqual([]);
+    expect(
+      issuePaths({
+        originalTitle: "a".repeat(256),
+        overview: "a".repeat(2001),
+      }),
+    ).toEqual(["originalTitle", "overview"]);
+  });
+
+  it("accepts an empty original title and overview", () => {
+    expect(issuePaths({ originalTitle: "", overview: "" })).toEqual([]);
+  });
+});
+
+describe("recordInputSchema: ノート", () => {
+  const note = (text: string) => ({
+    type: "doc",
+    content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+  });
+
+  it("accepts no note and a note document", () => {
+    expect(issuePaths({ note: null })).toEqual([]);
+    expect(issuePaths({ note: note("本文") })).toEqual([]);
+  });
+
+  it("rejects a note that is not a document, missing, or larger than 100 KB", () => {
+    expect(issuePaths({ note: { type: "paragraph" } })).toEqual(["note"]);
+    expect(issuePaths({ note: undefined })).toEqual(["note"]);
+    expect(issuePaths({ note: note("a".repeat(100 * 1024)) })).toEqual([
+      "note",
+    ]);
+  });
+
+  it("sends the note as it is", () => {
+    expect(
+      toRecordRequest(
+        recordInputSchema.parse({ ...validInput, note: note("本文") }),
+      ).note,
+    ).toEqual(note("本文"));
+  });
+});
+
 describe("toRecordRequest", () => {
   it("converts the input to the API's snake_case fields", () => {
     expect(toRecordRequest(recordInputSchema.parse(validInput))).toEqual({
       title: "Arrival",
+      original_title: "Story of Your Life",
+      overview: "Linguists meet aliens.",
       release_year: 2016,
       runtime: 116,
       genres: ["drama", "science_fiction"],
@@ -94,7 +147,7 @@ describe("toRecordRequest", () => {
       platform: "netflix",
       score: 5,
       mood_tags: ["moving"],
-      memo: "",
+      note: null,
     });
   });
 });

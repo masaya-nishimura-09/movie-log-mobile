@@ -1,13 +1,13 @@
 <div align="center">
 
-# Cinestamp
+# Cinelier
 
 **English** | [日本語](README.ja.md)
 
-The mobile app of Cinestamp, an app for keeping a record of the films you watch.<br/>Each record keeps the poster, viewing date, score, mood, and notes for a film.
+The mobile app of Cinelier, an app for keeping a record of the films you watch.<br/>Each record keeps the poster, viewing date, score, mood, and notes for a film.
 
-![Expo](https://img.shields.io/badge/Expo-57-0a2947?logo=expo&logoColor=f3e4c9)
-![React Native](https://img.shields.io/badge/React_Native-0.86-0a2947?logo=react&logoColor=f3e4c9)
+![Expo](https://img.shields.io/badge/Expo-58-0a2947?logo=expo&logoColor=f3e4c9)
+![React Native](https://img.shields.io/badge/React_Native-0.88-0a2947?logo=react&logoColor=f3e4c9)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6-0a2947?logo=typescript&logoColor=f3e4c9)
 ![NativeWind](https://img.shields.io/badge/NativeWind-4-0a2947?logo=tailwindcss&logoColor=f3e4c9)
 ![pnpm](https://img.shields.io/badge/pnpm-11-0a2947?logo=pnpm&logoColor=f3e4c9)
@@ -16,8 +16,8 @@ The mobile app of Cinestamp, an app for keeping a record of the films you watch.
 
 </div>
 
-This repository contains the mobile app of Cinestamp. It uses the
-[Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)
+This repository contains the mobile app of Cinelier. It uses the
+[Cinelier API](https://github.com/masaya-nishimura-09/movie-log-api)
 for data and can also run on its own with mock data.
 A [web app](https://github.com/masaya-nishimura-09/movie-log) is also available.
 
@@ -39,7 +39,7 @@ you have watched by those conditions. When someone asks
 
 ```mermaid
 flowchart LR
-    phone["Cinestamp Mobile<br/>(Expo / React Native)"] --> api["Cinestamp API<br/>(Go / Gin)"]
+    phone["Cinelier Mobile<br/>(Expo / React Native)"] --> api["Cinelier API<br/>(Go / Gin)"]
 ```
 
 The app calls the API directly. The access and refresh tokens are kept in
@@ -53,13 +53,16 @@ UI components are organized into atoms, molecules, and organisms.
 **Viewing records**
 
 - Create, view, update, and delete viewing records
-- Film details (release year, runtime, language, countries, genres, credits, and poster) filled in from TMDB
+- Film details (original title, synopsis, release year, runtime, language, countries, genres, credits, and poster) filled in from TMDB
 - Poster image uploads from the photo library
 - Viewing date selection from a calendar, with shortcuts for today and yesterday
+- Image attachments such as pamphlets, flyers, and drawings (up to 10 per record, added when creating or later, and shown one at a time on a full screen)
+- One note per record, written in an editor with bold, italic, headings, subheadings, bulleted and numbered lists, and quotes
+- A record page split into a log tab (mood, note, attachments) and a film info tab (original title, synopsis, genres, credits)
 
 **Finding records**
 
-- Title search, sorting, and pagination
+- Search by title and note text, sorting, and pagination
 - Filtering by score, platform, mood, and genre
   (one score and one platform; moods and genres match only records that have all of them)
 - Pull down on the list or a record to reload it
@@ -67,7 +70,8 @@ UI components are organized into atoms, molecules, and organisms.
 **Accounts**
 
 - Registration, login, and logout, with automatic token refresh
-- Account updates and deletion
+- Changing the display name, email, and password one at a time, and deleting the account
+- Exporting the film log as CSV and the notes as Markdown files in a ZIP, saved through the share sheet
 
 **Interface**
 
@@ -93,9 +97,10 @@ Font weights depend on the role of the text: 400 for body text,
 
 | Category        | Technologies                                    |
 |-----------------|-------------------------------------------------|
-| Framework       | Expo (SDK 57), React Native, Expo Router        |
+| Framework       | Expo (SDK 58), React Native, Expo Router        |
 | Language        | TypeScript                                      |
 | Styling         | NativeWind (Tailwind CSS 3), Lucide             |
+| Editor          | TenTap (Tiptap)                                 |
 | Data fetching   | TanStack Query                                  |
 | Validation      | Zod                                             |
 | Storage         | Expo SecureStore (tokens), AsyncStorage (theme) |
@@ -109,7 +114,7 @@ Font weights depend on the role of the text: 400 for body text,
 - Node.js 22.13 or later
 - pnpm
 - Expo Go on your phone
-- [Cinestamp API](https://github.com/masaya-nishimura-09/movie-log-api)
+- [Cinelier API](https://github.com/masaya-nishimura-09/movie-log-api)
   (not required in mock mode)
 
 ### Installation
@@ -141,7 +146,7 @@ and restart `pnpm start` after changing them.
 
 | Variable                   | Required | Description                                                                          |
 |----------------------------|----------|--------------------------------------------------------------------------------------|
-| `EXPO_PUBLIC_API_BASE_URL` | Required | Base URL of the Cinestamp API, using the LAN address of your computer instead of `localhost` (not required in mock mode) |
+| `EXPO_PUBLIC_API_BASE_URL` | Required | Base URL of the Cinelier API, using the LAN address of your computer instead of `localhost` (not required in mock mode) |
 | `EXPO_PUBLIC_USE_MOCK`     | Optional | Set to `true` to use mock data instead of the API                                    |
 | `EXPO_PUBLIC_MOCK_DATASET` | Optional | Set to `demo` to use the fictional demo films in mock mode                           |
 

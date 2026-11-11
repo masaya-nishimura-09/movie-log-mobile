@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { View } from "react-native";
-import Svg from "react-native-svg";
+import { BrandShape } from "@/components/atoms/brand-shape";
 import { Image } from "@/components/atoms/image";
-import { StampShapes } from "@/components/atoms/stamp-shapes";
+import { markShapes } from "@/components/atoms/logo-shapes";
 import { useCssVariable } from "@/hooks/use-css-variable";
 import { cn } from "@/lib/style/cn";
 
@@ -13,27 +13,21 @@ type RecordPosterProps = {
   className?: string;
 };
 
-function StampPlaceholder({ label }: { label: string }) {
+function PosterPlaceholder({ label }: { label: string }) {
   const foreground = useCssVariable("--foreground");
-  const header = useCssVariable("--header");
   const primary = useCssVariable("--primary");
 
   return (
     <View className="flex-1 items-center justify-center bg-header">
-      <Svg
-        viewBox="0 0 110 110"
-        accessibilityLabel={label}
-        accessibilityRole="image"
-        style={{ width: "50%", aspectRatio: 1 }}
-      >
-        <StampShapes
-          stampColor={foreground}
-          stampOpacity={0.2}
-          cColor={header}
-          playColor={primary}
-          playOpacity={0.6}
-        />
-      </Svg>
+      <BrandShape
+        shapes={markShapes}
+        label={label}
+        ringColor={primary}
+        ringOpacity={0.6}
+        glyphColor={foreground}
+        glyphOpacity={0.2}
+        style={{ width: "60%", aspectRatio: 1 }}
+      />
     </View>
   );
 }
@@ -49,7 +43,7 @@ export function RecordPoster({
       className={cn("relative aspect-[2/3] w-full overflow-hidden", className)}
     >
       {posterUrl === "" ? (
-        <StampPlaceholder label={noPosterLabel} />
+        <PosterPlaceholder label={noPosterLabel} />
       ) : (
         <Image
           source={{ uri: posterUrl }}

@@ -1,7 +1,5 @@
-import { View } from "react-native";
-import Svg, { Path } from "react-native-svg";
-import { wordmarkPath } from "@/components/atoms/logo-paths";
-import { StampShapes } from "@/components/atoms/stamp-shapes";
+import { BrandShape } from "@/components/atoms/brand-shape";
+import { wordmarkShapes } from "@/components/atoms/logo-shapes";
 import { useCssVariable } from "@/hooks/use-css-variable";
 
 type LogoProps = {
@@ -9,23 +7,20 @@ type LogoProps = {
   large?: boolean;
 };
 
-const aspectRatio = 634.9 / 110;
+const aspectRatio = 460 / 150;
 
 export function Logo({ name, large }: LogoProps) {
+  const ring = useCssVariable("--logo-ring");
   const foreground = useCssVariable("--foreground");
-  const background = useCssVariable("--background");
-  const height = large ? 32 : 24;
+  const height = large ? 72 : 32;
 
   return (
-    <View accessible accessibilityLabel={name} accessibilityRole="image">
-      <Svg width={height * aspectRatio} height={height} viewBox="0 0 634.9 110">
-        <StampShapes
-          stampColor={foreground}
-          cColor={background}
-          playColor="#8b5e3c"
-        />
-        <Path d={wordmarkPath} fill={foreground} />
-      </Svg>
-    </View>
+    <BrandShape
+      shapes={wordmarkShapes}
+      ringColor={ring}
+      glyphColor={foreground}
+      label={name}
+      style={{ height, width: height * aspectRatio }}
+    />
   );
 }

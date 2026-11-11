@@ -1,5 +1,6 @@
 import { toDateInputValue } from "@/lib/date/format-date";
 import { startOfLocalDay } from "@/lib/date/start-of-local-day";
+import { hasText } from "@/lib/note/has-text";
 import type { MovieValues } from "@/schemas/movie/movie";
 import type {
   CreditRole,
@@ -7,6 +8,7 @@ import type {
   MoodTag,
   Platform,
 } from "@/schemas/record/enums";
+import type { Note } from "@/schemas/record/note";
 import type { RecordFormValues } from "@/schemas/record/record-form";
 
 export type CreditRow = {
@@ -17,6 +19,8 @@ export type CreditRow = {
 
 export type RecordFormState = {
   title: string;
+  originalTitle: string;
+  overview: string;
   watchedAt: string;
   score: number | undefined;
   platform: Platform | undefined;
@@ -28,7 +32,7 @@ export type RecordFormState = {
   credits: CreditRow[];
   posterUrl: string;
   moodTags: MoodTag[];
-  memo: string;
+  note: Note | undefined;
 };
 
 let rowSequence = 0;
@@ -52,6 +56,8 @@ function toCreditRows(
 export function toFormState(values: RecordFormValues): RecordFormState {
   return {
     title: values.title,
+    originalTitle: values.originalTitle,
+    overview: values.overview,
     watchedAt: toDateInputValue(
       values.watchedAt === "" ? new Date() : new Date(values.watchedAt),
     ),
@@ -66,7 +72,7 @@ export function toFormState(values: RecordFormValues): RecordFormState {
     credits: toCreditRows(values.credits),
     posterUrl: values.posterUrl,
     moodTags: values.moodTags,
-    memo: values.memo,
+    note: values.note,
   };
 }
 
@@ -77,6 +83,8 @@ export function applyMovie(
   return {
     ...state,
     title: movie.title,
+    originalTitle: movie.originalTitle,
+    overview: movie.overview,
     releaseYear:
       movie.releaseYear === undefined ? "" : String(movie.releaseYear),
     runtime: String(movie.runtime),
@@ -91,6 +99,8 @@ export function applyMovie(
 export function toRecordInputValues(state: RecordFormState) {
   return {
     title: state.title,
+    originalTitle: state.originalTitle.trim(),
+    overview: state.overview,
     watchedAt: startOfLocalDay(state.watchedAt),
     score: state.score ?? "",
     platform: state.platform ?? "",
@@ -107,6 +117,6 @@ export function toRecordInputValues(state: RecordFormState) {
       .filter((c) => c.personName !== ""),
     posterUrl: state.posterUrl.trim(),
     moodTags: state.moodTags,
-    memo: state.memo,
+    note: state.note && hasText(state.note) ? state.note : null,
   };
 }

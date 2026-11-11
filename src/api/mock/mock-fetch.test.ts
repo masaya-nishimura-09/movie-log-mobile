@@ -53,7 +53,6 @@ const newRecord = {
   platform: "netflix",
   score: 5,
   mood_tags: ["moving"],
-  memo: "",
 };
 
 async function list(headers: HeadersInit, query = "") {
@@ -149,23 +148,37 @@ describe("mockFetch: ユーザー", () => {
       username: "tester",
       email: "tester@example.com",
     });
-    const updated = await mockFetch(
-      "/users/",
+    await mockFetch(
+      "/users/username",
+      post({ name: "renamed" }, "PUT", headers),
+    );
+    await mockFetch(
+      "/users/email",
       post(
-        {
-          name: "renamed",
-          email: "renamed@example.com",
-          password: "password2",
-        },
+        { email: "renamed@example.com", password: "password" },
         "PUT",
         headers,
       ),
     );
+    await mockFetch(
+      "/users/password",
+      post(
+        { old_password: "password", new_password: "password2" },
+        "PUT",
+        headers,
+      ),
+    );
+    const updated = await mockFetch("/users/", { headers });
     expect(await updated.json()).toEqual({
       user_id: "2",
       username: "renamed",
       email: "renamed@example.com",
     });
+    const relogin = await mockFetch(
+      "/auth/login",
+      post({ email: "renamed@example.com", password: "password2" }),
+    );
+    expect(relogin.status).toBe(200);
     const deleted = await mockFetch("/users/", { method: "DELETE", headers });
     expect(deleted.status).toBe(204);
     const login = await mockFetch(
@@ -175,18 +188,30 @@ describe("mockFetch: ユーザー", () => {
     expect(login.status).toBe(401);
   });
 
-  it("rejects an email used by another user", async () => {
+  it("rejects an email used by another user and a wrong current password", async () => {
     const headers = await register();
-    const response = await mockFetch(
-      "/users/",
+    const taken = await mockFetch(
+      "/users/email",
+      post({ email: "demo@example.com", password: "password" }, "PUT", headers),
+    );
+    expect(await taken.json()).toMatchObject({ code: "USER_ALREADY_EXISTS" });
+    const wrongForEmail = await mockFetch(
+      "/users/email",
+      post({ email: "new@example.com", password: "wrongpass" }, "PUT", headers),
+    );
+    expect(await wrongForEmail.json()).toMatchObject({
+      code: "INVALID_CURRENT_PASSWORD",
+    });
+    const wrongForPassword = await mockFetch(
+      "/users/password",
       post(
-        { name: "tester", email: "demo@example.com", password: "password" },
+        { old_password: "wrongpass", new_password: "password3" },
         "PUT",
         headers,
       ),
     );
-    expect(await response.json()).toMatchObject({
-      code: "USER_ALREADY_EXISTS",
+    expect(await wrongForPassword.json()).toMatchObject({
+      code: "INVALID_CURRENT_PASSWORD",
     });
   });
 });
@@ -220,7 +245,7 @@ describe("mockFetch: 記録", () => {
     expect(await gone.json()).toMatchObject({ code: "RECORD_NOT_FOUND" });
   });
 
-  it("filters by score, platform, mood tags, genres and title", async () => {
+  it("filters by score, platform, mood tags, genres and keyword", async () => {
     const headers = await register();
     const records = [
       {
@@ -252,7 +277,7 @@ describe("mockFetch: 記録", () => {
       await mockFetch("/records/", post(record, "POST", headers));
     }
     const titles = async (query: string) =>
-      (await list(headers, `${query}&title=zz-`)).body.records
+      (await list(headers, `${query}&keyword=zz-`)).body.records
         .map((r: { title: string }) => r.title)
         .sort();
     expect(await titles("score=5")).toEqual(["zz-Alpha", "zz-Gamma"]);
@@ -261,10 +286,10 @@ describe("mockFetch: 記録", () => {
       "zz-Alpha",
     ]);
     expect(await titles("genres=crime")).toEqual(["zz-Alpha", "zz-Gamma"]);
-    expect(await titles("title=ZZ-ALP")).toEqual(["zz-Alpha"]);
-    expect((await list(headers, "score=5&title=zz-")).body.filtered_count).toBe(
-      2,
-    );
+    expect(await titles("keyword=ZZ-ALP")).toEqual(["zz-Alpha"]);
+    expect(
+      (await list(headers, "score=5&keyword=zz-")).body.filtered_count,
+    ).toBe(2);
   });
 
   it("sorts by each field in both orders, then by newest ID", async () => {
@@ -297,7 +322,10 @@ describe("mockFetch: 記録", () => {
     }
     const titles = async (field: string, order: string) =>
       (
-        await list(headers, `sort_field=${field}&sort_order=${order}&title=zz-`)
+        await list(
+          headers,
+          `sort_field=${field}&sort_order=${order}&keyword=zz-`,
+        )
       ).body.records.map((r: { title: string }) => r.title);
     expect(await titles("watched_at", "desc")).toEqual([
       "zz-C",
@@ -351,5 +379,129 @@ describe("mockFetch: 映画とメディア", () => {
   it("returns 404 for an unknown path", async () => {
     const response = await mockFetch("/unknown", { headers: await auth() });
     expect(await response.json()).toMatchObject({ code: "NOT_FOUND" });
+  });
+});
+
+describe("mockFetch: ノート", () => {
+  const note = (text: string) => ({
+    type: "doc",
+    content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+  });
+
+  it("saves, returns, updates and deletes the note of a record", async () => {
+    const headers = await auth();
+    const created = await (
+      await mockFetch(
+        "/records/",
+        post({ ...newRecord, note: note("最初") }, "POST", headers),
+      )
+    ).json();
+    expect(created.note).toEqual(note("最初"));
+    const path = `/records/${created.record_id}`;
+    const read = async () => (await mockFetch(path, { headers })).json();
+    expect((await read()).note).toEqual(note("最初"));
+    await mockFetch(
+      path,
+      post({ ...newRecord, note: note("二回目") }, "PUT", headers),
+    );
+    expect((await read()).note).toEqual(note("二回目"));
+    await mockFetch(path, post({ ...newRecord, note: null }, "PUT", headers));
+    expect((await read()).note).toBeNull();
+    await mockFetch(
+      path,
+      post({ ...newRecord, note: note("三回目") }, "PUT", headers),
+    );
+    await mockFetch(path, post({ ...newRecord }, "PUT", headers));
+    expect((await read()).note).toBeNull();
+  });
+
+  it("finds records by the text of their notes", async () => {
+    const headers = await auth();
+    await mockFetch(
+      "/records/",
+      post(
+        { ...newRecord, title: "別の題名", note: note("宇宙船の場面") },
+        "POST",
+        headers,
+      ),
+    );
+    const found = await list(
+      headers,
+      `keyword=${encodeURIComponent("宇宙船の場面")}`,
+    );
+    expect(found.body.records.map((r: { title: string }) => r.title)).toEqual([
+      "別の題名",
+    ]);
+  });
+
+  it("seeds notes for the initial records", async () => {
+    const headers = await auth();
+    const got = await (await mockFetch("/records/1", { headers })).json();
+    expect(got.note).toMatchObject({ type: "doc" });
+  });
+});
+
+describe("mockFetch: 添付", () => {
+  function upload(type = "image/png") {
+    const part = {
+      fieldName: "file",
+      uri: "file:///a.png",
+      name: "a.png",
+      type,
+    };
+    return { getParts: () => [part] } as unknown as FormData;
+  }
+
+  it("lists, adds and deletes the attachments of a record", async () => {
+    const headers = await auth();
+    const path = "/records/1/attachments";
+    const count = async () =>
+      (await (await mockFetch(path, { headers })).json()).attachments.length;
+    const before = await count();
+    const added = await mockFetch(path, {
+      method: "POST",
+      headers,
+      body: upload(),
+    });
+    expect(added.status).toBe(201);
+    const { attachment_id, image_url } = await added.json();
+    expect(image_url).toBe("file:///a.png");
+    expect(await count()).toBe(before + 1);
+    const removed = await mockFetch(`${path}/${attachment_id}`, {
+      method: "DELETE",
+      headers,
+    });
+    expect(removed.status).toBe(204);
+    expect(await count()).toBe(before);
+    const gone = await mockFetch(`${path}/${attachment_id}`, {
+      method: "DELETE",
+      headers,
+    });
+    expect(await gone.json()).toMatchObject({ code: "ATTACHMENT_NOT_FOUND" });
+  });
+
+  it("refuses a file that is not an image and a missing record", async () => {
+    const headers = await auth();
+    const gif = await mockFetch("/records/1/attachments", {
+      method: "POST",
+      headers,
+      body: upload("image/gif"),
+    });
+    expect(gif.status).toBe(400);
+    const missing = await mockFetch("/records/999999/attachments", {
+      headers,
+    });
+    expect(await missing.json()).toMatchObject({ code: "RECORD_NOT_FOUND" });
+  });
+});
+
+describe("mockFetch: 書き出し", () => {
+  it("includes notes only with include_note=true", async () => {
+    const headers = await auth();
+    const plain = await list(headers);
+    expect(plain.body.records[0]).not.toHaveProperty("note");
+    const withNotes = await list(headers, "include_note=true");
+    expect(withNotes.body.records[0]).toHaveProperty("note");
+    expect((await list(headers, "include_note=yes")).status).toBe(400);
   });
 });

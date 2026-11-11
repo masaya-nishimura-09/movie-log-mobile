@@ -7,8 +7,15 @@ import {
 } from "@/lib/record/record-form-state";
 import type { RecordFormValues } from "@/schemas/record/record-form";
 
+const note = (text: string) => ({
+  type: "doc",
+  content: [{ type: "paragraph", content: [{ type: "text", text }] }],
+});
+
 const values: RecordFormValues = {
   title: "Arrival",
+  originalTitle: "Story of Your Life",
+  overview: "Linguists meet aliens.",
   watchedAt: "2026-10-10T15:00:00Z",
   score: 5,
   platform: "netflix",
@@ -20,7 +27,7 @@ const values: RecordFormValues = {
   credits: [{ personName: "Amy Adams", creditRole: "cast" }],
   posterUrl: "",
   moodTags: ["moving"],
-  memo: "good",
+  note: note("good"),
 };
 
 describe("newCreditRow", () => {
@@ -64,6 +71,8 @@ describe("applyMovie", () => {
     const state = toFormState(values);
     const next = applyMovie(state, {
       title: "Contact",
+      originalTitle: "Contact",
+      overview: "A scientist hears a signal.",
       releaseYear: undefined,
       runtime: 150,
       genres: ["drama", "mystery"],
@@ -78,7 +87,9 @@ describe("applyMovie", () => {
       runtime: "150",
       genres: ["drama", "mystery"],
       posterUrl: "https://example.com/p.jpg",
-      memo: "good",
+      originalTitle: "Contact",
+      overview: "A scientist hears a signal.",
+      note: note("good"),
       score: 5,
     });
     expect(next.credits).toHaveLength(1);
@@ -115,5 +126,20 @@ describe("toRecordInputValues", () => {
       posterUrl: "https://example.com/p.jpg",
       credits: [{ personName: "Amy Adams", creditRole: "cast" }],
     });
+  });
+});
+
+describe("toRecordInputValues: note", () => {
+  it("sends the note when it has text", () => {
+    expect(toRecordInputValues(toFormState(values)).note).toEqual(note("good"));
+  });
+
+  it("sends no note when it is missing or has only blank text", () => {
+    expect(
+      toRecordInputValues({ ...toFormState(values), note: undefined }).note,
+    ).toBeNull();
+    expect(
+      toRecordInputValues({ ...toFormState(values), note: note("   ") }).note,
+    ).toBeNull();
   });
 });

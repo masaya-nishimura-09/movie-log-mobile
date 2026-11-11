@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { Inset } from "@/components/atoms/inset";
 
-export const unstable_settings = { initialRouteName: "index" };
+export const unstable_settings = { anchor: "index" };
 
 export default function RecordsLayout() {
   return (

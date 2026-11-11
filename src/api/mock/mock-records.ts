@@ -9,7 +9,7 @@ import type { RecordResponse } from "@/schemas/record/record";
 const english = getDeviceLocale() === "en";
 const demo = process.env.EXPO_PUBLIC_MOCK_DATASET === "demo";
 
-const initialRecords: RecordResponse[] = demo
+export const initialRecords: RecordResponse[] = demo
   ? english
     ? demoRecordsEn
     : demoRecordsJa
