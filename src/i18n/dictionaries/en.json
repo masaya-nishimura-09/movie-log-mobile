@@ -49,7 +49,7 @@
   },
   "legal": {
     "updatedLabel": "Last updated",
-    "updated": "November 9, 2026",
+    "updated": "November 13, 2026",
     "contactLabel": "Contact form",
     "contactPending": "Coming soon",
     "back": "Back",
@@ -163,6 +163,7 @@
             "- Poster images: the image URL you enter, or the image you upload",
             "- Attached images: the images you upload to attach to a record, such as photos of pamphlets or flyers",
             "- Contact information: the email address and message you enter in the contact form",
+            "- Support payment information: the name and email address you enter on the Stripe payment page, the amount you pay, and your card's brand, last 4 digits, expiry date and issuing country (we do not receive your full card number)",
             "- Information used to keep you logged in",
             "- Activity logs: access time, IP address, browser type, and your user ID when an error occurs"
           ]
@@ -174,6 +175,7 @@
             "- providing the Service (saving, showing, searching, editing and exporting records);",
             "- logging in and verifying who you are;",
             "- answering inquiries;",
+            "- confirming support payments;",
             "- investigating and fixing problems;",
             "- preventing abuse, such as limiting login attempts and blocking automated submissions of the login, sign-up, and contact forms; and",
             "- dealing with violations of the Terms of Use."
@@ -194,6 +196,7 @@
             "- Vercel (United States): the web server of the Service. Access logs are kept.",
             "- Cloudflare Turnstile (United States): to block automated submissions of the login, sign-up, and contact forms, your IP address and browser information are sent to Cloudflare.",
             "- Resend (United States): to deliver your inquiry to the Operator by email, the email address and message you enter are sent to Resend.",
+            "- Stripe (United States): to process support payments, Stripe handles the card number, email address and other details entered on its payment page. The Operator does not receive your card number.",
             "We will add the provider and country of the server that stores account information, records, and uploaded images to this policy once it is decided.",
             "Information on the personal data protection system of the United States is available on the website of Japan's Personal Information Protection Commission.",
             "We do not use external services for advertising or analytics."
@@ -213,6 +216,7 @@
           "p": [
             "Account information and records are kept until you delete your account. When you do, your account information, records and uploaded images are deleted.",
             "Contact information is kept as long as needed to answer the inquiry and deleted once it is no longer needed.",
+            "Records of support payments are kept by Stripe and are not deleted when you delete your account.",
             "Activity logs are deleted after a set period."
           ]
         },
@@ -428,25 +432,21 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "score": "Score",
-    "scoreHint": "1-5, by your own standard",
     "platform": "Platform",
     "next": "Continue",
     "back": "Back",
-    "movieInfoHint": "Release year and language are required",
     "releaseYear": "Release year",
     "releaseYearHint": "1888-{max}",
     "runtime": "Runtime",
     "runtimeUnit": "min",
     "runtimeHint": "0 = unknown",
     "language": "Language",
-    "languageHint": "Use und if unknown",
     "countries": "Countries",
     "countriesPlaceholder": "Type a country code and press Enter (e.g. JP)",
     "removeCountry": "Remove {name}",
     "genres": "Genres",
     "genresHint": "19 genres, no duplicates, zero is fine",
     "credits": "Credits",
-    "creditsHint": "Names up to 100 characters, 5 roles",
     "creditRole": "Role",
     "personName": "Enter a name",
     "addCredit": "Add row",

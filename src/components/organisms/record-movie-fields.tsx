@@ -125,7 +125,6 @@ export function RecordMovieFields({
         label={dict.language}
         error={fieldError(errors, dict, "language")}
         required
-        hint={dict.languageHint}
       >
         <Select
           items={languageOptions}
@@ -180,7 +179,6 @@ export function RecordMovieFields({
       <FormField
         label={dict.credits}
         error={fieldError(errors, dict, "credits")}
-        hint={dict.creditsHint}
       >
         <CreditRows
           rows={form.credits}

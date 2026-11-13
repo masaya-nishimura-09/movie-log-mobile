@@ -172,14 +172,9 @@ export function RecordCreateForm({
           )}
           {step === 1 && (
             <>
-              <View className="flex-row items-baseline gap-2">
-                <Text className="font-bold text-base text-foreground">
-                  {dict.stepMovieInfo}
-                </Text>
-                <Text className="text-muted-foreground text-xs">
-                  {dict.movieInfoHint}
-                </Text>
-              </View>
+              <Text className="font-bold text-base text-foreground">
+                {dict.stepMovieInfo}
+              </Text>
               <RecordMovieFields
                 locale={locale}
                 form={form}

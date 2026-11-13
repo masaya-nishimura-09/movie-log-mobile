@@ -97,7 +97,6 @@ export function RecordBasicsFields({
         label={dict.score}
         error={fieldError(errors, dict, "score")}
         required
-        hint={dict.scoreHint}
       >
         <View className="flex-row gap-1.75">
           {[...scores].reverse().map((score) => (
