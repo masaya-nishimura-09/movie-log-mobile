@@ -16,6 +16,7 @@ import { colorScheme } from "nativewind";
 import { useEffect } from "react";
 import { View } from "react-native";
 import { ToastProvider } from "@/components/molecules/toaster";
+import { RootError } from "@/components/organisms/root-error";
 import { queryClient, subscribeAppFocus } from "@/lib/query/query-client";
 import { loadScheme } from "@/lib/theme/theme-storage";
 
@@ -60,3 +61,5 @@ export default function RootLayout() {
     </QueryClientProvider>
   );
 }
+
+export const ErrorBoundary = RootError;
