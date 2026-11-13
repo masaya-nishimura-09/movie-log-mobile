@@ -1,3 +1,4 @@
+import { View } from "react-native";
 import { Button } from "@/components/atoms/button";
 import { EmptyState } from "@/components/molecules/empty-state";
 import type { Dictionary } from "@/i18n/get-dictionary";
@@ -9,10 +10,12 @@ type ErrorStateProps = {
 
 export function ErrorState({ dict, onRetry }: ErrorStateProps) {
   return (
-    <EmptyState
-      title={dict.title}
-      description={dict.description}
-      action={<Button onPress={onRetry}>{dict.retry}</Button>}
-    />
+    <View className="px-4 pt-5">
+      <EmptyState
+        title={dict.title}
+        description={dict.description}
+        action={<Button onPress={onRetry}>{dict.retry}</Button>}
+      />
+    </View>
   );
 }
