@@ -1,6 +1,6 @@
+import { useMutation } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { Upload } from "lucide-react-native";
-import { useState } from "react";
 import { View } from "react-native";
 import type { ActionResult } from "@/actions/action-result";
 import type { PosterFile } from "@/api/media/upload-poster";
@@ -31,8 +31,17 @@ export function PosterUrlField({
   errorLabel,
   invalid,
 }: PosterUrlFieldProps) {
-  const [failed, setFailed] = useState(false);
-  const [pending, setPending] = useState(false);
+  const {
+    mutate,
+    data,
+    isPending: pending,
+  } = useMutation({
+    mutationFn: upload,
+    onSuccess: (result) => {
+      if (result.success) onValueChange(result.data);
+    },
+  });
+  const failed = data?.success === false;
 
   const pick = async () => {
     const picked = await ImagePicker.launchImageLibraryAsync({
@@ -40,16 +49,12 @@ export function PosterUrlField({
     });
     const asset = picked.assets?.[0];
     if (picked.canceled || !asset) return;
-    setPending(true);
-    const result = await upload({
+    mutate({
       uri: asset.uri,
       name: asset.fileName ?? "poster",
       type: asset.mimeType ?? "image/jpeg",
       size: asset.fileSize,
     });
-    setPending(false);
-    setFailed(!result.success);
-    if (result.success) onValueChange(result.data);
   };
 
   return (

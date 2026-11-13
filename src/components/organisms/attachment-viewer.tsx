@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Trash2, X } from "lucide-react-native";
 import { useRef } from "react";
 import { Alert, Modal, Pressable, View } from "react-native";
@@ -65,6 +66,12 @@ export function AttachmentViewer({
   const hasPrev = index > 0;
   const hasNext = index < attachments.length - 1;
   const swipeStart = useRef<number>(undefined);
+  const { mutate: removeAttachment } = useMutation({
+    mutationFn: async (attachmentId: string) => remove?.(attachmentId),
+    onSuccess: (result) => {
+      if (result && !result.success) Alert.alert(deleteDict.unexpectedError);
+    },
+  });
 
   const move = (step: number) => {
     const next = index + step;
@@ -78,10 +85,7 @@ export function AttachmentViewer({
       {
         text: deleteDict.confirm,
         style: "destructive",
-        onPress: async () => {
-          const result = await remove(opened.attachmentId);
-          if (!result.success) Alert.alert(deleteDict.unexpectedError);
-        },
+        onPress: () => removeAttachment(opened.attachmentId),
       },
     ]);
   };

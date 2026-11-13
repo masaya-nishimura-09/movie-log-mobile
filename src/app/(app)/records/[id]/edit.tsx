@@ -5,6 +5,7 @@ import { ErrorState } from "@/components/molecules/error-state";
 import { LoadingState } from "@/components/molecules/loading-state";
 import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { RecordEditForm } from "@/components/organisms/record-edit-form";
+import { RouteError } from "@/components/organisms/route-error";
 import { useRecord } from "@/hooks/use-record";
 import { useI18n } from "@/i18n/use-i18n";
 import { maxReleaseYear, toFormValues } from "@/lib/record/to-form-values";
@@ -55,3 +56,5 @@ export default function EditRecordPage() {
     </View>
   );
 }
+
+export const ErrorBoundary = RouteError;

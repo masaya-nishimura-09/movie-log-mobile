@@ -16,8 +16,12 @@ const authErrorCodes: ApiError["code"][] = [
   "INVALID_REFRESH_TOKEN",
 ];
 
+function isAuthError(error: Error): boolean {
+  return error instanceof ApiError && authErrorCodes.includes(error.code);
+}
+
 function redirectIfUnauthenticated(error: Error) {
-  if (error instanceof ApiError && authErrorCodes.includes(error.code)) {
+  if (isAuthError(error)) {
     queryClient.clear();
     router.replace("/login");
   }
@@ -30,6 +34,9 @@ export const queryClient: QueryClient = new QueryClient({
     queries: {
       retry: (failureCount, error) =>
         !(error instanceof ApiError) && failureCount < 2,
+    },
+    mutations: {
+      throwOnError: (error) => !isAuthError(error),
     },
   },
 });

@@ -8,6 +8,7 @@ import { Pagination } from "@/components/molecules/pagination";
 import { PullRefreshControl } from "@/components/molecules/pull-refresh-control";
 import { RecordGrid } from "@/components/organisms/record-grid";
 import { RecordListHeader } from "@/components/organisms/record-list-header";
+import { RouteError } from "@/components/organisms/route-error";
 import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecords } from "@/hooks/use-records";
 import { useI18n } from "@/i18n/use-i18n";
@@ -134,3 +135,5 @@ export default function RecordsPage() {
     </View>
   );
 }
+
+export const ErrorBoundary = RouteError;

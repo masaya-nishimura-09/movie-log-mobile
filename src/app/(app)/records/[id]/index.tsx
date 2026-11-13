@@ -14,6 +14,7 @@ import { LoadingState } from "@/components/molecules/loading-state";
 import { DeleteRecordDialog } from "@/components/organisms/delete-record-dialog";
 import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { RecordDetail } from "@/components/organisms/record-detail";
+import { RouteError } from "@/components/organisms/route-error";
 import { usePullRefresh } from "@/hooks/use-pull-refresh";
 import { useRecord } from "@/hooks/use-record";
 import { useRecordAttachments } from "@/hooks/use-record-attachments";
@@ -116,3 +117,5 @@ export default function RecordPage() {
     </View>
   );
 }
+
+export const ErrorBoundary = RouteError;

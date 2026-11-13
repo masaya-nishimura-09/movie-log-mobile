@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { Inset } from "@/components/atoms/inset";
 import { Text } from "@/components/atoms/text";
 import { RecordCreateForm } from "@/components/organisms/record-create-form";
+import { RouteError } from "@/components/organisms/route-error";
 import { useI18n } from "@/i18n/use-i18n";
 import { emptyFormValues, maxReleaseYear } from "@/lib/record/to-form-values";
 
@@ -35,3 +36,5 @@ export default function NewRecordPage() {
     </Inset>
   );
 }
+
+export const ErrorBoundary = RouteError;

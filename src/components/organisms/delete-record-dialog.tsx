@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react-native";
 import { Alert } from "react-native";
 import type { ActionResult } from "@/actions/action-result";
@@ -24,6 +25,13 @@ export function DeleteRecordDialog({
   triggerLabel,
   dict,
 }: DeleteRecordDialogProps) {
+  const { mutate } = useMutation({
+    mutationFn: onDelete,
+    onSuccess: (result) => {
+      if (!result.success) Alert.alert(dict.unexpectedError);
+    },
+  });
+
   const confirm = () => {
     Alert.alert(
       dict.title,
@@ -36,10 +44,7 @@ export function DeleteRecordDialog({
         {
           text: dict.confirm,
           style: "destructive",
-          onPress: async () => {
-            const result = await onDelete();
-            if (!result.success) Alert.alert(dict.unexpectedError);
-          },
+          onPress: () => mutate(),
         },
       ],
     );

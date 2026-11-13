@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { Plus } from "lucide-react-native";
 import { useState } from "react";
@@ -53,29 +54,30 @@ export function RecordAttachmentSection({
   deleteDict,
 }: RecordAttachmentSectionProps) {
   const [openId, setOpenId] = useState<string>();
-  const [error, setError] = useState<string>();
-  const [pending, setPending] = useState(false);
   const openIndex = attachments.findIndex((a) => a.attachmentId === openId);
   const room = maxAttachments - attachments.length;
+  const {
+    mutate,
+    data: error,
+    isPending: pending,
+  } = useMutation({
+    mutationFn: async (files: AttachmentFile[]) => {
+      let ok = true;
+      for (const file of files.slice(0, room)) {
+        const result = await add?.(file);
+        if (result && !result.success) ok = false;
+      }
+      if (files.length > room) {
+        return interpolate(dict.attachmentsLimit, { max: maxAttachments });
+      }
+      return ok ? undefined : dict.attachmentsUploadError;
+    },
+  });
 
   const pick = async () => {
     if (!add) return;
     const files = await pickImages(room);
-    if (files.length === 0) return;
-    setPending(true);
-    let ok = true;
-    for (const file of files.slice(0, room)) {
-      const result = await add(file);
-      if (!result.success) ok = false;
-    }
-    setPending(false);
-    setError(
-      files.length > room
-        ? interpolate(dict.attachmentsLimit, { max: maxAttachments })
-        : ok
-          ? undefined
-          : dict.attachmentsUploadError,
-    );
+    if (files.length > 0) mutate(files);
   };
 
   const canAdd = add !== undefined && room > 0;

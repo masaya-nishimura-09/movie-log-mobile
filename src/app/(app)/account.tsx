@@ -12,6 +12,7 @@ import { AccountPasswordForm } from "@/components/organisms/account-password-for
 import { AccountUsernameForm } from "@/components/organisms/account-username-form";
 import { ExportSection } from "@/components/organisms/export-section";
 import { PageTopBar } from "@/components/organisms/page-top-bar";
+import { RouteError } from "@/components/organisms/route-error";
 import { WithdrawSection } from "@/components/organisms/withdraw-section";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useI18n } from "@/i18n/use-i18n";
@@ -78,3 +79,5 @@ export default function AccountPage() {
     </Inset>
   );
 }
+
+export const ErrorBoundary = RouteError;
