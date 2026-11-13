@@ -3,6 +3,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const apiFetch = vi.fn();
 
 vi.mock("@/api/client/api-fetch", () => ({ apiFetch }));
+vi.mock("expo-file-system", () => ({
+  File: class {
+    constructor(readonly uri: string) {}
+    bytes() {
+      return Promise.resolve(new Uint8Array([1, 2, 3]));
+    }
+  },
+}));
 vi.mock("@/api/client/request-json", () => ({
   jsonBody: (body: unknown, method = "POST") => ({
     method,
@@ -27,7 +35,11 @@ describe("uploadPoster", () => {
     expect(path).toBe("/media/");
     expect(init.method).toBe("POST");
     expect(init.body).toBeInstanceOf(FormData);
-    expect(append).toHaveBeenCalledWith("file", file);
+    expect(append).toHaveBeenCalledWith("file", expect.objectContaining(file));
+    const part = append.mock.calls[0]?.[1] as unknown as {
+      bytes: () => Promise<Uint8Array>;
+    };
+    await expect(part.bytes()).resolves.toEqual(new Uint8Array([1, 2, 3]));
     append.mockRestore();
   });
 });

@@ -4,6 +4,14 @@ import { ApiError } from "@/api/client/api-error";
 const apiFetch = vi.fn();
 
 vi.mock("@/api/client/api-fetch", () => ({ apiFetch }));
+vi.mock("expo-file-system", () => ({
+  File: class {
+    constructor(readonly uri: string) {}
+    bytes() {
+      return Promise.resolve(new Uint8Array([1, 2, 3]));
+    }
+  },
+}));
 
 beforeEach(() => {
   apiFetch.mockReset();
@@ -50,7 +58,11 @@ describe("addRecordAttachment", () => {
     const [path, , init] = apiFetch.mock.calls[0] ?? [];
     expect(path).toBe("/records/1/attachments");
     expect(init.method).toBe("POST");
-    expect(append).toHaveBeenCalledWith("file", file);
+    expect(append).toHaveBeenCalledWith("file", expect.objectContaining(file));
+    const part = append.mock.calls[0]?.[1] as unknown as {
+      bytes: () => Promise<Uint8Array>;
+    };
+    await expect(part.bytes()).resolves.toEqual(new Uint8Array([1, 2, 3]));
     append.mockRestore();
   });
 });

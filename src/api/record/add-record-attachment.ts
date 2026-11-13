@@ -1,4 +1,5 @@
 import { apiFetch } from "@/api/client/api-fetch";
+import { toFormFile } from "@/api/media/form-file";
 import type { PosterFile } from "@/api/media/upload-poster";
 import {
   type Attachment,
@@ -10,7 +11,7 @@ export async function addRecordAttachment(
   file: PosterFile,
 ): Promise<Attachment> {
   const body = new FormData();
-  body.append("file", file as unknown as Blob);
+  body.append("file", toFormFile(file));
   return apiFetch(
     `/records/${encodeURIComponent(recordId)}/attachments`,
     attachmentResponseSchema,
