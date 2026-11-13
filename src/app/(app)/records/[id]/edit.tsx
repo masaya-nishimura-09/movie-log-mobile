@@ -7,22 +7,30 @@ import { PageTopBar } from "@/components/organisms/page-top-bar";
 import { RecordEditForm } from "@/components/organisms/record-edit-form";
 import { RouteError } from "@/components/organisms/route-error";
 import { useRecord } from "@/hooks/use-record";
+import { useRecordAttachments } from "@/hooks/use-record-attachments";
 import { useI18n } from "@/i18n/use-i18n";
 import { maxReleaseYear, toFormValues } from "@/lib/record/to-form-values";
 
 export default function EditRecordPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { dict, locale } = useI18n();
-  const { data: record, isPending, isError, refetch } = useRecord(id);
+  const record = useRecord(id);
+  const attachments = useRecordAttachments(id);
 
   const body = () => {
-    if (isPending) return <LoadingState />;
-    if (isError) {
+    if (record.isPending || attachments.isPending) return <LoadingState />;
+    if (record.isError || attachments.isError) {
       return (
-        <ErrorState dict={dict.errorPage} onRetry={() => void refetch()} />
+        <ErrorState
+          dict={dict.errorPage}
+          onRetry={() => {
+            void record.refetch();
+            void attachments.refetch();
+          }}
+        />
       );
     }
-    if (!record) {
+    if (!record.data) {
       return (
         <EmptyState
           title={dict.notFound.title}
@@ -34,7 +42,8 @@ export default function EditRecordPage() {
       <RecordEditForm
         recordId={id}
         locale={locale}
-        values={toFormValues(record)}
+        values={toFormValues(record.data)}
+        attachments={attachments.data}
         maxReleaseYear={maxReleaseYear(new Date())}
         dict={dict.recordForm}
         enums={dict.enums}

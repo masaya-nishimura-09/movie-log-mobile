@@ -12,11 +12,13 @@ import {
 } from "@/components/organisms/record-attachment-section";
 import { cn } from "@/lib/style/cn";
 import { interpolate } from "@/lib/text/interpolate";
-import { maxAttachments } from "@/schemas/record/attachment";
+import { type Attachment, maxAttachments } from "@/schemas/record/attachment";
 
 type PendingAttachmentsFieldProps = {
   files: AttachmentFile[];
   onChange: (files: AttachmentFile[]) => void;
+  existing?: Attachment[];
+  onExistingChange?: (existing: Attachment[]) => void;
   dict: {
     attachmentsAdd: string;
     attachmentRemove: string;
@@ -25,13 +27,56 @@ type PendingAttachmentsFieldProps = {
   };
 };
 
+function Thumbnail({
+  uri,
+  index,
+  removeLabel,
+  onRemove,
+}: {
+  uri: string;
+  index: number;
+  removeLabel: string;
+  onRemove: () => void;
+}) {
+  return (
+    <View className="relative w-1/3 px-1.25 pt-2">
+      <View
+        className="aspect-[210/297] w-full overflow-hidden rounded-[2px] bg-background"
+        style={{ boxShadow: "0 6px 12px -8px rgba(10, 41, 71, 0.55)" }}
+      >
+        <Image
+          source={{ uri }}
+          contentFit="cover"
+          accessibilityIgnoresInvertColors
+          className="size-full"
+        />
+      </View>
+      <MaskingTape
+        className="top-0"
+        tapeClassName={cn("h-3.5 w-10", tapeTilt(index))}
+      />
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={removeLabel}
+        onPress={onRemove}
+        hitSlop={6}
+        className="absolute top-3.5 right-2.75 size-7 items-center justify-center rounded-full bg-foreground/70"
+      >
+        <Icon icon={X} size={16} className="text-background" />
+      </Pressable>
+    </View>
+  );
+}
+
 export function PendingAttachmentsField({
   files,
   onChange,
+  existing = [],
+  onExistingChange,
   dict,
 }: PendingAttachmentsFieldProps) {
   const [error, setError] = useState<string>();
-  const room = maxAttachments - files.length;
+  const room = maxAttachments - existing.length - files.length;
 
   const pick = async () => {
     const picked = await pickImages(room);
@@ -50,38 +95,37 @@ export function PendingAttachmentsField({
   return (
     <View className="gap-2">
       <View className="-mx-1.25 flex-row flex-wrap gap-y-2.5">
+        {existing.map((attachment, index) => (
+          <Thumbnail
+            key={attachment.attachmentId}
+            uri={attachment.imageUrl}
+            index={index}
+            removeLabel={interpolate(dict.attachmentRemove, {
+              number: index + 1,
+            })}
+            onRemove={() => {
+              onExistingChange?.(
+                existing.filter(
+                  (a) => a.attachmentId !== attachment.attachmentId,
+                ),
+              );
+              setError(undefined);
+            }}
+          />
+        ))}
         {files.map((file, index) => (
-          <View key={file.uri} className="relative w-1/3 px-1.25 pt-2">
-            <View
-              className="aspect-[210/297] w-full overflow-hidden rounded-[2px] bg-background"
-              style={{ boxShadow: "0 6px 12px -8px rgba(10, 41, 71, 0.55)" }}
-            >
-              <Image
-                source={{ uri: file.uri }}
-                contentFit="cover"
-                accessibilityIgnoresInvertColors
-                className="size-full"
-              />
-            </View>
-            <MaskingTape
-              className="top-0"
-              tapeClassName={cn("h-3.5 w-10", tapeTilt(index))}
-            />
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={interpolate(dict.attachmentRemove, {
-                number: index + 1,
-              })}
-              onPress={() => {
-                onChange(files.filter((_, i) => i !== index));
-                setError(undefined);
-              }}
-              hitSlop={6}
-              className="absolute top-3.5 right-2.75 size-7 items-center justify-center rounded-full bg-foreground/70"
-            >
-              <Icon icon={X} size={16} className="text-background" />
-            </Pressable>
-          </View>
+          <Thumbnail
+            key={file.uri}
+            uri={file.uri}
+            index={existing.length + index}
+            removeLabel={interpolate(dict.attachmentRemove, {
+              number: existing.length + index + 1,
+            })}
+            onRemove={() => {
+              onChange(files.filter((_, i) => i !== index));
+              setError(undefined);
+            }}
+          />
         ))}
         {room > 0 && (
           <View className="w-1/3 px-1.25 pt-2">
