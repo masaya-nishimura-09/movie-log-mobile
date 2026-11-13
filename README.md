@@ -149,6 +149,7 @@ and restart `pnpm start` after changing them.
 | `EXPO_PUBLIC_API_BASE_URL` | Required | Base URL of the Cinelier API, using the LAN address of your computer instead of `localhost` (not required in mock mode) |
 | `EXPO_PUBLIC_USE_MOCK`     | Optional | Set to `true` to use mock data instead of the API                                    |
 | `EXPO_PUBLIC_MOCK_DATASET` | Optional | Set to `demo` to use the fictional demo films in mock mode                           |
+| `EXPO_PUBLIC_WEB_URL`      | Optional | URL of the Cinelier web app, used to open its contact form                           |
 
 ### Scripts
 

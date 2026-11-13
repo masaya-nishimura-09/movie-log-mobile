@@ -9,7 +9,7 @@ import { useI18n } from "@/i18n/use-i18n";
 
 export default function AppLayout() {
   const session = useSession();
-  const { dict } = useI18n();
+  const { dict, locale } = useI18n();
   const { data: user } = useCurrentUser(session === "authenticated");
 
   if (session === "loading") return null;
@@ -18,6 +18,7 @@ export default function AppLayout() {
   return (
     <View className="flex-1 bg-sidebar">
       <AppTopBar
+        locale={locale}
         brandName={dict.brand.name}
         username={user?.username ?? ""}
         dict={dict.header}

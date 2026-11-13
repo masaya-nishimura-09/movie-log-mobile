@@ -132,6 +132,7 @@ pnpm start
 | `EXPO_PUBLIC_API_BASE_URL` | 必須      | Cinelier API のベース URL。`localhost` ではなく、パソコンの LAN アドレスを指定（モックモードでは不要） |
 | `EXPO_PUBLIC_USE_MOCK`     | 任意      | `true` にすると、API の代わりにモックデータを使用                                      |
 | `EXPO_PUBLIC_MOCK_DATASET` | 任意      | `demo` にすると、モックモードで架空のデモ映画を使用                                    |
+| `EXPO_PUBLIC_WEB_URL`      | 任意      | Cinelier の Web 版の URL。お問い合わせフォームを開くときに使用                          |
 
 ### スクリプト
 

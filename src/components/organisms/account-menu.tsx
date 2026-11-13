@@ -1,6 +1,12 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { Info, LogOut, type LucideIcon, UserRound } from "lucide-react-native";
+import {
+  Info,
+  LogOut,
+  type LucideIcon,
+  Mail,
+  UserRound,
+} from "lucide-react-native";
 import { useState } from "react";
 import { Modal, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,8 +14,11 @@ import { logoutAction } from "@/actions/auth/logout";
 import { Icon } from "@/components/atoms/icon";
 import { Text } from "@/components/atoms/text";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import type { Locale } from "@/i18n/locales";
+import { contactFormUrl, openContactForm } from "@/lib/legal/contact";
 
 type AccountMenuProps = {
+  locale: Locale;
   username: string;
   dict: Dictionary["header"];
 };
@@ -37,7 +46,7 @@ function MenuItem({
   );
 }
 
-export function AccountMenu({ username, dict }: AccountMenuProps) {
+export function AccountMenu({ locale, username, dict }: AccountMenuProps) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -96,6 +105,16 @@ export function AccountMenu({ username, dict }: AccountMenuProps) {
                 router.navigate("/about");
               }}
             />
+            {contactFormUrl(locale) !== "" && (
+              <MenuItem
+                icon={Mail}
+                label={dict.contact}
+                onPress={() => {
+                  setOpen(false);
+                  void openContactForm(locale);
+                }}
+              />
+            )}
             <MenuItem icon={LogOut} label={dict.logout} onPress={logout} />
           </View>
         </Pressable>

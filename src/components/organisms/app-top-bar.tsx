@@ -9,16 +9,23 @@ import { SearchForm } from "@/components/molecules/search-form";
 import { ThemeToggle } from "@/components/molecules/theme-toggle";
 import { AccountMenu } from "@/components/organisms/account-menu";
 import type { Dictionary } from "@/i18n/get-dictionary";
+import type { Locale } from "@/i18n/locales";
 import { recordQueryKeys } from "@/lib/record/parse-record-query";
 import { buildHref } from "@/lib/url/build-href";
 
 type AppTopBarProps = {
+  locale: Locale;
   brandName: string;
   username: string;
   dict: Dictionary["header"];
 };
 
-export function AppTopBar({ brandName, username, dict }: AppTopBarProps) {
+export function AppTopBar({
+  locale,
+  brandName,
+  username,
+  dict,
+}: AppTopBarProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const params = useGlobalSearchParams();
   const keyword =
@@ -50,7 +57,7 @@ export function AppTopBar({ brandName, username, dict }: AppTopBarProps) {
             <Icon icon={Search} size={20} className="text-foreground-sub" />
           </Pressable>
           <ThemeToggle label={dict.themeToggle} />
-          <AccountMenu username={username} dict={dict} />
+          <AccountMenu locale={locale} username={username} dict={dict} />
         </View>
       </View>
       {searchOpen && (

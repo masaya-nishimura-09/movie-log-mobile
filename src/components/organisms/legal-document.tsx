@@ -1,14 +1,15 @@
-import { type Href, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Button } from "@/components/atoms/button";
 import { Text } from "@/components/atoms/text";
-import { TextLink } from "@/components/atoms/text-link";
-import { contactFormUrl } from "@/lib/legal/contact";
+import type { Locale } from "@/i18n/locales";
+import { contactFormUrl, openContactForm } from "@/lib/legal/contact";
 
 type LegalSection = { h: string; p: string[] };
 
 type LegalDocumentProps = {
+  locale: Locale;
   title: string;
   intro: string;
   sections: LegalSection[];
@@ -20,6 +21,7 @@ type LegalDocumentProps = {
 };
 
 export function LegalDocument({
+  locale,
   title,
   intro,
   sections,
@@ -56,16 +58,20 @@ export function LegalDocument({
             </Text>
           ))}
           {index === sections.length - 1 &&
-            (contactFormUrl === "" ? (
+            (contactFormUrl(locale) === "" ? (
               <Text className="text-[13px] text-foreground-sub">
                 {contactLabel}: {contactPending}
               </Text>
             ) : (
-              <View className="items-start">
-                <TextLink href={contactFormUrl as Href} className="text-[13px]">
+              <Pressable
+                accessibilityRole="link"
+                onPress={() => void openContactForm(locale)}
+                className="self-start"
+              >
+                <Text className="font-medium text-[13px] text-primary">
                   {contactLabel}
-                </TextLink>
-              </View>
+                </Text>
+              </Pressable>
             ))}
         </View>
       ))}
