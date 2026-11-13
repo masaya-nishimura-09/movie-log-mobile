@@ -38,13 +38,16 @@ export function AboutContent({ dict }: AboutContentProps) {
           {dict.about.tmdbNotice}
         </Text>
       </View>
-      <View className="items-start gap-2">
-        <TextLink href="/terms" className="text-sm">
-          {dict.register.termsLink}
-        </TextLink>
-        <TextLink href="/privacy" className="text-sm">
-          {dict.register.privacyLink}
-        </TextLink>
+      <View className="gap-3">
+        <SectionLabel>{dict.about.legalHeading}</SectionLabel>
+        <View className="items-start gap-2">
+          <TextLink href="/terms" className="text-sm">
+            {dict.register.termsLink}
+          </TextLink>
+          <TextLink href="/privacy" className="text-sm">
+            {dict.register.privacyLink}
+          </TextLink>
+        </View>
       </View>
       <Button
         variant="outline"

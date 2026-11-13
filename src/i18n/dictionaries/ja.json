@@ -45,7 +45,8 @@
     "link": "このアプリについて",
     "back": "戻る",
     "creditsHeading": "クレジット",
-    "tmdbNotice": "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB."
+    "tmdbNotice": "This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.",
+    "legalHeading": "規約とポリシー"
   },
   "legal": {
     "updatedLabel": "最終更新日",
