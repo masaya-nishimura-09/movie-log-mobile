@@ -7,9 +7,9 @@ export function useSession(): SessionStatus {
   const [status, setStatus] = useState<SessionStatus>("loading");
 
   useEffect(() => {
-    loadTokens().then((tokens) =>
-      setStatus(tokens ? "authenticated" : "unauthenticated"),
-    );
+    loadTokens()
+      .then((tokens) => setStatus(tokens ? "authenticated" : "unauthenticated"))
+      .catch(() => setStatus("unauthenticated"));
   }, []);
 
   return status;
