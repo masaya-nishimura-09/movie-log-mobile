@@ -211,6 +211,7 @@ export function NoteEditor({
         <RichText
           editor={editor}
           accessibilityLabel={dict.body}
+          hideKeyboardAccessoryView={false}
           style={{ backgroundColor: "transparent" }}
         />
       </View>
